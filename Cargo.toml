@@ -1,0 +1,33 @@
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[workspace]
+resolver = "2"
+members = [
+    "crates/app",
+    "crates/window",
+    "crates/window-runner",
+    "crates/log",
+    "crates/basic-input",
+    "crates/message",
+    "crates/resource",
+    "crates/macros",
+    "crates/assets",
+    "crates/assets-loader",
+    "crates/loader",
+    "crates/screen",
+    "crates/system-state",
+    "crates/system",
+    "crates/system-runner",
+    "crates/asset-registry",
+    "crates/asset-id",
+    "crates/audio-device",
+    "crates/local-resource",
+    "crates/audio-sample",
+    "crates/wgpu-window",
+    "crates/gamepad",
+    "crates/gamepad-gilrs",
+    "crates/system-params",
+    "crates/wgpu-math",
+    "crates/limnus",
+    "crates/audio-stream",
+    "crates/audio-mixer"
+]

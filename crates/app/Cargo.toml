@@ -1,0 +1,25 @@
+[package]
+name = "limnus-app"
+version = "0.0.10"
+edition = "2021"
+license = "MIT"
+description = "Application management"
+repository = "https://github.com/swamp/limnus"
+categories = ["game-development"]
+keywords = ["game", "render"]
+
+[dependencies]
+tracing = "0.1.40"
+
+# State, resource and message
+limnus-system-state = { path = "../system-state", version = "0.0.10" }
+limnus-message = { path = "../message", version = "0.0.10" }
+limnus-resource = { path = "../resource", version = "0.0.10" }
+limnus-local-resource = { path = "../local-resource", version = "0.0.10" }
+
+# System
+limnus-system-runner = { path = "../system-runner", version = "0.0.10" }
+limnus-system = { path = "../system", version = "0.0.10" }
+
+[dev-dependencies]
+limnus-system-params = { path = "../system-params", version = "0.0.10" }

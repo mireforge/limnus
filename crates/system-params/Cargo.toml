@@ -1,0 +1,12 @@
+[package]
+name = "limnus-system-params"
+version = "0.0.10"
+edition = "2021"
+
+[dependencies]
+limnus-system-state = { path = "../system-state", version = "0.0.10" }
+limnus-message = { path = "../message", version = "0.0.10" }
+limnus-resource = { path = "../resource", version = "0.0.10" }
+limnus-local-resource = { path = "../local-resource", version = "0.0.10" }
+# System
+limnus-system = { path = "../system", version = "0.0.10" }

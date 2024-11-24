@@ -1,0 +1,16 @@
+[package]
+name = "limnus-audio-device"
+version = "0.0.10"
+edition = "2021"
+license = "MIT"
+description = "Opens an audio output device"
+repository = "https://github.com/swamp/limnus"
+categories = ["game-development"]
+keywords = ["game", "audio"]
+
+[dependencies]
+cpal = "0.15.3"
+tracing = "0.1.40"
+
+limnus-app = { path = "../app", version = "0.0.10" }
+limnus-local-resource = { path = "../local-resource", version = "0.0.10" }

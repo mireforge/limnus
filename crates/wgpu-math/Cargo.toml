@@ -1,0 +1,12 @@
+[package]
+name = "limnus-wgpu-math"
+version = "0.0.10"
+edition = "2021"
+license = "MIT"
+description = "wgpu math types"
+repository = "https://github.com/swamp/limnus"
+categories = ["game-development"]
+keywords = ["game", "render", "math"]
+
+[dependencies]
+bytemuck = "1.19.0"

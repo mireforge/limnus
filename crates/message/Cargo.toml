@@ -1,0 +1,18 @@
+[package]
+name = "limnus-message"
+version = "0.0.10"
+edition = "2021"
+license = "MIT"
+description = "message container"
+repository = "https://github.com/swamp/limnus"
+categories = ["game-development"]
+keywords = ["game", "message", "queue"]
+
+[dependencies]
+tracing = "0.1.40"
+
+limnus-resource = { path= "../resource", version = "0.0.10" }
+limnus-macros = { path = "../macros", version = "0.0.10" }
+
+[dev-dependencies]
+test-log = "0.2.16"

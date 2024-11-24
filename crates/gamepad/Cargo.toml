@@ -1,0 +1,13 @@
+[package]
+name = "limnus-gamepad"
+version = "0.0.10"
+edition = "2021"
+license = "MIT"
+description = "Platform independent gamepad management"
+repository = "https://github.com/swamp/limnus"
+categories = ["game-development"]
+keywords = ["game", "input"]
+
+[dependencies]
+limnus-resource = { path = "../resource", version = "0.0.10" }
+limnus-app = { path = "../app", version = "0.0.10" }

@@ -1,0 +1,13 @@
+[package]
+name = "limnus-system-runner"
+version = "0.0.10"
+edition = "2021"
+repository = "https://github.com/swamp/limnus"
+license = "MIT"
+categories = ["game-development"]
+description = "Runs limnus systems"
+
+
+[dependencies]
+limnus-system = {path = "../system", version = "0.0.10" }
+limnus-system-state = {path = "../system-state", version = "0.0.10" }

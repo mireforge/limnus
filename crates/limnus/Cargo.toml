@@ -1,0 +1,41 @@
+[package]
+name = "limnus"
+version = "0.0.10"
+edition = "2021"
+license = "MIT"
+description = "Limnus game engine core"
+repository = "https://github.com/swamp/limnus"
+categories = ["game-development"]
+keywords = ["game", "engine"]
+
+[dependencies]
+limnus-app = { path = "../app", version = "0.0.10" }
+limnus-asset-id = { path = "../asset-id", version = "0.0.10" }
+limnus-asset-registry = { path = "../asset-registry", version = "0.0.10" }
+limnus-assets = { path = "../assets", version = "0.0.10" }
+limnus-assets-loader = { path = "../assets-loader", version = "0.0.10" }
+limnus-basic-input = { path = "../basic-input", version = "0.0.10" }
+limnus-gamepad = { path = "../gamepad", version = "0.0.10" }
+limnus-gamepad-gilrs = { path = "../gamepad-gilrs", version = "0.0.10" }
+limnus-window-runner = { path = "../window-runner", version = "0.0.10" }
+limnus-wgpu-window = { path = "../wgpu-window", version = "0.0.10" }
+limnus-log = { path = "../log", version = "0.0.10" }
+limnus-wgpu-math = { path = "../wgpu-math", version = "0.0.10" }
+limnus-system-params = { path = "../system-params", version = "0.0.10" }
+limnus-screen = { path = "../screen", version = "0.0.10" }
+limnus-macros = { path = "../macros", version = "0.0.10" }
+limnus-window = { path = "../window", version = "0.0.10" }
+limnus-system-runner = { path = "../system-runner", version = "0.0.10" }
+limnus-resource = { path = "../resource", version = "0.0.10" }
+limnus-message = { path = "../message", version = "0.0.10" }
+limnus-loader = { path = "../loader", version = "0.0.10" }
+
+limnus-audio-device = { path = "../audio-device", version = "0.0.10", optional = true }
+limnus-audio-sample = { path = "../audio-sample", version = "0.0.10", optional = true }
+limnus-audio-stream = { path = "../audio-stream", version = "0.0.10", optional = true }
+limnus-audio-mixer = { path = "../audio-mixer", version = "0.0.10", optional = true }
+
+
+[features]
+default = []
+audio = ["limnus-audio-device", "limnus-audio-sample", "limnus-audio-mixer", "limnus-audio-stream"]
