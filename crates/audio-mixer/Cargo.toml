@@ -8,6 +8,6 @@ repository = "https://github.com/swamp/limnus"
 
 [dependencies]
 limnus-local-resource = { path = "../local-resource", version = "0.0.10" }
-limnus-assets = { path = "../assets", version = "0.0.10"}
+limnus-assets = { path = "../assets", version = "0.0.10" }
 oddio = "0.7.4"
 limnus-app = { path = "../app", version = "0.0.10" }
