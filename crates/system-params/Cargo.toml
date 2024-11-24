@@ -2,6 +2,10 @@
 name = "limnus-system-params"
 version = "0.0.10"
 edition = "2021"
+repository = "https://github.com/swamp/limnus"
+license = "MIT"
+categories = ["game-development"]
+description = "Limnus system parameters"
 
 [dependencies]
 limnus-system-state = { path = "../system-state", version = "0.0.10" }
