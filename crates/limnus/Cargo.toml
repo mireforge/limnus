@@ -37,5 +37,5 @@ limnus-audio-mixer = { path = "../audio-mixer", version = "0.0.10", optional = t
 
 
 [features]
-default = []
+default = ["audio"]
 audio = ["limnus-audio-device", "limnus-audio-sample", "limnus-audio-mixer", "limnus-audio-stream"]
