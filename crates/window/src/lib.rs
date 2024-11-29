@@ -3,8 +3,8 @@
  * Licensed under the MIT License. See LICENSE in the project root for license information.
  */
 use crate::dpi::PhysicalSize;
-use std::sync::Arc;
 use limnus_log::prelude::debug;
+use std::sync::Arc;
 use winit::application::ApplicationHandler;
 use winit::dpi;
 use winit::dpi::PhysicalPosition;

@@ -3,7 +3,6 @@
  * Licensed under the MIT License. See LICENSE in the project root for license information.
  */
 
-use limnus_audio_mixer::StereoSample;
 use limnus_app::prelude::{App, Plugin};
 use limnus_asset_registry::AssetRegistry;
 use limnus_assets::prelude::{AssetName, RawWeakId};
@@ -11,6 +10,7 @@ use limnus_assets::Assets;
 use limnus_assets_loader::{
     AssetLoader, ConversionError, ResourceStorage, WrappedAssetLoaderRegistry,
 };
+use limnus_audio_mixer::StereoSample;
 use tracing::debug;
 
 pub fn load_wav(payload: &[u8]) -> StereoSample {

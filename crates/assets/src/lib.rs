@@ -5,9 +5,9 @@
 pub mod prelude;
 
 use crate::prelude::*;
+use limnus_resource::prelude::*;
 use sparse_slot::SparseSlot;
 use std::fmt::{Debug, Formatter};
-use limnus_resource::prelude::*;
 use tracing::{debug, trace};
 
 #[derive(Resource)]

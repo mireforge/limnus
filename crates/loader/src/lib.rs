@@ -3,11 +3,11 @@
  * Licensed under the MIT License. See LICENSE in the project root for license information.
  */
 use chunk_reader::{ChunkReader, ResourceId};
-use message_channel::{Channel, Receiver, Sender};
-use std::fmt::Debug;
 use limnus_app::prelude::{App, Plugin};
 use limnus_assets::prelude::{AssetName, RawWeakId};
 use limnus_resource::prelude::Resource;
+use message_channel::{Channel, Receiver, Sender};
+use std::fmt::Debug;
 use tracing::debug;
 
 pub struct Blob {
@@ -40,7 +40,6 @@ pub async fn load(
         sender.send(blob).expect("could not send blob to channel");
     }
 }
-
 
 #[derive(Debug, Resource)]
 pub struct LoaderReceiver {

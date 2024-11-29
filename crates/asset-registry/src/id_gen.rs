@@ -4,10 +4,10 @@
  */
 use crate::idx_gen::IndexAllocator;
 use crate::TypeIdMap;
+use limnus_assets::prelude::{Asset, AssetName, DropMessage, Id, RawAssetId, RawWeakId};
 use message_channel::Sender;
 use std::any::TypeId;
 use std::collections::HashMap;
-use limnus_assets::prelude::{Asset, AssetName, DropMessage, Id, RawAssetId, RawWeakId};
 
 fn get_mut_or_create<K, V, F>(map: &mut HashMap<K, V>, key: K, create: F) -> &mut V
 where

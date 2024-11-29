@@ -5,9 +5,9 @@
 mod schedule;
 
 use crate::schedule::Schedule;
-use std::collections::HashMap;
 use limnus_system::{IntoSystem, SystemParam};
 use limnus_system_state::State;
+use std::collections::HashMap;
 
 #[derive(Debug, Eq, PartialEq, Hash, Clone, Copy)]
 pub enum UpdatePhase {

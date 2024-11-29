@@ -2,9 +2,9 @@
  * Copyright (c) Peter Bjorklund. All rights reserved. https://github.com/swamp/limnus
  * Licensed under the MIT License. See LICENSE in the project root for license information.
  */
-use std::fmt::Debug;
 use limnus_macros::Message;
 use limnus_message::{Message, MessageStorage};
+use std::fmt::Debug;
 
 /// Example message type for testing.
 #[derive(Copy, Clone, Message, Debug)]

@@ -4,13 +4,13 @@
  */
 pub mod prelude;
 
-use std::mem::transmute;
-use std::ops::{Deref, DerefMut};
-use limnus_local_resource::LocalResourceStorage;
+use limnus_local_resource::{LocalResource, LocalResourceStorage};
 use limnus_message::{Message, Messages};
 use limnus_resource::{Resource, ResourceStorage};
 use limnus_system::SystemParam;
 use limnus_system_state::State;
+use std::mem::transmute;
+use std::ops::{Deref, DerefMut};
 
 // Mutable resource access
 pub struct ReM<'a, T: 'static> {
@@ -207,5 +207,71 @@ impl SystemParam for LocReAll<'static> {
         let actual_ref: &mut LocalResourceStorage = world.local_resources_mut();
         let static_ref: &'static mut LocalResourceStorage = unsafe { transmute(actual_ref) };
         LocReAll::new(static_ref)
+    }
+}
+
+// === Local Resources
+
+// Mutable local resource access
+pub struct LoReM<'a, T: 'static> {
+    value: &'a mut T,
+}
+
+impl<'a, T> crate::LoReM<'a, T> {
+    pub fn new(value: &'a mut T) -> Self {
+        Self { value }
+    }
+}
+
+impl<'a, T> Deref for crate::LoReM<'a, T> {
+    type Target = T;
+
+    fn deref(&self) -> &Self::Target {
+        self.value
+    }
+}
+
+impl<'a, T> DerefMut for crate::LoReM<'a, T> {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        self.value
+    }
+}
+
+impl<T: LocalResource + 'static> SystemParam for crate::LoReM<'static, T> {
+    type Item = Self;
+
+    fn fetch(world: &mut State) -> Self::Item {
+        let actual_ref: &mut T = world.local_resource_mut::<T>();
+        let static_ref: &'static mut T = unsafe { transmute(actual_ref) };
+        LoReM::new(static_ref)
+    }
+}
+
+// Mutable local resource access
+pub struct LoRe<'a, T: 'static> {
+    value: &'a T,
+}
+
+impl<'a, T> crate::LoRe<'a, T> {
+    pub fn new(value: &'a T) -> Self {
+        Self { value }
+    }
+}
+
+impl<'a, T> Deref for crate::LoRe<'a, T> {
+    type Target = T;
+
+    fn deref(&self) -> &Self::Target {
+        self.value
+    }
+}
+
+impl<T: LocalResource + 'static> SystemParam for crate::LoRe<'static, T> {
+    type Item = Self;
+
+    fn fetch(world: &mut State) -> Self::Item {
+        let actual_ref: &mut T = world.local_resource_mut::<T>();
+        let static_ref: &'static mut T = unsafe { transmute(actual_ref) };
+        LoRe::new(static_ref)
     }
 }

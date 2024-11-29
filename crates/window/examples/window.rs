@@ -2,9 +2,9 @@
  * Copyright (c) Peter Bjorklund. All rights reserved. https://github.com/swamp/limnus
  * Licensed under the MIT License. See LICENSE in the project root for license information.
  */
-use std::sync::Arc;
 use limnus_log::prelude::info;
 use limnus_window::AppHandler;
+use std::sync::Arc;
 use winit::dpi::{PhysicalPosition, PhysicalSize};
 use winit::event::{
     ElementState, InnerSizeWriter, MouseButton, MouseScrollDelta, Touch, TouchPhase,

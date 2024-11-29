@@ -2,11 +2,11 @@
  * Copyright (c) Peter Bjorklund. All rights reserved. https://github.com/swamp/limnus
  * Licensed under the MIT License. See LICENSE in the project root for license information.
  */
-use std::fmt::{Debug, Formatter};
-use std::sync::{Arc, Mutex};
 use limnus_app::prelude::{App, Plugin};
 use limnus_assets::prelude::{Asset, Id};
 use limnus_local_resource::prelude::LocalResource;
+use std::fmt::{Debug, Formatter};
+use std::sync::{Arc, Mutex};
 
 pub type StereoSampleRef = Id<StereoSample>;
 

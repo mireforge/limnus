@@ -12,13 +12,13 @@ use limnus_log::LogPlugin;
 use limnus_wgpu_window::WgpuWindowPlugin;
 
 #[cfg(feature = "audio")]
-use limnus_audio_mixer::AudioMixerPlugin;
-#[cfg(feature = "audio")]
-use limnus_audio_stream::AudioStreamPlugin;
-#[cfg(feature = "audio")]
 use limnus_audio_device::AudioDevicePlugin;
 #[cfg(feature = "audio")]
+use limnus_audio_mixer::AudioMixerPlugin;
+#[cfg(feature = "audio")]
 use limnus_audio_sample::AudioSamplePlugin;
+#[cfg(feature = "audio")]
+use limnus_audio_stream::AudioStreamPlugin;
 
 pub struct Main;
 

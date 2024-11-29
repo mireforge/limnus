@@ -2,10 +2,10 @@
  * Copyright (c) Peter Bjorklund. All rights reserved. https://github.com/swamp/limnus
  * Licensed under the MIT License. See LICENSE in the project root for license information.
  */
-use limnus_system_params::{Msg, Re, ReM};
 use limnus_app::prelude::*;
 use limnus_message::prelude::Message;
 use limnus_resource::prelude::Resource;
+use limnus_system_params::{Msg, Re, ReM};
 use limnus_system_runner::UpdatePhase;
 
 #[derive(Debug, Resource)]

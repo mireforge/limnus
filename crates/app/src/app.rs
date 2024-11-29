@@ -2,13 +2,13 @@
  * Copyright (c) Peter Bjorklund. All rights reserved. https://github.com/swamp/limnus
  * Licensed under the MIT License. See LICENSE in the project root for license information.
  */
-use std::any::type_name;
 use limnus_local_resource::{LocalResource, LocalResourceStorage};
 use limnus_message::{Message, MessageId, MessageStorage, Messages, MessagesIterator};
 use limnus_resource::prelude::*;
 use limnus_system::{IntoSystem, SystemParam};
 use limnus_system_runner::{Runner, UpdatePhase};
 use limnus_system_state::State;
+use std::any::type_name;
 use tracing::{debug, info};
 
 type AppRunner = dyn FnOnce(App) -> AppReturnValue;

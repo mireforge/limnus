@@ -2,9 +2,9 @@
  * Copyright (c) Peter Bjorklund. All rights reserved. https://github.com/swamp/limnus
  * Licensed under the MIT License. See LICENSE in the project root for license information.
  */
-use message_channel::Channel;
 use limnus_asset_id::owner::DropMessage;
 use limnus_asset_id::{Asset, AssetName, Id, RawAssetId, RawWeakId};
+use message_channel::Channel;
 
 #[derive(Debug)]
 pub struct TestAsset {

@@ -2,13 +2,13 @@
  * Copyright (c) Peter Bjorklund. All rights reserved. https://github.com/swamp/limnus
  * Licensed under the MIT License. See LICENSE in the project root for license information.
  */
-use limnus_system_params::{Msg, ReM};
-use std::default::Default;
-use std::sync::Arc;
 use limnus_app::prelude::{App, Plugin};
 use limnus_resource::prelude::Resource;
 use limnus_screen::WindowMessage;
+use limnus_system_params::{Msg, ReM};
 use limnus_system_runner::UpdatePhase;
+use std::default::Default;
+use std::sync::Arc;
 use tracing::{debug, trace};
 use wgpu::{
     Adapter, Backends, Device, DeviceDescriptor, Features, Instance, InstanceDescriptor,

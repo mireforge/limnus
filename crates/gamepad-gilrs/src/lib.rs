@@ -4,10 +4,10 @@
  */
 
 use gilrs::{Error, Gilrs};
-use limnus_gamepad::Gamepads;
-use limnus_system_params::{LocReAll, ReM};
 use limnus_app::prelude::{App, Plugin};
+use limnus_gamepad::Gamepads;
 use limnus_local_resource::prelude::LocalResource;
+use limnus_system_params::{LocReAll, ReM};
 use limnus_system_runner::UpdatePhase;
 
 pub enum GamepadError {
