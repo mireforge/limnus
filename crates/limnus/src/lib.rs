@@ -19,6 +19,8 @@ use limnus_audio_mixer::AudioMixerPlugin;
 use limnus_audio_sample::AudioSamplePlugin;
 #[cfg(feature = "audio")]
 use limnus_audio_stream::AudioStreamPlugin;
+use limnus_gamepad::GamepadResourcePlugin;
+use limnus_gamepad_gilrs::GamepadGilrsPlugin;
 
 pub struct Main;
 
@@ -55,5 +57,7 @@ impl Plugin for DefaultPlugins {
             AudioMixerPlugin,
             AudioStreamPlugin,
         ));
+
+        app.add_plugins((GamepadResourcePlugin, GamepadGilrsPlugin));
     }
 }

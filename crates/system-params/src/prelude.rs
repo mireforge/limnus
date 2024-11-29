@@ -3,4 +3,4 @@
  * Licensed under the MIT License. See LICENSE in the project root for license information.
  */
 
-pub use crate::{LocReAll, Msg, MsgM, Re, ReAll, ReM};
+pub use crate::{LoRe, LoReM, LocReAll, Msg, MsgM, Re, ReAll, ReM};
