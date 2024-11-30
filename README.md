@@ -99,7 +99,7 @@ limnus = "0.0.10"
 |-------|-------------|
 | `basic-input` | Keyboard and mouse input handling |
 | `gamepad` | Gamepad abstraction layer |
-| `gamepad-gilrs` | Gamepad implementation using gilrs |
+| `gamepad-gilrs` | Gamepad implementation using [gilrs](https://crates.io/crates/gilrs) |
 
 
 ### Audio System

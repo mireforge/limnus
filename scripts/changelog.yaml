@@ -1,0 +1,50 @@
+repo: swamp/limnus
+
+# added
+# changed
+# fixed
+# workaround
+# optimization
+# test
+# removed
+# improved
+# breaking
+# deprecated
+# refactor
+# experimental
+# docs
+# known issue
+# style
+# unreleased
+# security
+
+# examples
+# dependencies
+# internal
+
+releases:
+  v0.0.11:
+    date: "2024-11-30"
+    notice: |
+      Gamepad support
+    packages:
+      limnus-gamepad:
+        added:
+          - Gamepad types and message queue.
+
+      limnus-gamepad-gilrs:
+        added:
+          - Gamepad support using gilrs.
+
+      limnus-system-params:
+        added:
+          - Local Resource system parameters (`LoRe` and `LoRem`).
+
+    examples:
+      - Added gamepad testing example `gamepad_tester`. Run using `cargo run --bin gamepad_tester`
+
+  v0.0.10:
+    date: "2024-11-24"
+    notice: |
+      Moved from Swamp.
+
