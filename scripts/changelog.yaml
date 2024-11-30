@@ -38,7 +38,7 @@ releases:
 
       limnus-system-params:
         added:
-          - Local Resource system parameters (`LoRe` and `LoRem`).
+          - Local Resource system parameters (`LoRe` and `LoReM`).
 
     examples:
       - Added gamepad testing example `gamepad_tester`. Run using `cargo run --bin gamepad_tester`

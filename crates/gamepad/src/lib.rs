@@ -11,7 +11,7 @@ use std::collections::HashMap;
 use tracing::{debug, error, trace};
 
 #[repr(usize)]
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Eq, PartialEq, Copy)]
 pub enum Button {
     // Right side pad
     South,
@@ -42,7 +42,7 @@ pub enum Button {
 }
 
 #[repr(usize)]
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Eq, PartialEq, Copy)]
 pub enum Axis {
     LeftStickX,
     LeftStickY,
