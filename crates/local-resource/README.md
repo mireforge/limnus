@@ -13,7 +13,7 @@ To use `limnus-local-resource`, add it to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-limnus-local-resource = "0.0.10"
+limnus-local-resource = "0.0.11"
 ```
 
 ## License

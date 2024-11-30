@@ -1,6 +1,6 @@
 [package]
 name = "limnus-app"
-version = "0.0.10"
+version = "0.0.11"
 edition = "2021"
 license = "MIT"
 description = "Application management"
@@ -12,14 +12,14 @@ keywords = ["game", "render"]
 tracing = "0.1.40"
 
 # State, resource and message
-limnus-system-state = { path = "../system-state", version = "0.0.10" }
-limnus-message = { path = "../message", version = "0.0.10" }
-limnus-resource = { path = "../resource", version = "0.0.10" }
-limnus-local-resource = { path = "../local-resource", version = "0.0.10" }
+limnus-system-state = { path = "../system-state", version = "0.0.11" }
+limnus-message = { path = "../message", version = "0.0.11" }
+limnus-resource = { path = "../resource", version = "0.0.11" }
+limnus-local-resource = { path = "../local-resource", version = "0.0.11" }
 
 # System
-limnus-system-runner = { path = "../system-runner", version = "0.0.10" }
-limnus-system = { path = "../system", version = "0.0.10" }
+limnus-system-runner = { path = "../system-runner", version = "0.0.11" }
+limnus-system = { path = "../system", version = "0.0.11" }
 
 [dev-dependencies]
-limnus-system-params = { path = "../system-params", version = "0.0.10" }
+limnus-system-params = { path = "../system-params", version = "0.0.11" }
