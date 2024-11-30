@@ -4,8 +4,9 @@
  */
 use fixstr::FixStr;
 use limnus_app::prelude::{App, Plugin};
+use limnus_message::prelude::Message;
+use limnus_message::Messages;
 use limnus_resource::prelude::Resource;
-use seq_map::SeqMap;
 use std::collections::HashMap;
 use tracing::{debug, error, trace};
 
@@ -54,71 +55,148 @@ pub type GamePadId = usize;
 pub type AxisValueType = f32;
 pub type ButtonValueType = f32;
 
+/// Messages sent when gamepad state changes
+#[derive(Debug, Message)]
+pub enum GamepadMessage {
+    Connected(GamePadId, String),
+    Disconnected(GamePadId),
+    Activated(GamePadId), // Sent when first button is pressed
+    ButtonChanged(GamePadId, Button, ButtonValueType),
+    AxisChanged(GamePadId, Axis, AxisValueType),
+}
+
+/// Represents a single gamepad's state
 #[derive(Default, Debug, Clone)]
-pub struct GamePad {
+pub struct Gamepad {
     pub axis: [AxisValueType; 4],
     pub buttons: [ButtonValueType; 17],
     pub name: FixStr<64>,
     pub id: GamePadId,
+    pub is_active: bool,
 }
 
-impl GamePad {
+impl Gamepad {
     pub fn new(id: GamePadId, name: &str) -> Self {
         let truncated_name: String = name.chars().take(32).collect();
-        GamePad {
+        Gamepad {
             axis: [0.0; 4],
             buttons: [0.0; 17],
             name: FixStr::new(&truncated_name).expect("gamepad name too long"), // TODO: Make a better solution for this
             id,
+            is_active: false,
         }
+    }
+
+    /// Gets the button state as a boolean
+    pub fn is_pressed(&self, button: Button) -> bool {
+        self.buttons[button as usize] > 0.1
+    }
+
+    pub fn axis(&self, axis: Axis) -> AxisValueType {
+        self.axis[axis as usize]
+    }
+
+    pub fn button(&self, button: Button) -> ButtonValueType {
+        self.buttons[button as usize]
     }
 }
 
 #[derive(Debug, Resource)]
 pub struct Gamepads {
-    gamepads: HashMap<GamePadId, GamePad>,
+    gamepads: HashMap<GamePadId, Gamepad>,
 }
 
-impl Gamepads {}
-
 impl Gamepads {
+    /// Creates a new GamePad instance
+    ///
+    /// # Arguments
+    /// * `id` - Unique identifier for this gamepad
+    /// * `name` - Human-readable name of the gamepad
     pub fn new() -> Self {
         Self {
             gamepads: HashMap::new(),
         }
     }
-    pub fn connected(&mut self, id: GamePadId, name: &str) {
+    pub fn connected(&mut self, id: GamePadId, name: &str, queue: &mut Messages<GamepadMessage>) {
         debug!(id=%id, name=name, "connected gamepad");
-        self.gamepads.insert(id, GamePad::new(id, name));
+        self.gamepads.insert(id, Gamepad::new(id, name));
+        queue.send(GamepadMessage::Connected(id, name.to_string()));
     }
 
-    pub fn disconnected(&mut self, id: GamePadId) {
+    pub fn disconnected(&mut self, id: GamePadId, queue: &mut Messages<GamepadMessage>) {
         if let Some(existing) = self.gamepads.remove(&id) {
             debug!(id=%id, name=?existing.name, "disconnected gamepad");
+            queue.send(GamepadMessage::Disconnected(id));
         } else {
             error!(id=%id, "gamepad not found");
         }
     }
 
-    pub fn axis(&self, id: GamePadId, axis: Axis) -> AxisValueType {
-        self.gamepads[&id].axis[axis as usize]
-    }
-    pub fn button(&self, id: GamePadId, button: Button) -> ButtonValueType {
-        self.gamepads[&id].buttons[button as usize]
+    pub fn gamepad(&self, id: GamePadId) -> Option<&Gamepad> {
+        self.gamepads.get(&id)
     }
 
-    pub fn set_axis(&mut self, id: GamePadId, axis: Axis, value: AxisValueType) {
+    /// Gets the axis value for a gamepad
+    pub fn axis(&self, id: GamePadId, axis: Axis) -> Option<AxisValueType> {
+        self.gamepad(id).map(|pad| pad.axis[axis as usize])
+    }
+
+    /// Gets the button value for a gamepad
+    pub fn button(&self, id: GamePadId, button: Button) -> Option<ButtonValueType> {
+        self.gamepad(id).map(|pad| pad.buttons[button as usize])
+    }
+
+    pub fn iter_active(&self) -> impl Iterator<Item = &Gamepad> {
+        self.gamepads.values().filter(|gamepad| gamepad.is_active)
+    }
+
+    pub fn iter(&self) -> impl Iterator<Item = &Gamepad> {
+        self.gamepads.values()
+    }
+
+    pub fn set_axis(
+        &mut self,
+        id: GamePadId,
+        axis: Axis,
+        value: AxisValueType,
+        queue: &mut Messages<GamepadMessage>,
+    ) -> Option<()> {
         trace!(id=?id, axis=?axis, value=?value, "set axis");
-        self.gamepads.get_mut(&id).unwrap().axis[axis as usize] = value;
+        let gamepad = self.gamepads.get_mut(&id)?;
+
+        queue.send(GamepadMessage::AxisChanged(id, axis, value));
+        gamepad.axis[axis as usize] = value;
+
+        Some(())
     }
 
-    pub fn set_button(&mut self, id: GamePadId, button: Button, value: ButtonValueType) {
+    pub fn set_button(
+        &mut self,
+        id: GamePadId,
+        button: Button,
+        value: ButtonValueType,
+        queue: &mut Messages<GamepadMessage>,
+    ) -> Option<()> {
         trace!(id=?id, button=?button, value=?value, "set button");
-        self.gamepads.get_mut(&id).unwrap().buttons[button as usize] = value;
+
+        let gamepad = self.gamepads.get_mut(&id)?;
+
+        if !gamepad.is_active && value > 0.1 {
+            if !gamepad.is_active {
+                debug!(id=%id, button=?button, name=%gamepad.name, "gamepad activated");
+                queue.send(GamepadMessage::Activated(id));
+                gamepad.is_active = true;
+            }
+        }
+
+        queue.send(GamepadMessage::ButtonChanged(id, button, value));
+        gamepad.buttons[button as usize] = value;
+        Some(())
     }
 
-    pub fn name(&self, id: GamePadId) -> &str {
-        &self.gamepads[&id].name.as_str()
+    /// Gets the name of a gamepad
+    pub fn name(&self, id: GamePadId) -> Option<&str> {
+        self.gamepad(id).map(|pad| pad.name.as_str())
     }
 }
 
@@ -127,5 +205,6 @@ pub struct GamepadResourcePlugin;
 impl Plugin for GamepadResourcePlugin {
     fn build(&self, app: &mut App) {
         app.insert_resource(Gamepads::new());
+        app.create_message_type::<GamepadMessage>();
     }
 }
