@@ -2,6 +2,11 @@
 name = "limnus-examples"
 version = "0.0.11"
 edition = "2021"
+license = "MIT"
+description = "examples for the limnus game engine"
+repository = "https://github.com/swamp/limnus"
+categories = ["game-development"]
+keywords = ["game", "examples"]
 
 [[bin]]
 name = "gamepad_tester"
