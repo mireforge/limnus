@@ -11,8 +11,6 @@ use std::io;
 use tracing::{debug, error, info, trace};
 
 use limnus_local_resource::prelude::*;
-const MIN_SAMPLE_RATE: u32 = 44100;
-const MAX_SAMPLE_RATE: u32 = 48000;
 
 #[derive(LocalResource)]
 pub struct Audio {
@@ -53,6 +51,10 @@ fn debug_output(host: Host) {
     }
 }
 
+const PREFERRED_SAMPLE_RATE: u32 = 44100;
+const MAX_SUPPORTED_RATE: u32 = 48000;
+const REQUIRED_CHANNELS: u16 = 2;
+
 impl Audio {
     pub fn new() -> Result<Self, Box<dyn std::error::Error>> {
         let host = cpal::default_host();
@@ -64,36 +66,65 @@ impl Audio {
                 "no ",
             )));
         }
+
         let device = default_device.unwrap();
         let device_name = device.name().unwrap_or("unknown".parse().unwrap());
         debug!(device = device_name, "default output device");
 
         let all_supported_configs = device.supported_output_configs()?.collect::<Vec<_>>();
 
-        for config in all_supported_configs {
+        for config in &all_supported_configs {
             debug!("Supported config: {:?}", config);
         }
 
-        let maybe_supported_config = device
-            .supported_output_configs()?
-            .find(|config| {
-                config.min_sample_rate().0 <= MAX_SAMPLE_RATE
-                    && config.max_sample_rate().0 >= MIN_SAMPLE_RATE
-            })
+        let supported_configs: Vec<_> = all_supported_configs
             .into_iter()
-            .min_by_key(|config| config.max_sample_rate().0);
+            .filter(|config| {
+                matches!(
+                    config.sample_format(),
+                    cpal::SampleFormat::I16 | cpal::SampleFormat::F32
+                ) && config.channels() == REQUIRED_CHANNELS
+                    && config.min_sample_rate().0 <= MAX_SUPPORTED_RATE
+                    && config.max_sample_rate().0 >= PREFERRED_SAMPLE_RATE
+            })
+            .collect();
 
-        if maybe_supported_config.is_none() {
-            error!("No supported output configurations with with an accepted output_config.");
-            return Err(Box::new(io::Error::new(
-                io::ErrorKind::NotFound,
-                "no supported output configurations found",
-            )));
+        for config in &supported_configs {
+            debug!(
+                "Valid config - Format: {:?}, Channels: {}, Rate range: {} - {}",
+                config.sample_format(),
+                config.channels(),
+                config.min_sample_rate().0,
+                config.max_sample_rate().0
+            );
         }
 
-        let supported_config = maybe_supported_config.unwrap();
+        let supported_config = supported_configs
+            .into_iter()
+            .min_by_key(|config| {
+                let format_priority = match config.sample_format() {
+                    cpal::SampleFormat::I16 => 0,
+                    _ => 1,
+                };
+                (format_priority, config.max_sample_rate().0)
+            })
+            .ok_or_else(|| {
+                error!("No supported output configurations with stereo I16/F32 format found");
+                io::Error::new(
+                    io::ErrorKind::NotFound,
+                    "no supported stereo output configurations found",
+                )
+            })?;
 
-        let sample_rate = supported_config.min_sample_rate().0;
+        // Always try to use 44.1kHz unless it's not supported
+        let sample_rate = if supported_config.min_sample_rate().0 <= PREFERRED_SAMPLE_RATE
+            && supported_config.max_sample_rate().0 >= PREFERRED_SAMPLE_RATE
+        {
+            PREFERRED_SAMPLE_RATE // Use 44.1kHz if supported
+        } else {
+            MAX_SUPPORTED_RATE // Otherwise use 48kHz
+        };
+
         let supported_config = supported_config.with_sample_rate(cpal::SampleRate(sample_rate));
 
         trace!(config=?supported_config, "Selected output config");
@@ -101,8 +132,6 @@ impl Audio {
         let config: StreamConfig = supported_config.into();
 
         info!(device=device_name, sample_rate, config=?&config, "selected device and configuration");
-
-        //let scene = Arc::new(oddio::SpatialScene);
 
         Ok(Self {
             device,
