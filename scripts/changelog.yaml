@@ -23,6 +23,11 @@ repo: swamp/limnus
 # internal
 
 releases:
+  v0.0.12:
+    date: "2024-12-03"
+    notice: |
+      Improved audio config filter support. Added `audio_tester` example. Missing preludes.
+
   v0.0.11:
     date: "2024-11-30"
     notice: |
