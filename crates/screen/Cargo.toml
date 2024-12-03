@@ -1,6 +1,6 @@
 [package]
 name = "limnus-screen"
-version = "0.0.11"
+version = "0.0.12"
 edition = "2021"
 repository = "https://github.com/swamp/limnus"
 license = "MIT"
@@ -9,6 +9,6 @@ description = "platform neutral screen and window types"
 
 
 [dependencies]
-limnus-resource = { path = "../resource", version = "0.0.11" }
-limnus-message = { path = "../message", version = "0.0.11" }
+limnus-resource = { path = "../resource", version = "0.0.12" }
+limnus-message = { path = "../message", version = "0.0.12" }
 int_math = "0.0.2"

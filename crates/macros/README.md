@@ -15,7 +15,7 @@ To use `limnus-macros`, add it to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-limnus-macros = "0.0.11"
+limnus-macros = "0.0.12"
 ```
 
 ## License

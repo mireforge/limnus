@@ -15,5 +15,5 @@ To use `limnus-window`, add it to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-limnus-window = "0.0.11"
+limnus-window = "0.0.12"
 ```

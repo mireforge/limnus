@@ -1,10 +1,10 @@
 [package]
 name = "limnus-local-resource"
-version = "0.0.11"
+version = "0.0.12"
 edition = "2021"
 license = "MIT"
 description = "A simple local resource storage"
 repository = "https://github.com/swamp/limnus"
 
 [dependencies]
-limnus-macros = { path = "../macros", version = "0.0.11" }
+limnus-macros = { path = "../macros", version = "0.0.12" }

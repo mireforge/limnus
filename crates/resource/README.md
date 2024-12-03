@@ -23,7 +23,7 @@ Add limnus-resource your project’s Cargo.toml:
 
 ```toml
 [dependencies]
-limnus-resource = "0.0.11"
+limnus-resource = "0.0.12"
 ```
 
 ## License
