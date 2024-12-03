@@ -2,7 +2,6 @@
  * Copyright (c) Peter Bjorklund. All rights reserved. https://github.com/swamp/limnus
  * Licensed under the MIT License. See LICENSE in the project root for license information.
  */
-
 use limnus_app::prelude::{App, Plugin};
 use limnus_asset_registry::AssetRegistry;
 use limnus_assets::prelude::{AssetName, RawWeakId};
