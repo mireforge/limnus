@@ -5,7 +5,6 @@ use limnus::prelude::{
 use limnus_app::prelude::{App, AppReturnValue};
 use limnus_assets_loader::AssetLoaderRegistryPlugin;
 use limnus_loader::LoaderPlugin;
-use limnus_local_resource::LocalResource;
 use limnus_log::LogPlugin;
 use limnus_system_params::{LoReM, Re, ReM};
 use limnus_system_runner::UpdatePhase;

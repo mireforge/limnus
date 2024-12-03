@@ -27,6 +27,7 @@ limnus-macros = { path = "../macros", version = "0.0.11" }
 limnus-window = { path = "../window", version = "0.0.11" }
 limnus-system-runner = { path = "../system-runner", version = "0.0.11" }
 limnus-resource = { path = "../resource", version = "0.0.11" }
+limnus-local-resource = { path = "../local-resource", version = "0.0.11" }
 limnus-message = { path = "../message", version = "0.0.11" }
 limnus-loader = { path = "../loader", version = "0.0.11" }
 
