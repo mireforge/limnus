@@ -76,9 +76,10 @@ pub struct Gamepad {
 }
 
 impl Gamepad {
+    #[must_use]
     pub fn new(id: GamePadId, name: &str) -> Self {
         let truncated_name: String = name.chars().take(32).collect();
-        Gamepad {
+        Self {
             axis: [0.0; 4],
             buttons: [0.0; 17],
             name: FixStr::new(&truncated_name).expect("gamepad name too long"), // TODO: Make a better solution for this
@@ -88,15 +89,18 @@ impl Gamepad {
     }
 
     /// Gets the button state as a boolean
+    #[must_use]
     pub fn is_pressed(&self, button: Button) -> bool {
         self.buttons[button as usize] > 0.1
     }
 
-    pub fn axis(&self, axis: Axis) -> AxisValueType {
+    #[must_use]
+    pub const fn axis(&self, axis: Axis) -> AxisValueType {
         self.axis[axis as usize]
     }
 
-    pub fn button(&self, button: Button) -> ButtonValueType {
+    #[must_use]
+    pub const fn button(&self, button: Button) -> ButtonValueType {
         self.buttons[button as usize]
     }
 }
@@ -104,6 +108,12 @@ impl Gamepad {
 #[derive(Debug, Resource)]
 pub struct Gamepads {
     gamepads: HashMap<GamePadId, Gamepad>,
+}
+
+impl Default for Gamepads {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl Gamepads {
@@ -132,16 +142,19 @@ impl Gamepads {
         }
     }
 
+    #[must_use]
     pub fn gamepad(&self, id: GamePadId) -> Option<&Gamepad> {
         self.gamepads.get(&id)
     }
 
     /// Gets the axis value for a gamepad
+    #[must_use]
     pub fn axis(&self, id: GamePadId, axis: Axis) -> Option<AxisValueType> {
         self.gamepad(id).map(|pad| pad.axis[axis as usize])
     }
 
     /// Gets the button value for a gamepad
+    #[must_use]
     pub fn button(&self, id: GamePadId, button: Button) -> Option<ButtonValueType> {
         self.gamepad(id).map(|pad| pad.buttons[button as usize])
     }
@@ -182,11 +195,9 @@ impl Gamepads {
         let gamepad = self.gamepads.get_mut(&id)?;
 
         if !gamepad.is_active && value > 0.1 {
-            if !gamepad.is_active {
-                debug!(id=%id, button=?button, name=%gamepad.name, "gamepad activated");
-                queue.send(GamepadMessage::Activated(id));
-                gamepad.is_active = true;
-            }
+            debug!(id=%id, button=?button, name=%gamepad.name, "gamepad activated");
+            queue.send(GamepadMessage::Activated(id));
+            gamepad.is_active = true;
         }
 
         queue.send(GamepadMessage::ButtonChanged(id, button, value));
@@ -195,6 +206,7 @@ impl Gamepads {
     }
 
     /// Gets the name of a gamepad
+    #[must_use]
     pub fn name(&self, id: GamePadId) -> Option<&str> {
         self.gamepad(id).map(|pad| pad.name.as_str())
     }

@@ -8,9 +8,7 @@ use limnus_app::prelude::{App, Plugin};
 use limnus_audio_device::low_level::Audio;
 use limnus_audio_mixer::AudioMixer;
 use limnus_local_resource::prelude::LocalResource;
-use oddio;
 use std::fmt::Debug;
-use std::ops::DerefMut;
 use std::sync::{Arc, Mutex};
 use tracing::error;
 
@@ -22,11 +20,11 @@ fn start_stream(
 ) -> cpal::Stream {
     let stream = device
         .build_output_stream(
-            &config,
+            config,
             move |data: &mut [f32], _: &cpal::OutputCallbackInfo| {
                 let out_frames = oddio::frame_stereo(data);
                 oddio::run(
-                    low_level_mixer.lock().unwrap().deref_mut(),
+                    &mut *low_level_mixer.lock().unwrap(),
                     sample_rate,
                     out_frames,
                 );

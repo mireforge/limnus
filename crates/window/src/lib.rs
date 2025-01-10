@@ -229,12 +229,9 @@ impl ApplicationHandler for App<'_> {
                 .with_inner_size(self.start_physical_size)
                 .with_min_inner_size(self.min_physical_size);
 
-            match self.mode {
-                WindowMode::WindowedFullscreen => {
-                    window_attributes =
-                        window_attributes.with_fullscreen(Some(Fullscreen::Borderless(None)));
-                }
-                _ => {}
+            if let WindowMode::WindowedFullscreen = self.mode {
+                window_attributes =
+                    window_attributes.with_fullscreen(Some(Fullscreen::Borderless(None)));
             }
 
             #[cfg(target_arch = "wasm32")]
@@ -255,11 +252,8 @@ impl ApplicationHandler for App<'_> {
 
             self.window = Some(window.clone());
 
-            match &self.mode {
-                WindowMode::WindowedAlwaysOnTop => {
-                    window.set_window_level(WindowLevel::AlwaysOnTop)
-                }
-                _ => {}
+            if let WindowMode::WindowedAlwaysOnTop = &self.mode {
+                window.set_window_level(WindowLevel::AlwaysOnTop);
             }
 
             self.handler.window_created(window);

@@ -36,8 +36,7 @@ fn tick(
     mut asset_loader: ReM<AssetRegistry>,
     mut state: LoReM<AudioTesterState>,
 ) {
-    if let Some(_) = &state.stereo_sample {
-    } else {
+    if state.stereo_sample.is_none() {
         state.stereo_sample = Some(
             asset_loader
                 .load::<StereoSample>(AssetName::new("qubodup_whoosh").with_extension("wav")),
@@ -47,7 +46,7 @@ fn tick(
     state.counter += 1;
     if state.counter % 30 == 0 {
         if let Some(found_sample_id) = &state.stereo_sample {
-            if let Some(found_stereo_sample) = stereo_samples.get(&found_sample_id) {
+            if let Some(found_stereo_sample) = stereo_samples.get(found_sample_id) {
                 mixer.play(found_stereo_sample);
             }
         }

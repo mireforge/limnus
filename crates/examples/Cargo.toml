@@ -24,4 +24,4 @@ limnus-log = { path = "../log", version = "0.0.12" }
 tracing = "0.1.41"
 limnus-assets-loader = { path = "../assets-loader", version = "0.0.12" }
 limnus-loader = { path = "../loader", version = "0.0.12" }
-limnus = { path = "../limnus", version = "0.0.12" }
+limnus = { path = "../limnus", version = "0.0.12" , features = ["audio"]}

@@ -4,10 +4,10 @@
  */
 pub mod prelude;
 
-use limnus_clock::ClockPlugin;
 use limnus_app::prelude::{App, AppReturnValue, Plugin};
 use limnus_asset_registry::AssetRegistryPlugin;
 use limnus_assets_loader::AssetLoaderRegistryPlugin;
+use limnus_clock::ClockPlugin;
 use limnus_loader::LoaderPlugin;
 use limnus_log::LogPlugin;
 use limnus_wgpu_window::WgpuWindowPlugin;
