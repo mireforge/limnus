@@ -12,9 +12,9 @@ use int_math::{UVec2, Vec2};
 use limnus_app::prelude::{App, AppReturnValue, ApplicationExit};
 use limnus_basic_input::prelude::*;
 use limnus_resource::prelude::Resource;
-use limnus_screen::WindowMessage;
+use limnus_screen::{ScreenMode, WindowMessage};
 use limnus_wgpu_window::{annoying_async_device_creation, WgpuWindow};
-use limnus_window::AppHandler;
+use limnus_window::{AppHandler, WindowMode};
 use std::sync::{Arc, Mutex};
 use tracing::{debug, error};
 use winit::dpi;
@@ -23,6 +23,7 @@ use winit::keyboard::PhysicalKey;
 pub struct WindowState {
     pub app: Arc<Mutex<App>>,
     pub wgpu_window: Option<WgpuWindow>,
+    pub mode: ScreenMode,
     requested_surface_size: UVec2,
     minimal_surface_size: UVec2,
     physical_surface_size: dpi::PhysicalSize<u32>,
@@ -36,6 +37,14 @@ pub struct WindowHandle {
 impl AppHandler for WindowState {
     fn min_size(&self) -> (u16, u16) {
         (self.minimal_surface_size.x, self.minimal_surface_size.y)
+    }
+
+    fn window_mode(&self) -> WindowMode {
+        match self.mode {
+            ScreenMode::WindowedFullscreen => WindowMode::WindowedFullscreen,
+            ScreenMode::Windowed => WindowMode::Windowed,
+            ScreenMode::WindowedOnTop => WindowMode::WindowedAlwaysOnTop,
+        }
     }
 
     fn start_size(&self) -> (u16, u16) {
@@ -187,6 +196,7 @@ pub fn runner(mut app: App) -> AppReturnValue {
     let requested_surface_size: UVec2;
     let minimal_surface_size: UVec2;
     let title: String;
+    let mode: ScreenMode;
 
     {
         let window_settings = app.resource::<limnus_screen::Window>();
@@ -194,6 +204,7 @@ pub fn runner(mut app: App) -> AppReturnValue {
         title = window_settings.title.clone();
         requested_surface_size = window_settings.requested_surface_size;
         minimal_surface_size = window_settings.minimal_surface_size;
+        mode = window_settings.mode.clone();
 
         app.create_message_type::<WindowMessage>();
         app.create_message_type::<InputMessage>();
@@ -205,6 +216,7 @@ pub fn runner(mut app: App) -> AppReturnValue {
     let mut state = WindowState {
         app: arc_app,
         wgpu_window: None,
+        mode,
         requested_surface_size,
         minimal_surface_size,
         physical_surface_size: dpi::PhysicalSize::new(

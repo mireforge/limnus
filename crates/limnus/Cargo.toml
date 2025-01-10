@@ -36,6 +36,7 @@ limnus-audio-sample = { path = "../audio-sample", version = "0.0.12", optional =
 limnus-audio-stream = { path = "../audio-stream", version = "0.0.12", optional = true }
 limnus-audio-mixer = { path = "../audio-mixer", version = "0.0.12", optional = true }
 
+limnus-clock = { path = "../clock", version = "0.0.12" }
 
 [features]
 default = ["audio"]

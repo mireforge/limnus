@@ -30,5 +30,6 @@ members = [
     "crates/limnus",
     "crates/audio-stream",
     "crates/examples",
-    "crates/audio-mixer"
+    "crates/audio-mixer",
+    "crates/clock",
 ]

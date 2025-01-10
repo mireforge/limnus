@@ -6,9 +6,16 @@ use int_math::UVec2;
 use limnus_message::prelude::Message;
 use limnus_resource::prelude::*;
 
+#[derive(Debug, Clone)]
+pub enum ScreenMode {
+    WindowedFullscreen,
+    Windowed,
+    WindowedOnTop,
+}
+
 #[derive(Debug, Resource, Clone)]
 pub struct Window {
-    pub fullscreen: bool,
+    pub mode: ScreenMode,
     pub title: String,
     pub requested_surface_size: UVec2,
     pub minimal_surface_size: UVec2,

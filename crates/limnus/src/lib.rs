@@ -4,6 +4,7 @@
  */
 pub mod prelude;
 
+use limnus_clock::ClockPlugin;
 use limnus_app::prelude::{App, AppReturnValue, Plugin};
 use limnus_asset_registry::AssetRegistryPlugin;
 use limnus_assets_loader::AssetLoaderRegistryPlugin;
@@ -44,6 +45,7 @@ impl Plugin for DefaultPlugins {
     fn build(&self, app: &mut App) {
         app.add_plugins((
             LogPlugin,
+            ClockPlugin,
             LoaderPlugin,
             AssetLoaderRegistryPlugin,
             AssetRegistryPlugin,

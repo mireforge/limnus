@@ -1,0 +1,23 @@
+[package]
+name = "limnus-clock"
+version = "0.0.12"
+edition = "2021"
+license = "MIT"
+description = "clock management"
+repository = "https://github.com/swamp/limnus"
+categories = ["game-development"]
+keywords = ["game", "clock"]
+
+[dependencies]
+tracing = "0.1.40"
+
+limnus-system-params = { path = "../system-params", version = "0.0.12" }
+limnus-system-runner = { path = "../system-runner", version = "0.0.12" }
+limnus-local-resource = { path = "../local-resource", version = "0.0.12" }
+limnus-resource = { path = "../resource", version = "0.0.12" }
+limnus-macros = { path = "../macros", version = "0.0.12" }
+monotonic-time-rs = "0.0.5"
+limnus-app = { path = "../app", version = "0.0.12" }
+
+[dev-dependencies]
+test-log = "0.2.16"

@@ -15,7 +15,7 @@ use winit::event::{
 };
 use winit::event_loop::{ActiveEventLoop, ControlFlow, EventLoop};
 use winit::keyboard::PhysicalKey;
-use winit::window::{Window, WindowAttributes, WindowId};
+use winit::window::{Fullscreen, Window, WindowAttributes, WindowId, WindowLevel};
 
 #[cfg(target_arch = "wasm32")]
 use winit::platform::web::WindowAttributesExtWebSys;
@@ -25,6 +25,13 @@ use web_sys::window;
 
 #[cfg(target_arch = "wasm32")]
 use web_sys::wasm_bindgen::JsCast;
+
+#[derive(Debug, Clone)]
+pub enum WindowMode {
+    WindowedFullscreen,
+    Windowed,
+    WindowedAlwaysOnTop,
+}
 
 /// `AppHandler` - Handle window, cursor, mouse and keyboard events, designed for games and graphical applications.
 ///
@@ -39,6 +46,8 @@ pub trait AppHandler {
     /// This can be used to enforce a minimum size on the window, preventing it from
     /// being resized below this dimension.
     fn min_size(&self) -> (u16, u16);
+
+    fn window_mode(&self) -> WindowMode;
 
     /// Returns the starting window size (width, height) in pixels when the application launches.
     ///
@@ -172,6 +181,7 @@ struct App<'a> {
     // TODO: Move these
     min_physical_size: PhysicalSize<u32>,
     start_physical_size: PhysicalSize<u32>,
+    mode: WindowMode,
 }
 
 impl<'a> App<'a> {
@@ -180,6 +190,7 @@ impl<'a> App<'a> {
         title: &str,
         min_size: (u16, u16),
         start_size: (u16, u16),
+        mode: WindowMode,
     ) -> Self {
         let min_physical_size = PhysicalSize::new(min_size.0 as u32, min_size.1 as u32);
         let start_physical_size = PhysicalSize::new(start_size.0 as u32, start_size.1 as u32);
@@ -199,6 +210,7 @@ impl<'a> App<'a> {
             window: None,
             is_focused: false,
             cursor_is_visible: true,
+            mode,
             title: title.to_string(),
             min_physical_size,
             start_physical_size,
@@ -211,11 +223,19 @@ impl ApplicationHandler for App<'_> {
         if self.window.is_none() {
             debug!("creating new window");
 
-            let window_attributes = WindowAttributes::default()
+            let mut window_attributes = WindowAttributes::default()
                 .with_title(self.title.as_str())
                 .with_resizable(true)
                 .with_inner_size(self.start_physical_size)
                 .with_min_inner_size(self.min_physical_size);
+
+            match self.mode {
+                WindowMode::WindowedFullscreen => {
+                    window_attributes =
+                        window_attributes.with_fullscreen(Some(Fullscreen::Borderless(None)));
+                }
+                _ => {}
+            }
 
             #[cfg(target_arch = "wasm32")]
             // Create the window attributes
@@ -234,6 +254,13 @@ impl ApplicationHandler for App<'_> {
             let window = Arc::new(event_loop.create_window(window_attributes).unwrap());
 
             self.window = Some(window.clone());
+
+            match &self.mode {
+                WindowMode::WindowedAlwaysOnTop => {
+                    window.set_window_level(WindowLevel::AlwaysOnTop)
+                }
+                _ => {}
+            }
 
             self.handler.window_created(window);
 
@@ -405,7 +432,8 @@ impl WindowRunner {
         event_loop.set_control_flow(ControlFlow::Poll);
         let min_size = handler.min_size();
         let start_size = handler.start_size();
-        let mut app = App::new(handler, title, min_size, start_size);
+        let mode = handler.window_mode();
+        let mut app = App::new(handler, title, min_size, start_size, mode);
         let _ = event_loop.run_app(&mut app);
         Ok(())
     }
