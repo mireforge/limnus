@@ -1,6 +1,6 @@
 [package]
 name = "limnus-examples"
-version = "0.0.12"
+version = "0.0.13"
 edition = "2021"
 license = "MIT"
 description = "examples for the limnus game engine"
@@ -14,14 +14,14 @@ path = "src/bin/gamepad_tester.rs"
 
 [dependencies]
 
-limnus-app = { path = "../app", version = "0.0.12" }
-limnus-system-params = { path = "../system-params", version = "0.0.12" }
-limnus-local-resource = { path = "../local-resource", version = "0.0.12" }
-limnus-system-runner = { path = "../system-runner", version = "0.0.12" }
-limnus-gamepad = { path = "../gamepad", version = "0.0.12" }
-limnus-gamepad-gilrs = { path = "../gamepad-gilrs", version = "0.0.12" }
-limnus-log = { path = "../log", version = "0.0.12" }
+limnus-app = { path = "../app", version = "0.0.13" }
+limnus-system-params = { path = "../system-params", version = "0.0.13" }
+limnus-local-resource = { path = "../local-resource", version = "0.0.13" }
+limnus-system-runner = { path = "../system-runner", version = "0.0.13" }
+limnus-gamepad = { path = "../gamepad", version = "0.0.13" }
+limnus-gamepad-gilrs = { path = "../gamepad-gilrs", version = "0.0.13" }
+limnus-log = { path = "../log", version = "0.0.13" }
 tracing = "0.1.41"
-limnus-assets-loader = { path = "../assets-loader", version = "0.0.12" }
-limnus-loader = { path = "../loader", version = "0.0.12" }
-limnus = { path = "../limnus", version = "0.0.12" , features = ["audio"]}
+limnus-assets-loader = { path = "../assets-loader", version = "0.0.13" }
+limnus-loader = { path = "../loader", version = "0.0.13" }
+limnus = { path = "../limnus", version = "0.0.13", features = ["audio"]}

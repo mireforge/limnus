@@ -19,7 +19,7 @@ To use `limnus-assets`, add it to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-limnus-assets = "0.0.12"
+limnus-assets = "0.0.13"
 ```
 
 ## License

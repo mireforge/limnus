@@ -13,7 +13,7 @@ To use `limnus-audio-mixer`, add it to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-limnus-audio-mixer = "0.0.12"
+limnus-audio-mixer = "0.0.13"
 ```
 
 ## License

@@ -1,6 +1,6 @@
 [package]
 name = "limnus-asset-registry"
-version = "0.0.12"
+version = "0.0.13"
 edition = "2021"
 repository = "https://github.com/swamp/limnus"
 license = "MIT"
@@ -8,14 +8,14 @@ categories = ["game-development"]
 description = "keeps track of asset lifetimes"
 
 [dependencies]
-limnus-assets = { path = "../assets", version = "0.0.12" }
+limnus-assets = { path = "../assets", version = "0.0.13" }
 future-runner = "0.0.1"
-limnus-app = { path = "../app", version = "0.0.12" }
-limnus-assets-loader = { path = "../assets-loader", version = "0.0.12" }
-limnus-loader = { path = "../loader", version = "0.0.12" }
-limnus-resource = { path = "../resource", version = "0.0.12" }
-limnus-system-runner = { path = "../system-runner", version = "0.0.12" }
+limnus-app = { path = "../app", version = "0.0.13" }
+limnus-assets-loader = { path = "../assets-loader", version = "0.0.13" }
+limnus-loader = { path = "../loader", version = "0.0.13" }
+limnus-resource = { path = "../resource", version = "0.0.13" }
+limnus-system-runner = { path = "../system-runner", version = "0.0.13" }
 message-channel = "0.0.1"
 chunk-reader = "0.0.1"
 tracing = "0.1.40"
-limnus-system-params = { path = "../system-params", version = "0.0.12" }
+limnus-system-params = { path = "../system-params", version = "0.0.13" }

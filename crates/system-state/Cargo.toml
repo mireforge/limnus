@@ -1,6 +1,6 @@
 [package]
 name = "limnus-system-state"
-version = "0.0.12"
+version = "0.0.13"
 edition = "2021"
 repository = "https://github.com/swamp/limnus"
 license = "MIT"
@@ -9,7 +9,7 @@ description = "Keeps the state that is provided to systems"
 
 
 [dependencies]
-limnus-resource = { path = "../resource", version = "0.0.12" }
-limnus-message = { path = "../message", version = "0.0.12" }
+limnus-resource = { path = "../resource", version = "0.0.13" }
+limnus-message = { path = "../message", version = "0.0.13" }
 
-limnus-local-resource = { path = "../local-resource", version = "0.0.12" }
+limnus-local-resource = { path = "../local-resource", version = "0.0.13" }
