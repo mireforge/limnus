@@ -3,7 +3,7 @@
  * Licensed under the MIT License. See LICENSE in the project root for license information.
  */
 use limnus_log::prelude::info;
-use limnus_window::AppHandler;
+use limnus_window::{AppHandler, WindowMode};
 use std::sync::Arc;
 use winit::dpi::{PhysicalPosition, PhysicalSize};
 use winit::event::{
@@ -21,6 +21,10 @@ impl AppHandler for Handler {
     // Query
     fn min_size(&self) -> (u16, u16) {
         (640, 480)
+    }
+
+    fn window_mode(&self) -> WindowMode {
+        WindowMode::Windowed
     }
 
     fn start_size(&self) -> (u16, u16) {
