@@ -10,7 +10,6 @@ rustup target install wasm32-unknown-unknown
 cargo build --release --target wasm32-unknown-unknown
 ```
 
-
 - test locally using a runner
 
 ```sh
@@ -22,5 +21,5 @@ export CARGO_TARGET_WASM32_UNKNOWN_UNKNOWN_RUNNER=wasm-server-runner
 ```
 
 ```sh
-WASM_SERVER_RUNNER_CUSTOM_INDEX_HTML
+export WASM_SERVER_RUNNER_CUSTOM_INDEX_HTML=index.html
 ```
