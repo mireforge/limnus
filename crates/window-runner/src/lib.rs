@@ -16,7 +16,7 @@ use limnus_screen::{ScreenMode, WindowMessage};
 use limnus_wgpu_window::{annoying_async_device_creation, WgpuWindow};
 use limnus_window::{AppHandler, WindowMode};
 use std::sync::{Arc, Mutex};
-use tracing::{debug, error};
+use tracing::{debug, error, info};
 use winit::dpi;
 use winit::keyboard::PhysicalKey;
 
@@ -66,13 +66,12 @@ impl AppHandler for WindowState {
     fn lost_focus(&mut self) {}
 
     fn window_created(&mut self, window: Arc<winit::window::Window>) {
-        debug!("received callback for: window created");
         let app = Arc::clone(&self.app);
         future_runner::run_future(async move {
             let async_device_info = annoying_async_device_creation(window)
                 .await
                 .expect("couldn't get device info");
-            app.lock().unwrap().insert_resource(async_device_info);
+            app.lock().unwrap().insert_local_resource(async_device_info);
         });
         self.app
             .lock()

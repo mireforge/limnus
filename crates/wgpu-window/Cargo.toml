@@ -15,5 +15,6 @@ limnus-app = { path = "../app", version = "0.0.13" }
 limnus-screen = { path = "../screen", version = "0.0.13" }
 tracing = "0.1.40"
 limnus-system-params = { path = "../system-params", version = "0.0.13" }
-limnus-resource = { path = "../resource", version = "0.0.13" }
+#limnus-resource = { path = "../resource", version = "0.0.13" }
+limnus-local-resource = { path = "../local-resource", version = "0.0.13" }
 limnus-system-runner = { path = "../system-runner", version = "0.0.13" }

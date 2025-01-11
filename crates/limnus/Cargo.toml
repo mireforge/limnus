@@ -15,8 +15,6 @@ limnus-asset-registry = { path = "../asset-registry", version = "0.0.13" }
 limnus-assets = { path = "../assets", version = "0.0.13" }
 limnus-assets-loader = { path = "../assets-loader", version = "0.0.13" }
 limnus-basic-input = { path = "../basic-input", version = "0.0.13" }
-limnus-gamepad = { path = "../gamepad", version = "0.0.13" }
-limnus-gamepad-gilrs = { path = "../gamepad-gilrs", version = "0.0.13" }
 limnus-window-runner = { path = "../window-runner", version = "0.0.13" }
 limnus-wgpu-window = { path = "../wgpu-window", version = "0.0.13" }
 limnus-log = { path = "../log", version = "0.0.13" }
@@ -36,8 +34,13 @@ limnus-audio-sample = { path = "../audio-sample", version = "0.0.13", optional =
 limnus-audio-stream = { path = "../audio-stream", version = "0.0.13", optional = true }
 limnus-audio-mixer = { path = "../audio-mixer", version = "0.0.13", optional = true }
 
+limnus-gamepad = { path = "../gamepad", version = "0.0.13", optional = true }
+limnus-gamepad-gilrs = { path = "../gamepad-gilrs", version = "0.0.13", optional = true}
+
+
 limnus-clock = { path = "../clock", version = "0.0.13" }
 
 [features]
-default = ["audio"]
+default = []
 audio = ["limnus-audio-device", "limnus-audio-sample", "limnus-audio-mixer", "limnus-audio-stream"]
+gamepad = ["limnus-gamepad", "limnus-gamepad-gilrs"]

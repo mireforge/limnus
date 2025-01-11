@@ -20,7 +20,11 @@ use limnus_audio_mixer::AudioMixerPlugin;
 use limnus_audio_sample::AudioSamplePlugin;
 #[cfg(feature = "audio")]
 use limnus_audio_stream::AudioStreamPlugin;
+
+#[cfg(feature = "gamepad")]
 use limnus_gamepad::GamepadResourcePlugin;
+
+#[cfg(feature = "gamepad")]
 use limnus_gamepad_gilrs::GamepadGilrsPlugin;
 
 pub struct Main;
@@ -45,7 +49,7 @@ impl Plugin for DefaultPlugins {
     fn build(&self, app: &mut App) {
         app.add_plugins((
             LogPlugin,
-            ClockPlugin,
+            //ClockPlugin,
             LoaderPlugin,
             AssetLoaderRegistryPlugin,
             AssetRegistryPlugin,
@@ -60,6 +64,7 @@ impl Plugin for DefaultPlugins {
             AudioStreamPlugin,
         ));
 
+        #[cfg(feature = "gamepad")]
         app.add_plugins((GamepadResourcePlugin, GamepadGilrsPlugin));
     }
 }

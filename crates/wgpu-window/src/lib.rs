@@ -3,13 +3,13 @@
  * Licensed under the MIT License. See LICENSE in the project root for license information.
  */
 use limnus_app::prelude::{App, Plugin};
-use limnus_resource::prelude::Resource;
+use limnus_local_resource::prelude::LocalResource;
 use limnus_screen::WindowMessage;
-use limnus_system_params::{Msg, ReM};
+use limnus_system_params::{LoReM, Msg};
 use limnus_system_runner::UpdatePhase;
 use std::default::Default;
 use std::sync::Arc;
-use tracing::{debug, trace};
+use tracing::{debug, info, trace};
 use wgpu::{
     Adapter, Backends, Device, DeviceDescriptor, Features, Instance, InstanceDescriptor,
     InstanceFlags, Limits, MemoryHints, Queue, RenderPass, RequestAdapterOptions,
@@ -18,7 +18,7 @@ use wgpu::{
 use winit::dpi::PhysicalSize;
 use winit::window::Window;
 
-#[derive(Debug, Resource)]
+#[derive(Debug, LocalResource)]
 pub struct WgpuWindow {
     surface: Arc<Surface<'static>>,
     device: Arc<Device>,
@@ -37,7 +37,7 @@ pub struct ReceiveAnnoyingAsync {
     pub device_info: Option<BasicDeviceInfo>,
 }
 
-#[derive(Debug, Resource)]
+#[derive(Debug, LocalResource)]
 pub struct BasicDeviceInfo {
     pub adapter: Adapter,
     pub device: Arc<Device>,
@@ -55,12 +55,13 @@ pub async fn annoying_async_device_creation(
         #[cfg(not(target_arch = "wasm32"))]
         backends: Backends::PRIMARY,
         #[cfg(target_arch = "wasm32")]
-        backends: Backends::GL,
-
+        backends: Backends::GL, // TODO: Default to WebGl for compatibility for now, but maybe can change that in the future
         gles_minor_version: Default::default(),
     });
-
+    trace!(?instance, "found instance");
+    
     let surface = instance.create_surface(Arc::clone(&window)).unwrap();
+    trace!(?surface, "surface");
 
     let adapter = instance
         .request_adapter(&RequestAdapterOptions {
@@ -71,24 +72,30 @@ pub async fn annoying_async_device_creation(
         .await
         .unwrap();
 
+    trace!(?adapter, "found adapter");
+
     let device_descriptor = DeviceDescriptor {
         label: None,
         required_features: Features::empty(), // Specify features as needed
         required_limits: if cfg!(target_arch = "wasm32") {
-            Limits::downlevel_webgl2_defaults()
+            Limits::downlevel_webgl2_defaults() // TODO: Not sure if this is needed?
         } else {
             Limits::default()
         },
         memory_hints: MemoryHints::default(), // Use default memory hints
     };
 
+    info!(?device_descriptor, "device descriptor");
+
     let (device, queue) = adapter
         .request_device(&device_descriptor, None)
         .await
         .expect("Failed to request device");
-    trace!("got a device {:?}", device);
+    info!(?device, "device");
 
     let inner_size = window.inner_size();
+
+    info!(?inner_size, "inner size");
 
     Ok(BasicDeviceInfo {
         adapter,
@@ -99,11 +106,11 @@ pub async fn annoying_async_device_creation(
     })
 }
 
-fn tick(mut wgpu_window: ReM<WgpuWindow>, window_messages: Msg<WindowMessage>) {
+fn tick(mut wgpu_window: LoReM<WgpuWindow>, window_messages: Msg<WindowMessage>) {
     for msg in window_messages.iter_previous() {
         if let WindowMessage::Resized(size) = msg {
             debug!("resized to {:?}", size);
-            wgpu_window.resize((size.x, size.y))
+            wgpu_window.resize((size.x, size.y));
         }
     }
 }
@@ -113,8 +120,11 @@ impl Plugin for WgpuWindowPlugin {
     fn build(&self, _app: &mut App) {}
 
     fn post_initialization(&self, app: &mut App) {
-        app.insert_resource(WgpuWindow::new(app.resource::<BasicDeviceInfo>()));
+        app.insert_local_resource(WgpuWindow::new(
+            app.local_resources().fetch::<BasicDeviceInfo>(),
+        ));
         app.add_system(UpdatePhase::First, tick);
+        info!("wgpu window plugin is done")
     }
 }
 
