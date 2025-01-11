@@ -16,7 +16,7 @@ use limnus_screen::{ScreenMode, WindowMessage};
 use limnus_wgpu_window::{annoying_async_device_creation, WgpuWindow};
 use limnus_window::{AppHandler, WindowMode};
 use std::sync::{Arc, Mutex};
-use tracing::{debug, error, info};
+use tracing::{debug, error};
 use winit::dpi;
 use winit::keyboard::PhysicalKey;
 

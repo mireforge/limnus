@@ -14,7 +14,7 @@ limnus-log = { path = "../log", version = "0.0.13" }
 
 # WASM
 wasm-bindgen = "0.2.99"
-web-sys = { version = "0.3.72", features = ["Document", "Element", "HtmlCanvasElement"] }
+web-sys = { version = "0.3.76", features = ["Document", "Element", "HtmlCanvasElement"] }
 tracing = "0.1.40"
 
 [dev-dependencies]

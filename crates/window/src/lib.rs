@@ -4,7 +4,6 @@
  */
 use crate::dpi::PhysicalSize;
 use limnus_log::prelude::debug;
-use tracing::info;
 use std::sync::Arc;
 use winit::application::ApplicationHandler;
 use winit::dpi;
@@ -17,6 +16,9 @@ use winit::event::{
 use winit::event_loop::{ActiveEventLoop, ControlFlow, EventLoop};
 use winit::keyboard::PhysicalKey;
 use winit::window::{Fullscreen, Window, WindowAttributes, WindowId, WindowLevel};
+
+#[cfg(target_arch = "wasm32")]
+use tracing::trace;
 
 #[cfg(target_arch = "wasm32")]
 use winit::platform::web::WindowAttributesExtWebSys;
@@ -255,7 +257,7 @@ impl ApplicationHandler for App<'_> {
                     .unwrap();
 
                 {
-                    info!(?canvas, "found canvas {}x{}", canvas.width(), canvas.height());
+                    trace!(?canvas, "found canvas {}x{}", canvas.width(), canvas.height());
                     window_attributes = WindowAttributes::default().with_canvas(Some(canvas));
                 }
             }
@@ -276,12 +278,20 @@ impl ApplicationHandler for App<'_> {
         }
     }
     fn window_event(&mut self, event_loop: &ActiveEventLoop, id: WindowId, event: WindowEvent) {
+        if self.window.is_none() {
+            return;
+        }
         if id != self.window.as_ref().unwrap().id() {
             return;
         }
 
         match event {
-            WindowEvent::CloseRequested => event_loop.exit(),
+            WindowEvent::CloseRequested => {
+                event_loop.exit();
+            },
+            WindowEvent::Destroyed => {
+                self.window = None;
+            }
             WindowEvent::Resized(physical_size) => {
                 self.handler.resized(physical_size);
 

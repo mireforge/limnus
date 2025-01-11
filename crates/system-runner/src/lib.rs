@@ -25,6 +25,7 @@ pub struct Runner {
 impl Runner {}
 
 impl Runner {
+    #[must_use]
     pub fn new() -> Self {
         let phases_in_order = [
             UpdatePhase::First,
