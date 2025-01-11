@@ -59,40 +59,40 @@ impl<'a, T> Deref for Re<'a, T> {
 impl<T: Resource + 'static> SystemParam for ReM<'static, T> {
     type Item = Self;
 
-    fn fetch(world: &mut State) -> Self::Item {
-        let actual_ref: &mut T = world.resource_mut::<T>();
+    fn get(world: &mut State) -> Option<Self::Item> {
+        let actual_ref = world.resource_mut::<T>()?;
         let static_ref: &'static mut T = unsafe { transmute(actual_ref) };
-        ReM::new(static_ref)
+        Some(ReM::new(static_ref))
     }
 }
 
 impl<T: Resource + 'static> SystemParam for Re<'static, T> {
     type Item = Self;
 
-    fn fetch(world: &mut State) -> Self::Item {
-        let actual_ref: &mut T = world.resource_mut::<T>();
+    fn get(world: &mut State) -> Option<Self::Item> {
+        let actual_ref = world.resource_mut::<T>()?;
         let static_ref: &'static mut T = unsafe { transmute(actual_ref) };
-        Re::new(static_ref)
+        Some(Re::new(static_ref))
     }
 }
 
 impl<T: 'static + Message> SystemParam for Msg<'static, T> {
     type Item = Self;
 
-    fn fetch(world: &mut State) -> Self::Item {
-        let actual_ref = world.message::<T>();
+    fn get(world: &mut State) -> Option<Self::Item> {
+        let actual_ref = world.message::<T>()?;
         let static_ref: &'static Messages<T> = unsafe { transmute(actual_ref) };
-        Msg::new(static_ref)
+        Some(Msg::new(static_ref))
     }
 }
 
 impl<T: 'static + Message> SystemParam for MsgM<'static, T> {
     type Item = Self;
 
-    fn fetch(world: &mut State) -> Self::Item {
-        let actual_ref = world.message_mut::<T>();
+    fn get(world: &mut State) -> Option<Self::Item> {
+        let actual_ref = world.message_mut::<T>()?;
         let static_ref: &'static mut Messages<T> = unsafe { transmute(actual_ref) };
-        MsgM::new(static_ref)
+        Some(MsgM::new(static_ref))
     }
 }
 
@@ -122,10 +122,10 @@ impl<'a> DerefMut for ReAll<'a> {
 impl SystemParam for ReAll<'static> {
     type Item = Self;
 
-    fn fetch(world: &mut State) -> Self::Item {
+    fn get(world: &mut State) -> Option<Self::Item> {
         let actual_ref: &mut ResourceStorage = world.resources_mut();
         let static_ref: &'static mut ResourceStorage = unsafe { transmute(actual_ref) };
-        ReAll::new(static_ref)
+        Some(ReAll::new(static_ref))
     }
 }
 
@@ -203,10 +203,10 @@ impl<'a> DerefMut for LocReAll<'a> {
 impl SystemParam for LocReAll<'static> {
     type Item = Self;
 
-    fn fetch(world: &mut State) -> Self::Item {
+    fn get(world: &mut State) -> Option<Self::Item> {
         let actual_ref: &mut LocalResourceStorage = world.local_resources_mut();
         let static_ref: &'static mut LocalResourceStorage = unsafe { transmute(actual_ref) };
-        LocReAll::new(static_ref)
+        Some(LocReAll::new(static_ref))
     }
 }
 
@@ -240,10 +240,10 @@ impl<'a, T> DerefMut for crate::LoReM<'a, T> {
 impl<T: LocalResource + 'static> SystemParam for crate::LoReM<'static, T> {
     type Item = Self;
 
-    fn fetch(world: &mut State) -> Self::Item {
-        let actual_ref: &mut T = world.local_resource_mut::<T>();
+    fn get(world: &mut State) -> Option<Self::Item> {
+        let actual_ref = world.local_resource_mut::<T>()?;
         let static_ref: &'static mut T = unsafe { transmute(actual_ref) };
-        LoReM::new(static_ref)
+        Some(LoReM::new(static_ref))
     }
 }
 
@@ -269,9 +269,9 @@ impl<'a, T> Deref for crate::LoRe<'a, T> {
 impl<T: LocalResource + 'static> SystemParam for crate::LoRe<'static, T> {
     type Item = Self;
 
-    fn fetch(world: &mut State) -> Self::Item {
-        let actual_ref: &mut T = world.local_resource_mut::<T>();
+    fn get(world: &mut State) -> Option<Self::Item> {
+        let actual_ref = world.local_resource_mut::<T>()?;
         let static_ref: &'static mut T = unsafe { transmute(actual_ref) };
-        LoRe::new(static_ref)
+        Some(LoRe::new(static_ref))
     }
 }

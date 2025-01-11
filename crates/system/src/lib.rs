@@ -69,7 +69,9 @@ where
     F: Fn(P1) + 'static,
 {
     fn run(&self, world: &mut State) {
-        self(P1::fetch(world));
+        let Some(v1) = P1::get(world) else { return };
+
+        self(v1);
     }
 }
 
@@ -79,8 +81,9 @@ where
     F: Fn(P1, P2) + 'static,
 {
     fn run(&self, world: &mut State) {
-        let v1 = P1::fetch(world);
-        let v2 = P2::fetch(world);
+        let Some(v1) = P1::get(world) else { return };
+        let Some(v2) = P2::get(world) else { return };
+
         self(v1, v2);
     }
 }
@@ -92,9 +95,10 @@ where
     F: Fn(P1, P2, P3) + 'static,
 {
     fn run(&self, world: &mut State) {
-        let v1 = P1::fetch(world);
-        let v2 = P2::fetch(world);
-        let v3 = P3::fetch(world);
+        let Some(v1) = P1::get(world) else { return };
+        let Some(v2) = P2::get(world) else { return };
+        let Some(v3) = P3::get(world) else { return };
+
         self(v1, v2, v3);
     }
 }
@@ -111,10 +115,11 @@ where
     F: Fn(P1, P2, P3, P4) + 'static,
 {
     fn run(&self, world: &mut State) {
-        let v1 = P1::fetch(world);
-        let v2 = P2::fetch(world);
-        let v3 = P3::fetch(world);
-        let v4 = P4::fetch(world);
+        let Some(v1) = P1::get(world) else { return };
+        let Some(v2) = P2::get(world) else { return };
+        let Some(v3) = P3::get(world) else { return };
+        let Some(v4) = P4::get(world) else { return };
+
         self(v1, v2, v3, v4);
     }
 }
@@ -132,11 +137,12 @@ where
     F: Fn(P1, P2, P3, P4, P5) + 'static,
 {
     fn run(&self, world: &mut State) {
-        let v1 = P1::fetch(world);
-        let v2 = P2::fetch(world);
-        let v3 = P3::fetch(world);
-        let v4 = P4::fetch(world);
-        let v5 = P5::fetch(world);
+        let Some(v1) = P1::get(world) else { return };
+        let Some(v2) = P2::get(world) else { return };
+        let Some(v3) = P3::get(world) else { return };
+        let Some(v4) = P4::get(world) else { return };
+        let Some(v5) = P5::get(world) else { return };
+
         self(v1, v2, v3, v4, v5);
     }
 }
@@ -155,12 +161,13 @@ where
     F: Fn(P1, P2, P3, P4, P5, P6) + 'static,
 {
     fn run(&self, world: &mut State) {
-        let v1 = P1::fetch(world);
-        let v2 = P2::fetch(world);
-        let v3 = P3::fetch(world);
-        let v4 = P4::fetch(world);
-        let v5 = P5::fetch(world);
-        let v6 = P6::fetch(world);
+        let Some(v1) = P1::get(world) else { return };
+        let Some(v2) = P2::get(world) else { return };
+        let Some(v3) = P3::get(world) else { return };
+        let Some(v4) = P4::get(world) else { return };
+        let Some(v5) = P5::get(world) else { return };
+        let Some(v6) = P6::get(world) else { return };
+
         self(v1, v2, v3, v4, v5, v6);
     }
 }
@@ -180,13 +187,14 @@ where
     F: Fn(P1, P2, P3, P4, P5, P6, P7) + 'static,
 {
     fn run(&self, world: &mut State) {
-        let v1 = P1::fetch(world);
-        let v2 = P2::fetch(world);
-        let v3 = P3::fetch(world);
-        let v4 = P4::fetch(world);
-        let v5 = P5::fetch(world);
-        let v6 = P6::fetch(world);
-        let v7 = P7::fetch(world);
+        let Some(v1) = P1::get(world) else { return };
+        let Some(v2) = P2::get(world) else { return };
+        let Some(v3) = P3::get(world) else { return };
+        let Some(v4) = P4::get(world) else { return };
+        let Some(v5) = P5::get(world) else { return };
+        let Some(v6) = P6::get(world) else { return };
+        let Some(v7) = P7::get(world) else { return };
+
         self(v1, v2, v3, v4, v5, v6, v7);
     }
 }
@@ -207,14 +215,15 @@ where
     F: Fn(P1, P2, P3, P4, P5, P6, P7, P8) + 'static,
 {
     fn run(&self, world: &mut State) {
-        let v1 = P1::fetch(world);
-        let v2 = P2::fetch(world);
-        let v3 = P3::fetch(world);
-        let v4 = P4::fetch(world);
-        let v5 = P5::fetch(world);
-        let v6 = P6::fetch(world);
-        let v7 = P7::fetch(world);
-        let v8 = P8::fetch(world);
+        let Some(v1) = P1::get(world) else { return };
+        let Some(v2) = P2::get(world) else { return };
+        let Some(v3) = P3::get(world) else { return };
+        let Some(v4) = P4::get(world) else { return };
+        let Some(v5) = P5::get(world) else { return };
+        let Some(v6) = P6::get(world) else { return };
+        let Some(v7) = P7::get(world) else { return };
+        let Some(v8) = P8::get(world) else { return };
+
         self(v1, v2, v3, v4, v5, v6, v7, v8);
     }
 }
@@ -223,14 +232,15 @@ where
 pub trait SystemParam: 'static {
     type Item;
 
-    fn fetch(world: &mut State) -> Self::Item;
+    fn get(world: &mut State) -> Option<Self::Item>;
 }
 
 impl SystemParam for () {
     type Item = ();
 
-    fn fetch(_world: &mut State) -> Self::Item {
+    fn get(_world: &mut State) -> Option<Self::Item> {
         // it is easy to fetch, it is nothing `()`
+        None
     }
 }
 
@@ -241,8 +251,8 @@ where
 {
     type Item = (T1::Item,);
 
-    fn fetch(world: &mut State) -> Self::Item {
-        (T1::fetch(world),)
+    fn get(world: &mut State) -> Option<Self::Item> {
+        T1::get(world).map(|t1| (t1,))
     }
 }
 
@@ -254,8 +264,8 @@ where
 {
     type Item = (T1::Item, T2::Item);
 
-    fn fetch(world: &mut State) -> Self::Item {
-        (T1::fetch(world), T2::fetch(world))
+    fn get(world: &mut State) -> Option<Self::Item> {
+        T1::get(world).zip(T2::get(world))
     }
 }
 
@@ -268,8 +278,8 @@ where
 {
     type Item = (T1::Item, T2::Item, T3::Item);
 
-    fn fetch(world: &mut State) -> Self::Item {
-        (T1::fetch(world), T2::fetch(world), T3::fetch(world))
+    fn get(world: &mut State) -> Option<Self::Item> {
+        Some((T1::get(world)?, T2::get(world)?, T3::get(world)?))
     }
 }
 
@@ -283,13 +293,13 @@ where
 {
     type Item = (T1::Item, T2::Item, T3::Item, T4::Item);
 
-    fn fetch(world: &mut State) -> Self::Item {
-        (
-            T1::fetch(world),
-            T2::fetch(world),
-            T3::fetch(world),
-            T4::fetch(world),
-        )
+    fn get(world: &mut State) -> Option<Self::Item> {
+        Some((
+            T1::get(world)?,
+            T2::get(world)?,
+            T3::get(world)?,
+            T4::get(world)?,
+        ))
     }
 }
 
@@ -304,14 +314,14 @@ where
 {
     type Item = (T1::Item, T2::Item, T3::Item, T4::Item, T5::Item);
 
-    fn fetch(world: &mut State) -> Self::Item {
-        (
-            T1::fetch(world),
-            T2::fetch(world),
-            T3::fetch(world),
-            T4::fetch(world),
-            T5::fetch(world),
-        )
+    fn get(world: &mut State) -> Option<Self::Item> {
+        Some((
+            T1::get(world)?,
+            T2::get(world)?,
+            T3::get(world)?,
+            T4::get(world)?,
+            T5::get(world)?,
+        ))
     }
 }
 
@@ -327,15 +337,15 @@ where
 {
     type Item = (T1::Item, T2::Item, T3::Item, T4::Item, T5::Item, T6::Item);
 
-    fn fetch(world: &mut State) -> Self::Item {
-        (
-            T1::fetch(world),
-            T2::fetch(world),
-            T3::fetch(world),
-            T4::fetch(world),
-            T5::fetch(world),
-            T6::fetch(world),
-        )
+    fn get(world: &mut State) -> Option<Self::Item> {
+        Some((
+            T1::get(world)?,
+            T2::get(world)?,
+            T3::get(world)?,
+            T4::get(world)?,
+            T5::get(world)?,
+            T6::get(world)?,
+        ))
     }
 }
 
@@ -360,16 +370,16 @@ where
         T7::Item,
     );
 
-    fn fetch(world: &mut State) -> Self::Item {
-        (
-            T1::fetch(world),
-            T2::fetch(world),
-            T3::fetch(world),
-            T4::fetch(world),
-            T5::fetch(world),
-            T6::fetch(world),
-            T7::fetch(world),
-        )
+    fn get(world: &mut State) -> Option<Self::Item> {
+        Some((
+            T1::get(world)?,
+            T2::get(world)?,
+            T3::get(world)?,
+            T4::get(world)?,
+            T5::get(world)?,
+            T6::get(world)?,
+            T7::get(world)?,
+        ))
     }
 }
 
@@ -396,16 +406,16 @@ where
         T8::Item,
     );
 
-    fn fetch(world: &mut State) -> Self::Item {
-        (
-            T1::fetch(world),
-            T2::fetch(world),
-            T3::fetch(world),
-            T4::fetch(world),
-            T5::fetch(world),
-            T6::fetch(world),
-            T7::fetch(world),
-            T8::fetch(world),
-        )
+    fn get(world: &mut State) -> Option<Self::Item> {
+        Some((
+            T1::get(world)?,
+            T2::get(world)?,
+            T3::get(world)?,
+            T4::get(world)?,
+            T5::get(world)?,
+            T6::get(world)?,
+            T7::get(world)?,
+            T8::get(world)?,
+        ))
     }
 }

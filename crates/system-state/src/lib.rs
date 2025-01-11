@@ -48,7 +48,7 @@ impl State {
     }
 
     #[must_use]
-    pub fn local_resources(&self) -> &LocalResourceStorage {
+    pub const fn local_resources(&self) -> &LocalResourceStorage {
         &self.local_resources
     }
 
@@ -59,28 +59,26 @@ impl State {
     }
 
     #[inline]
-    pub fn resource_mut<R: Resource>(&mut self) -> &mut R {
-        self.resources.fetch_mut::<R>()
+    pub fn resource_mut<R: Resource>(&mut self) -> Option<&mut R> {
+        self.resources.get_mut::<R>()
     }
 
     #[inline]
     #[must_use]
-    pub fn local_resource<R: LocalResource>(&self) -> &R {
-        self.local_resources.fetch::<R>()
+    pub fn local_resource<R: LocalResource>(&self) -> Option<&R> {
+        self.local_resources.get::<R>()
     }
 
     #[inline]
-    pub fn local_resource_mut<R: LocalResource>(&mut self) -> &mut R {
-        self.local_resources.fetch_mut::<R>()
+    pub fn local_resource_mut<R: LocalResource>(&mut self) -> Option<&mut R> {
+        self.local_resources.get_mut::<R>()
     }
 
-    /// # Panics
-    pub fn message_mut<M: Message>(&mut self) -> &mut Messages<M> {
-        self.messages.get_mut::<M>().expect("Failed to get message")
+    pub fn message_mut<M: Message>(&mut self) -> Option<&mut Messages<M>> {
+        self.messages.get_mut::<M>()
     }
 
-    /// # Panics
-    pub fn message<M: Message>(&mut self) -> &Messages<M> {
-        self.messages.get::<M>().expect("Failed to get message")
+    #[must_use] pub fn message<M: Message>(&self) -> Option<&Messages<M>> {
+        self.messages.get::<M>()
     }
 }
