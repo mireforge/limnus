@@ -6,13 +6,14 @@ use limnus_macros::{LocalResource, Resource};
 use limnus_resource::Resource;
 use limnus_system_params::{LoRe, ReM};
 use limnus_system_runner::UpdatePhase;
-use monotonic_time_rs::{InstantMonotonicClock, Millis, MonotonicClock};
+use monotonic_time_rs::{create_monotonic_clock, Millis, MonotonicClock};
 use std::fmt::{Debug, Formatter};
 
 #[derive(LocalResource)]
 pub struct Clock {
-    pub clock: InstantMonotonicClock,
+    pub clock: Box<dyn MonotonicClock>,
 }
+
 
 impl Debug for Clock {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
@@ -34,7 +35,7 @@ pub struct ClockPlugin;
 impl Plugin for ClockPlugin {
     fn build(&self, app: &mut App) {
         app.insert_local_resource(Clock {
-            clock: InstantMonotonicClock::new(),
+            clock: Box::new(create_monotonic_clock()),
         });
         app.insert_resource(MonotonicTime {
             time: Millis::from(0),

@@ -49,7 +49,7 @@ impl Plugin for DefaultPlugins {
     fn build(&self, app: &mut App) {
         app.add_plugins((
             LogPlugin,
-            //ClockPlugin,
+            ClockPlugin,
             LoaderPlugin,
             AssetLoaderRegistryPlugin,
             AssetRegistryPlugin,
