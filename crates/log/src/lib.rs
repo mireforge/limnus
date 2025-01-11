@@ -27,6 +27,11 @@ pub fn init_logger() {
 }
 
 #[cfg(target_arch = "wasm32")]
+use tracing_subscriber::prelude::__tracing_subscriber_SubscriberExt;
+#[cfg(target_arch = "wasm32")]
+use tracing_subscriber::util::SubscriberInitExt;
+
+#[cfg(target_arch = "wasm32")]
 pub fn init_logger() {
     tracing_subscriber::registry()
         .with(tracing_wasm::WASMLayer::new(
