@@ -42,7 +42,7 @@ limnus-default-keys = { path = "../default-keys", version = "0.0.14", optional =
 limnus-clock = { path = "../clock", version = "0.0.14" }
 
 [features]
-default = []
+default = ["audio", "gamepad", "default_keys"]
 audio = ["limnus-audio-device", "limnus-audio-sample", "limnus-audio-mixer", "limnus-audio-stream"]
 gamepad = ["limnus-gamepad", "limnus-gamepad-gilrs"]
 default_keys = ["limnus-default-keys"]
