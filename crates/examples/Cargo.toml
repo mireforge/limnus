@@ -24,6 +24,6 @@ limnus-log = { path = "../log", version = "0.0.13" }
 tracing = "0.1.41"
 limnus-assets-loader = { path = "../assets-loader", version = "0.0.13" }
 limnus-loader = { path = "../loader", version = "0.0.13" }
-limnus = { path = "../limnus", version = "0.0.13"}
+limnus = { path = "../limnus", version = "0.0.13", features = ["default_keys"]}
 wgpu = "23.0.0"
 int_math = "0.0.2"

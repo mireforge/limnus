@@ -14,7 +14,7 @@ pub struct LogPlugin;
 impl Plugin for LogPlugin {
     fn build(&self, _app: &mut App) {
         init_logger();
-        trace!("log plugin started")
+        trace!("log plugin started");
     }
 }
 

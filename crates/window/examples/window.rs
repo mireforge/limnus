@@ -12,12 +12,12 @@ use winit::event::{
 use winit::keyboard::{KeyCode, PhysicalKey};
 use winit::window::Window;
 
-pub struct Handler {
+pub struct ExampleWindowHandler {
     should_quit: bool,
     cursor_visible: bool,
 }
 
-impl AppHandler for Handler {
+impl AppHandler for ExampleWindowHandler {
     // Query
     fn min_size(&self) -> (u16, u16) {
         (640, 480)
@@ -117,7 +117,7 @@ impl AppHandler for Handler {
 fn main() {
     env_logger::init();
 
-    let mut handler = Handler {
+    let mut handler = ExampleWindowHandler {
         should_quit: false,
         cursor_visible: true,
     };

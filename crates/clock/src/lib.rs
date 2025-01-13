@@ -14,7 +14,6 @@ pub struct Clock {
     pub clock: Box<dyn MonotonicClock>,
 }
 
-
 impl Debug for Clock {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         write!(f, "clock")

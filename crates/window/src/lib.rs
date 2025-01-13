@@ -28,8 +28,9 @@ use web_sys::window;
 
 #[cfg(target_arch = "wasm32")]
 use web_sys::wasm_bindgen::JsCast;
+use winit::window::Fullscreen::Borderless;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub enum WindowMode {
     WindowedFullscreen,
     Windowed,
@@ -198,16 +199,6 @@ impl<'a> App<'a> {
         let min_physical_size = PhysicalSize::new(min_size.0 as u32, min_size.1 as u32);
         let start_physical_size = PhysicalSize::new(start_size.0 as u32, start_size.1 as u32);
 
-        /*
-        let mut window_attributes = WindowAttributes::default().with_title(title);
-           let window_attributes = WindowAttributes::default()
-           .with_title(title)
-           .with_resizable(true)
-           .with_inner_size(start_logical_size)
-           .with_min_inner_size(min_logical_size);
-
-        */
-
         Self {
             handler,
             window: None,
@@ -218,6 +209,25 @@ impl<'a> App<'a> {
             min_physical_size,
             start_physical_size,
         }
+    }
+
+    pub fn set_mode(&mut self, mode: &WindowMode) {
+        let window_ref = self.window.as_ref().unwrap();
+        match mode {
+            WindowMode::WindowedFullscreen => {
+                window_ref.set_window_level(WindowLevel::Normal);
+                window_ref.set_fullscreen(Some(Borderless(None)));
+            }
+            WindowMode::Windowed => {
+                window_ref.set_window_level(WindowLevel::Normal);
+                window_ref.set_fullscreen(None);
+            }
+            WindowMode::WindowedAlwaysOnTop => {
+                window_ref.set_fullscreen(None);
+                window_ref.set_window_level(WindowLevel::AlwaysOnTop);
+            }
+        }
+        self.mode = mode.clone();
     }
 }
 
@@ -230,15 +240,15 @@ impl ApplicationHandler for App<'_> {
 
             #[cfg(not(target_arch = "wasm32"))]
             {
-                 let mut calculated_window_attributes = WindowAttributes::default()
+                let mut calculated_window_attributes = WindowAttributes::default()
                     .with_title(self.title.as_str())
                     .with_resizable(true)
                     .with_inner_size(self.start_physical_size)
                     .with_min_inner_size(self.min_physical_size);
 
                 if let WindowMode::WindowedFullscreen = self.mode {
-                    calculated_window_attributes =
-                        calculated_window_attributes.with_fullscreen(Some(Fullscreen::Borderless(None)));
+                    calculated_window_attributes = calculated_window_attributes
+                        .with_fullscreen(Some(Fullscreen::Borderless(None)));
                 }
 
                 window_attributes = calculated_window_attributes;
@@ -257,7 +267,12 @@ impl ApplicationHandler for App<'_> {
                     .unwrap();
 
                 {
-                    trace!(?canvas, "found canvas {}x{}", canvas.width(), canvas.height());
+                    trace!(
+                        ?canvas,
+                        "found canvas {}x{}",
+                        canvas.width(),
+                        canvas.height()
+                    );
                     window_attributes = WindowAttributes::default().with_canvas(Some(canvas));
                 }
             }
@@ -274,9 +289,10 @@ impl ApplicationHandler for App<'_> {
             self.handler.window_created(window);
 
             // This tells winit that we want another frame after this one
-             self.window.as_ref().unwrap().request_redraw();
+            self.window.as_ref().unwrap().request_redraw();
         }
     }
+
     fn window_event(&mut self, event_loop: &ActiveEventLoop, id: WindowId, event: WindowEvent) {
         if self.window.is_none() {
             return;
@@ -288,7 +304,7 @@ impl ApplicationHandler for App<'_> {
         match event {
             WindowEvent::CloseRequested => {
                 event_loop.exit();
-            },
+            }
             WindowEvent::Destroyed => {
                 self.window = None;
             }
@@ -307,6 +323,11 @@ impl ApplicationHandler for App<'_> {
                 if cursor_visible_request != self.cursor_is_visible {
                     window.set_cursor_visible(cursor_visible_request);
                     self.cursor_is_visible = cursor_visible_request;
+                }
+
+                let requested_mode = self.handler.window_mode();
+                if self.mode != requested_mode {
+                    self.set_mode(&requested_mode);
                 }
 
                 if self.window.is_some() {
@@ -368,7 +389,6 @@ impl ApplicationHandler for App<'_> {
 
             // --------------------------------------------
 
-            // WindowEvent::ModifiersChanged(_) => {} // modifiers comes in as KeyboardInput anyway, so we can ignore this one.
             // WindowEvent::Ime(_) => {} // IME is outside the scope of events, and not supported on all platforms, e.g. Web.
 
             // Gestures could be relevant, but we leave them for future versions

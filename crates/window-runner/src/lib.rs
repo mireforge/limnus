@@ -11,8 +11,9 @@ use crate::convert::{
 use int_math::{UVec2, Vec2};
 use limnus_app::prelude::{App, AppReturnValue, ApplicationExit};
 use limnus_basic_input::prelude::*;
+use limnus_local_resource::prelude::LocalResource;
 use limnus_resource::prelude::Resource;
-use limnus_screen::{ScreenMode, WindowMessage};
+use limnus_screen::{ScreenMode, Window, WindowMessage};
 use limnus_wgpu_window::{annoying_async_device_creation, WgpuWindow};
 use limnus_window::{AppHandler, WindowMode};
 use std::sync::{Arc, Mutex};
@@ -27,11 +28,6 @@ pub struct WindowState {
     requested_surface_size: UVec2,
     minimal_surface_size: UVec2,
     physical_surface_size: dpi::PhysicalSize<u32>,
-}
-
-#[derive(Debug, Resource)]
-pub struct WindowHandle {
-    pub window: Arc<winit::window::Window>,
 }
 
 impl AppHandler for WindowState {
@@ -57,7 +53,11 @@ impl AppHandler for WindowState {
 
     fn redraw(&mut self) -> bool {
         let mut app = self.app.lock().unwrap();
+        let window_settings = app.resources().fetch::<Window>();
+        self.mode = window_settings.mode.clone();
+
         app.update();
+
         !app.has_resource::<ApplicationExit>()
     }
 

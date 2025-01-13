@@ -35,8 +35,9 @@ limnus-audio-stream = { path = "../audio-stream", version = "0.0.13", optional =
 limnus-audio-mixer = { path = "../audio-mixer", version = "0.0.13", optional = true }
 
 limnus-gamepad = { path = "../gamepad", version = "0.0.13", optional = true }
-limnus-gamepad-gilrs = { path = "../gamepad-gilrs", version = "0.0.13", optional = true}
+limnus-gamepad-gilrs = { path = "../gamepad-gilrs", version = "0.0.13", optional = true }
 
+limnus-default-keys = { path = "../default-keys", version = "0.0.13", optional = true }
 
 limnus-clock = { path = "../clock", version = "0.0.13" }
 
@@ -44,3 +45,4 @@ limnus-clock = { path = "../clock", version = "0.0.13" }
 default = []
 audio = ["limnus-audio-device", "limnus-audio-sample", "limnus-audio-mixer", "limnus-audio-stream"]
 gamepad = ["limnus-gamepad", "limnus-gamepad-gilrs"]
+default_keys = ["limnus-default-keys"]

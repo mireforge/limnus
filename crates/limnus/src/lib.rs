@@ -20,10 +20,10 @@ use limnus_audio_mixer::AudioMixerPlugin;
 use limnus_audio_sample::AudioSamplePlugin;
 #[cfg(feature = "audio")]
 use limnus_audio_stream::AudioStreamPlugin;
-
+#[cfg(feature = "default_keys")]
+use limnus_default_keys::DefaultKeysPlugin;
 #[cfg(feature = "gamepad")]
 use limnus_gamepad::GamepadResourcePlugin;
-
 #[cfg(feature = "gamepad")]
 use limnus_gamepad_gilrs::GamepadGilrsPlugin;
 
@@ -66,5 +66,8 @@ impl Plugin for DefaultPlugins {
 
         #[cfg(feature = "gamepad")]
         app.add_plugins((GamepadResourcePlugin, GamepadGilrsPlugin));
+
+        #[cfg(feature = "default_keys")]
+        app.add_plugins(DefaultKeysPlugin);
     }
 }

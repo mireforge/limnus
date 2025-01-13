@@ -59,7 +59,7 @@ pub async fn annoying_async_device_creation(
         gles_minor_version: Default::default(),
     });
     trace!(?instance, "found instance");
-    
+
     let surface = instance.create_surface(Arc::clone(&window)).unwrap();
     trace!(?surface, "surface");
 
@@ -129,7 +129,8 @@ impl Plugin for WgpuWindowPlugin {
 }
 
 impl WgpuWindow {
-    #[must_use] pub fn new(info: &BasicDeviceInfo) -> Self {
+    #[must_use]
+    pub fn new(info: &BasicDeviceInfo) -> Self {
         let config = Self::configure_render_surface(info);
 
         Self {
@@ -140,7 +141,8 @@ impl WgpuWindow {
         }
     }
 
-    #[must_use] pub const fn device(&self) -> &Arc<Device> {
+    #[must_use]
+    pub const fn device(&self) -> &Arc<Device> {
         &self.device
     }
 
@@ -178,7 +180,8 @@ impl WgpuWindow {
         config
     }
 
-    #[must_use] pub const fn texture_format(&self) -> wgpu::TextureFormat {
+    #[must_use]
+    pub const fn texture_format(&self) -> wgpu::TextureFormat {
         self.config.format
     }
 

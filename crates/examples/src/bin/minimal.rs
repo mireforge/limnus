@@ -28,7 +28,6 @@ pub struct Minimal {
     pub tick: u32,
 }
 
-
 fn main() {
     let mut app = App::new();
 

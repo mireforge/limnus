@@ -114,19 +114,21 @@ pub(crate) fn try_from_key_code(keycode: keyboard::KeyCode) -> Result<KeyCode, K
         keyboard::KeyCode::Semicolon => KeyCode::Semicolon,
         keyboard::KeyCode::Slash => KeyCode::Slash,
 
-        keyboard::KeyCode::AltLeft => KeyCode::AltLeft,
-        keyboard::KeyCode::AltRight => KeyCode::AltRight,
         keyboard::KeyCode::Backspace => KeyCode::Backspace,
         keyboard::KeyCode::CapsLock => KeyCode::CapsLock,
 
         keyboard::KeyCode::ContextMenu => KeyCode::ContextMenu,
-        keyboard::KeyCode::ControlLeft => KeyCode::ControlLeft,
-        keyboard::KeyCode::ControlRight => KeyCode::ControlRight,
-        keyboard::KeyCode::Enter => KeyCode::Enter,
-        keyboard::KeyCode::SuperLeft => KeyCode::SuperLeft,
-        keyboard::KeyCode::SuperRight => KeyCode::SuperRight,
+
         keyboard::KeyCode::ShiftLeft => KeyCode::ShiftLeft,
         keyboard::KeyCode::ShiftRight => KeyCode::ShiftRight,
+        keyboard::KeyCode::ControlLeft => KeyCode::ControlLeft,
+        keyboard::KeyCode::ControlRight => KeyCode::ControlRight,
+        keyboard::KeyCode::AltLeft => KeyCode::AltLeft,
+        keyboard::KeyCode::AltRight => KeyCode::AltRight,
+        keyboard::KeyCode::SuperLeft => KeyCode::SuperLeft,
+        keyboard::KeyCode::SuperRight => KeyCode::SuperRight,
+
+        keyboard::KeyCode::Enter => KeyCode::Enter,
         keyboard::KeyCode::Space => KeyCode::Space,
         keyboard::KeyCode::Tab => KeyCode::Tab,
         keyboard::KeyCode::Delete => KeyCode::Delete,

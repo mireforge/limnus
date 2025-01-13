@@ -9,7 +9,7 @@ categories = ["game-development"]
 keywords = ["game", "window"]
 
 [dependencies]
-winit = { version = "0.30.5", features = ["rwh_05"] }
+winit = { version = "0.30.8", features = ["rwh_05"] }
 limnus-log = { path = "../log", version = "0.0.13" }
 
 # WASM

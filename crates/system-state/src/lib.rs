@@ -78,7 +78,8 @@ impl State {
         self.messages.get_mut::<M>()
     }
 
-    #[must_use] pub fn message<M: Message>(&self) -> Option<&Messages<M>> {
+    #[must_use]
+    pub fn message<M: Message>(&self) -> Option<&Messages<M>> {
         self.messages.get::<M>()
     }
 }
