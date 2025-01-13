@@ -1,6 +1,6 @@
 [package]
 name = "limnus-basic-input"
-version = "0.0.13"
+version = "0.0.14"
 edition = "2021"
 repository = "https://github.com/swamp/limnus"
 license = "MIT"
@@ -11,4 +11,4 @@ description = "platform neutral input types"
 [dependencies]
 int_math = "0.0.2"
 
-limnus-message = {path = "../message", version = "0.0.13" }
+limnus-message = {path = "../message", version = "0.0.14" }

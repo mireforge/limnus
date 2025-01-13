@@ -1,6 +1,6 @@
 [package]
 name = "limnus"
-version = "0.0.13"
+version = "0.0.14"
 edition = "2021"
 license = "MIT"
 description = "Limnus game engine core"
@@ -9,37 +9,37 @@ categories = ["game-development"]
 keywords = ["game", "engine"]
 
 [dependencies]
-limnus-app = { path = "../app", version = "0.0.13" }
-limnus-asset-id = { path = "../asset-id", version = "0.0.13" }
-limnus-asset-registry = { path = "../asset-registry", version = "0.0.13" }
-limnus-assets = { path = "../assets", version = "0.0.13" }
-limnus-assets-loader = { path = "../assets-loader", version = "0.0.13" }
-limnus-basic-input = { path = "../basic-input", version = "0.0.13" }
-limnus-window-runner = { path = "../window-runner", version = "0.0.13" }
-limnus-wgpu-window = { path = "../wgpu-window", version = "0.0.13" }
-limnus-log = { path = "../log", version = "0.0.13" }
-limnus-wgpu-math = { path = "../wgpu-math", version = "0.0.13" }
-limnus-system-params = { path = "../system-params", version = "0.0.13" }
-limnus-screen = { path = "../screen", version = "0.0.13" }
-limnus-macros = { path = "../macros", version = "0.0.13" }
-limnus-window = { path = "../window", version = "0.0.13" }
-limnus-system-runner = { path = "../system-runner", version = "0.0.13" }
-limnus-resource = { path = "../resource", version = "0.0.13" }
-limnus-local-resource = { path = "../local-resource", version = "0.0.13" }
-limnus-message = { path = "../message", version = "0.0.13" }
-limnus-loader = { path = "../loader", version = "0.0.13" }
+limnus-app = { path = "../app", version = "0.0.14" }
+limnus-asset-id = { path = "../asset-id", version = "0.0.14" }
+limnus-asset-registry = { path = "../asset-registry", version = "0.0.14" }
+limnus-assets = { path = "../assets", version = "0.0.14" }
+limnus-assets-loader = { path = "../assets-loader", version = "0.0.14" }
+limnus-basic-input = { path = "../basic-input", version = "0.0.14" }
+limnus-window-runner = { path = "../window-runner", version = "0.0.14" }
+limnus-wgpu-window = { path = "../wgpu-window", version = "0.0.14" }
+limnus-log = { path = "../log", version = "0.0.14" }
+limnus-wgpu-math = { path = "../wgpu-math", version = "0.0.14" }
+limnus-system-params = { path = "../system-params", version = "0.0.14" }
+limnus-screen = { path = "../screen", version = "0.0.14" }
+limnus-macros = { path = "../macros", version = "0.0.14" }
+limnus-window = { path = "../window", version = "0.0.14" }
+limnus-system-runner = { path = "../system-runner", version = "0.0.14" }
+limnus-resource = { path = "../resource", version = "0.0.14" }
+limnus-local-resource = { path = "../local-resource", version = "0.0.14" }
+limnus-message = { path = "../message", version = "0.0.14" }
+limnus-loader = { path = "../loader", version = "0.0.14" }
 
-limnus-audio-device = { path = "../audio-device", version = "0.0.13", optional = true }
-limnus-audio-sample = { path = "../audio-sample", version = "0.0.13", optional = true }
-limnus-audio-stream = { path = "../audio-stream", version = "0.0.13", optional = true }
-limnus-audio-mixer = { path = "../audio-mixer", version = "0.0.13", optional = true }
+limnus-audio-device = { path = "../audio-device", version = "0.0.14", optional = true }
+limnus-audio-sample = { path = "../audio-sample", version = "0.0.14", optional = true }
+limnus-audio-stream = { path = "../audio-stream", version = "0.0.14", optional = true }
+limnus-audio-mixer = { path = "../audio-mixer", version = "0.0.14", optional = true }
 
-limnus-gamepad = { path = "../gamepad", version = "0.0.13", optional = true }
-limnus-gamepad-gilrs = { path = "../gamepad-gilrs", version = "0.0.13", optional = true }
+limnus-gamepad = { path = "../gamepad", version = "0.0.14", optional = true }
+limnus-gamepad-gilrs = { path = "../gamepad-gilrs", version = "0.0.14", optional = true }
 
-limnus-default-keys = { path = "../default-keys", version = "0.0.13", optional = true }
+limnus-default-keys = { path = "../default-keys", version = "0.0.14", optional = true }
 
-limnus-clock = { path = "../clock", version = "0.0.13" }
+limnus-clock = { path = "../clock", version = "0.0.14" }
 
 [features]
 default = []

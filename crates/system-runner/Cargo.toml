@@ -1,6 +1,6 @@
 [package]
 name = "limnus-system-runner"
-version = "0.0.13"
+version = "0.0.14"
 edition = "2021"
 repository = "https://github.com/swamp/limnus"
 license = "MIT"
@@ -9,5 +9,5 @@ description = "Runs limnus systems"
 
 
 [dependencies]
-limnus-system = {path = "../system", version = "0.0.13" }
-limnus-system-state = {path = "../system-state", version = "0.0.13" }
+limnus-system = {path = "../system", version = "0.0.14" }
+limnus-system-state = {path = "../system-state", version = "0.0.14" }

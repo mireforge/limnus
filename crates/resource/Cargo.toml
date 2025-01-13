@@ -1,6 +1,6 @@
 [package]
 name = "limnus-resource"
-version = "0.0.13"
+version = "0.0.14"
 edition = "2021"
 license = "MIT"
 description = "resource container"
@@ -9,6 +9,6 @@ categories = ["game-development"]
 keywords = ["game", "resource"]
 
 [dependencies]
-limnus-macros = { path = "../macros", version = "0.0.13" }
+limnus-macros = { path = "../macros", version = "0.0.14" }
 
 [dev-dependencies]

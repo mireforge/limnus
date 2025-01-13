@@ -22,7 +22,7 @@ Add limnus-wgpu-math to your project:
 
 ```toml
 [dependencies]
-limnus-wgpu-math = "0.0.13"
+limnus-wgpu-math = "0.0.14"
 ```
 
 ## License

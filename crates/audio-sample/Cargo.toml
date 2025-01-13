@@ -1,6 +1,6 @@
 [package]
 name = "limnus-audio-sample"
-version = "0.0.13"
+version = "0.0.14"
 edition = "2021"
 license = "MIT"
 description = "Load .wave files into asset"
@@ -13,8 +13,8 @@ hound = "3.5.1"
 oddio = "0.7.4"
 tracing = "0.1.40"
 
-limnus-app = { path = "../app", version = "0.0.13" } # for the plugin
-limnus-assets-loader = { path = "../assets-loader", version = "0.0.13" } # to get the loader registry
-limnus-assets = { path = "../assets", version = "0.0.13" } # to insert the audio
-limnus-asset-registry = { path = "../asset-registry", version = "0.0.13" } # To get the asset name
-limnus-audio-mixer = { path = "../audio-mixer", version = "0.0.13" }
+limnus-app = { path = "../app", version = "0.0.14" } # for the plugin
+limnus-assets-loader = { path = "../assets-loader", version = "0.0.14" } # to get the loader registry
+limnus-assets = { path = "../assets", version = "0.0.14" } # to insert the audio
+limnus-asset-registry = { path = "../asset-registry", version = "0.0.14" } # To get the asset name
+limnus-audio-mixer = { path = "../audio-mixer", version = "0.0.14" }

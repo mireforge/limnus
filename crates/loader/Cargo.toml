@@ -1,6 +1,6 @@
 [package]
 name = "limnus-loader"
-version = "0.0.13"
+version = "0.0.14"
 edition = "2021"
 repository = "https://github.com/swamp/limnus"
 license = "MIT"
@@ -10,12 +10,12 @@ description = "Loads assets for limnus"
 
 [dependencies]
 message-channel = "0.0.1"
-limnus-assets = { path = "../assets", version = "0.0.13" }
+limnus-assets = { path = "../assets", version = "0.0.14" }
 chunk-reader = "0.0.1"
 
 
 # Plugin
 
-limnus-app = { path = "../app", version = "0.0.13" }
-limnus-resource = { path = "../resource", version = "0.0.13" }
+limnus-app = { path = "../app", version = "0.0.14" }
+limnus-resource = { path = "../resource", version = "0.0.14" }
 tracing = "0.1.40"

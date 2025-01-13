@@ -1,13 +1,13 @@
 [package]
 name = "limnus-default-keys"
-version = "0.0.13"
+version = "0.0.14"
 edition = "2021"
 
 [dependencies]
-limnus-app = { path = "../app", version = "0.0.13" }
-limnus-system-params = { path = "../system-params", version = "0.0.13" }
-limnus-system-runner = { path = "../system-runner", version = "0.0.13" }
-limnus-local-resource = { path = "../local-resource", version = "0.0.13" }
-limnus-screen = { path = "../screen", version = "0.0.13" }
-limnus-macros = { path = "../macros", version = "0.0.13" }
-limnus-basic-input = { path = "../basic-input", version = "0.0.13" }
+limnus-app = { path = "../app", version = "0.0.14" }
+limnus-system-params = { path = "../system-params", version = "0.0.14" }
+limnus-system-runner = { path = "../system-runner", version = "0.0.14" }
+limnus-local-resource = { path = "../local-resource", version = "0.0.14" }
+limnus-screen = { path = "../screen", version = "0.0.14" }
+limnus-macros = { path = "../macros", version = "0.0.14" }
+limnus-basic-input = { path = "../basic-input", version = "0.0.14" }

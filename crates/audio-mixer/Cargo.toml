@@ -1,13 +1,13 @@
 [package]
 name = "limnus-audio-mixer"
-version = "0.0.13"
+version = "0.0.14"
 edition = "2021"
 license = "MIT"
 description = "A simple stereo audio mixer built on top of [oddio](https://crates.io/crates/oddio)"
 repository = "https://github.com/swamp/limnus"
 
 [dependencies]
-limnus-local-resource = { path = "../local-resource", version = "0.0.13" }
-limnus-assets = { path = "../assets", version = "0.0.13" }
+limnus-local-resource = { path = "../local-resource", version = "0.0.14" }
+limnus-assets = { path = "../assets", version = "0.0.14" }
 oddio = "0.7.4"
-limnus-app = { path = "../app", version = "0.0.13" }
+limnus-app = { path = "../app", version = "0.0.14" }

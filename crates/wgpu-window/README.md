@@ -22,7 +22,7 @@ Add limnus-wgpu-window to your project’s Cargo.toml:
 
 ```toml
 [dependencies]
-limnus-wgpu-window = "0.0.13"
+limnus-wgpu-window = "0.0.14"
 ```
 
 ## License
