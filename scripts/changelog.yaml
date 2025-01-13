@@ -23,6 +23,36 @@ repo: swamp/limnus
 # internal
 
 releases:
+  v0.0.14:
+    date: "2025-01-13"
+    notice: |
+      More work on wasm
+
+    packages:
+      limnus-window:
+        changed:
+          - Upgrade to winit `0.30.8`
+
+      limnus-window-runner:
+        changed:
+          - Upgrade to winit `0.30.8`
+
+      limnus-default-keys:
+        added:
+          - "`alt-enter`: Fullscreen toggle. `alt-shift-enter`: Fullscreen toggle with always on top."
+
+      limnus-clock:
+        changed: 
+          - Upgrade to `monotonic-time-rs 0.0.9` to support wasm
+
+      limnus-system-params:
+        changed: 
+          - Uses `get()` instead of `fetch()`. Params return an `Option<Item>` instead of `Item`.
+
+      limnus-system:
+        changed:
+          - Use new system-params `get()` instead of `fetch()`. A system function will only be called if all system parameters are available.
+
   v0.0.12:
     date: "2024-12-03"
     notice: |
@@ -52,4 +82,3 @@ releases:
     date: "2024-11-24"
     notice: |
       Moved from Swamp.
-
