@@ -1,6 +1,6 @@
 [package]
 name = "limnus-gamepad"
-version = "0.0.14"
+version = "0.0.15"
 edition = "2021"
 license = "MIT"
 description = "Platform independent gamepad management"
@@ -9,9 +9,9 @@ categories = ["game-development"]
 keywords = ["game", "input"]
 
 [dependencies]
-limnus-resource = { path = "../resource", version = "0.0.14" }
-limnus-app = { path = "../app", version = "0.0.14" }
-limnus-message = { path = "../message", version = "0.0.14" }
+limnus-resource = { path = "../resource", version = "0.0.15" }
+limnus-app = { path = "../app", version = "0.0.15" }
+limnus-message = { path = "../message", version = "0.0.15" }
 
 tracing = "0.1.41"
 fixstr = "0.0.3"

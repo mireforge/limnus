@@ -16,7 +16,7 @@ To use `limnus-message`, add it to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-limnus-message = "0.0.14"
+limnus-message = "0.0.15"
 ```
 
 ## License
