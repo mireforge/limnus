@@ -12,8 +12,9 @@ use limnus_assets::prelude::*;
 use limnus_assets_loader::ResourceStorage;
 use limnus_assets_loader::{AssetLoaderRegistry, LoadError, WrappedAssetLoaderRegistry};
 use limnus_loader::{load, Blob, LoaderReceiver, LoaderSender};
+use limnus_local_resource::LocalResourceStorage;
 use limnus_resource::prelude::Resource;
-use limnus_system_params::{Re, ReAll, ReM};
+use limnus_system_params::{LocReAll, Re, ReAll, ReM};
 use limnus_system_runner::UpdatePhase;
 use message_channel::{Channel, Receiver, Sender};
 use std::any::TypeId;
@@ -98,12 +99,13 @@ impl AssetRegistry {
         id: RawWeakId,
         octets: &[u8],
         resources: &mut ResourceStorage,
+        local_resources: &mut LocalResourceStorage,
     ) -> Result<(), LoadError> {
         self.infos.get_mut(&id).unwrap().phase = Phase::Defined;
         self.converters
             .lock()
             .unwrap()
-            .convert_and_insert(id, octets, resources)
+            .convert_and_insert(id, octets, resources, local_resources)
     }
 
     pub fn asset_id_dropped<A: Asset>(&mut self, id: Id<A>) {
@@ -132,11 +134,17 @@ fn tick(
     loader_receiver: Re<LoaderReceiver>,
     mut asset_container: ReM<AssetRegistry>,
     mut mut_access_to_resources: ReAll,
+    mut mut_access_to_local_resources: LocReAll,
 ) {
     if let Some(blob) = loader_receiver.receiver.try_recv() {
         debug!("loaded {:?}, starting conversion", blob);
         asset_container
-            .blob_loaded(blob.id, &blob.content, &mut mut_access_to_resources)
+            .blob_loaded(
+                blob.id,
+                &blob.content,
+                &mut mut_access_to_resources,
+                &mut mut_access_to_local_resources,
+            )
             .expect("couldn't convert")
     }
 }

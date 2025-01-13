@@ -4,6 +4,7 @@
  */
 use limnus_assets::prelude::*;
 use limnus_assets_loader::{AssetLoader, ConversionError};
+use limnus_local_resource::LocalResourceStorage;
 use limnus_resource::ResourceStorage;
 
 #[derive(Asset, Debug)]
@@ -33,6 +34,7 @@ impl AssetLoader for TestImageLoader {
         id: RawWeakId,
         _octets: &[u8],
         resources: &mut ResourceStorage,
+        _local_resource_storage: &mut LocalResourceStorage,
     ) -> Result<(), ConversionError> {
         // TODO: do png conversion
         let image_assets = resources.fetch_mut::<Assets<TestImage>>();

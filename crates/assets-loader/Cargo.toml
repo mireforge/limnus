@@ -11,6 +11,7 @@ description = "loads assets"
 limnus-app = { path = "../app", version = "0.0.14" }
 limnus-assets = { path = "../assets", version = "0.0.14" }
 limnus-resource = { path = "../resource", version = "0.0.14" }
+limnus-local-resource = { path = "../local-resource", version = "0.0.14" }
 tracing = "0.1.40"
 
 [dev-dependencies]

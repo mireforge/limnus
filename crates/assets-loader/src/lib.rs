@@ -4,6 +4,7 @@
  */
 use limnus_app::prelude::{App, Plugin};
 use limnus_assets::prelude::{Asset, RawWeakId};
+use limnus_local_resource::LocalResourceStorage;
 use limnus_resource::prelude::Resource;
 pub use limnus_resource::ResourceStorage;
 use std::any::{type_name, TypeId};
@@ -49,6 +50,7 @@ pub trait AssetLoader: Send + Sync {
         id: RawWeakId,
         octets: &[u8],
         world: &mut ResourceStorage,
+        local_resource: &mut LocalResourceStorage,
     ) -> Result<(), ConversionError>;
 }
 
@@ -62,6 +64,7 @@ pub trait AnyAssetLoader: Send + Sync {
         id: RawWeakId,
         octets: &[u8],
         resources: &mut ResourceStorage,
+        local_resource_storage: &mut LocalResourceStorage,
     ) -> Result<(), LoadError>;
 
     fn asset_type_id(&self) -> TypeId;
@@ -76,8 +79,9 @@ where
         id: RawWeakId,
         octets: &[u8],
         resources: &mut ResourceStorage,
+        local_resource_storage: &mut LocalResourceStorage,
     ) -> Result<(), LoadError> {
-        self.convert_and_insert(id, octets, resources)
+        self.convert_and_insert(id, octets, resources, local_resource_storage)
             .map_err(LoadError::from)
     }
 
@@ -136,13 +140,14 @@ impl AssetLoaderRegistry {
         id: RawWeakId,
         octets: &[u8],
         resources: &mut ResourceStorage,
+        local_resources: &mut LocalResourceStorage,
     ) -> Result<(), LoadError> {
         let loader = self
             .loaders
             .get(&id.type_id())
             .ok_or(LoadError::MissingLoader(id))?;
 
-        loader.convert_and_insert_erased(id, octets, resources)
+        loader.convert_and_insert_erased(id, octets, resources, local_resources)
     }
 }
 

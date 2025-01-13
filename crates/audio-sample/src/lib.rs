@@ -10,6 +10,7 @@ use limnus_assets_loader::{
     AssetLoader, ConversionError, ResourceStorage, WrappedAssetLoaderRegistry,
 };
 use limnus_audio_mixer::StereoSample;
+use limnus_local_resource::LocalResourceStorage;
 use tracing::debug;
 
 pub fn load_wav(payload: &[u8]) -> StereoSample {
@@ -78,6 +79,7 @@ impl AssetLoader for StereoSampleConverter {
         id: RawWeakId,
         octets: &[u8],
         resources: &mut ResourceStorage,
+        _local_resources: &mut LocalResourceStorage,
     ) -> Result<(), ConversionError> {
         let name: AssetName;
         {
