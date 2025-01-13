@@ -2,6 +2,11 @@
 name = "limnus-default-keys"
 version = "0.0.14"
 edition = "2021"
+license = "MIT"
+description = "Default keys implementation for limnus"
+repository = "https://github.com/swamp/limnus"
+categories = ["game-development"]
+keywords = ["game", "input"]
 
 [dependencies]
 limnus-app = { path = "../app", version = "0.0.14" }
