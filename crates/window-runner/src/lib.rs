@@ -11,8 +11,6 @@ use crate::convert::{
 use int_math::{UVec2, Vec2};
 use limnus_app::prelude::{App, AppReturnValue, ApplicationExit};
 use limnus_basic_input::prelude::*;
-use limnus_local_resource::prelude::LocalResource;
-use limnus_resource::prelude::Resource;
 use limnus_screen::{ScreenMode, Window, WindowMessage};
 use limnus_wgpu_window::{annoying_async_device_creation, WgpuWindow};
 use limnus_window::{AppHandler, WindowMode};
