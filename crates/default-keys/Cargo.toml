@@ -1,6 +1,6 @@
 [package]
 name = "limnus-default-keys"
-version = "0.0.15"
+version = "0.0.16"
 edition = "2021"
 license = "MIT"
 description = "Default keys implementation for limnus"
@@ -9,10 +9,10 @@ categories = ["game-development"]
 keywords = ["game", "input"]
 
 [dependencies]
-limnus-app = { path = "../app", version = "0.0.15" }
-limnus-system-params = { path = "../system-params", version = "0.0.15" }
-limnus-local-resource = { path = "../local-resource", version = "0.0.15" }
-limnus-screen = { path = "../screen", version = "0.0.15" }
-limnus-macros = { path = "../macros", version = "0.0.15" }
-limnus-basic-input = { path = "../basic-input", version = "0.0.15" }
-limnus-default-stages = { path = "../default-stages", version = "0.0.15" }
+limnus-app = { path = "../app", version = "0.0.16" }
+limnus-system-params = { path = "../system-params", version = "0.0.16" }
+limnus-local-resource = { path = "../local-resource", version = "0.0.16" }
+limnus-screen = { path = "../screen", version = "0.0.16" }
+limnus-macros = { path = "../macros", version = "0.0.16" }
+limnus-basic-input = { path = "../basic-input", version = "0.0.16" }
+limnus-default-stages = { path = "../default-stages", version = "0.0.16" }

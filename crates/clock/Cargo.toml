@@ -1,6 +1,6 @@
 [package]
 name = "limnus-clock"
-version = "0.0.15"
+version = "0.0.16"
 edition = "2021"
 license = "MIT"
 description = "clock management"
@@ -11,13 +11,13 @@ keywords = ["game", "clock"]
 [dependencies]
 tracing = "0.1.40"
 
-limnus-system-params = { path = "../system-params", version = "0.0.15" }
-limnus-local-resource = { path = "../local-resource", version = "0.0.15" }
-limnus-resource = { path = "../resource", version = "0.0.15" }
-limnus-macros = { path = "../macros", version = "0.0.15" }
+limnus-system-params = { path = "../system-params", version = "0.0.16" }
+limnus-local-resource = { path = "../local-resource", version = "0.0.16" }
+limnus-resource = { path = "../resource", version = "0.0.16" }
+limnus-macros = { path = "../macros", version = "0.0.16" }
 monotonic-time-rs = "0.0.9"
-limnus-app = { path = "../app", version = "0.0.15" }
-limnus-default-stages = { path = "../default-stages", version = "0.0.15" }
+limnus-app = { path = "../app", version = "0.0.16" }
+limnus-default-stages = { path = "../default-stages", version = "0.0.16" }
 
 [dev-dependencies]
 test-log = "0.2.16"

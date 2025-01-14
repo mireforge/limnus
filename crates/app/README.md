@@ -22,7 +22,7 @@ Add limnus-app to your project’s Cargo.toml:
 
 ```toml
 [dependencies]
-limnus-app = "0.0.15"
+limnus-app = "0.0.16"
 ```
 
 ## License
