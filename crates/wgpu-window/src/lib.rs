@@ -28,6 +28,7 @@ pub struct WgpuWindow {
 }
 
 impl WgpuWindow {
+    #[must_use]
     pub const fn queue(&self) -> &Arc<Queue> {
         &self.queue
     }

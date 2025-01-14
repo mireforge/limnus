@@ -24,7 +24,7 @@ impl Stages {
             stages: HashMap::default(),
         }
     }
-    pub fn add<S>(&mut self, _stage_tag: &S, stage: Stage)
+    pub fn add<S>(&mut self, stage: Stage)
     where
         S: StageTag,
     {

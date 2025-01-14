@@ -5,11 +5,10 @@
 use limnus_local_resource::{LocalResource, LocalResourceStorage};
 use limnus_message::{Message, MessageId, MessageStorage, Messages, MessagesIterator};
 use limnus_resource::prelude::*;
-use limnus_system::{IntoSystem, SystemParam};
-
 use limnus_scheduler::Scheduler;
 use limnus_scheduler_runner::Runner;
 use limnus_stage::{Stage, StageTag, Stages};
+use limnus_system::{IntoSystem, SystemParam};
 use limnus_system_state::State;
 use std::any::type_name;
 use tracing::{debug, info};
@@ -86,6 +85,7 @@ impl Default for App {
 }
 
 impl App {
+    #[must_use]
     pub fn new() -> Self {
         Self {
             app_runner: None,
@@ -97,6 +97,7 @@ impl App {
         }
     }
 
+    #[must_use]
     pub fn empty() -> Self {
         Self {
             app_runner: None,
@@ -124,16 +125,16 @@ impl App {
         self
     }
 
-    pub fn add_stage<S>(&mut self, stage_tag: S)
+    pub fn add_stage<S>(&mut self)
     where
         S: StageTag,
     {
         let stage = Stage::new();
-        self.stages.add(&stage_tag, stage);
+        self.stages.add::<S>(stage);
     }
 
     /// # Panics
-    /// `Stages` must exist as a local resource
+    /// a `Stage` for the type parameter `S` must exist
     pub fn add_system<F, Params, S>(&mut self, _stage_tag: S, system: F)
     where
         F: IntoSystem<Params>,
@@ -153,7 +154,7 @@ impl App {
         self.schedulers_runner.add_scheduler(scheduler);
     }
 
-    /// The function supplied by app_runner can in some scenarios never return.
+    /// The function supplied by `app_runner` can in some scenarios never return.
     pub fn set_runner(
         &mut self,
         app_runner: impl FnOnce(Self) -> AppReturnValue + 'static,
@@ -180,6 +181,7 @@ impl App {
     }
 
     #[inline]
+    #[must_use]
     pub fn get_resource_ref<R: Resource>(&self) -> Option<&R> {
         self.state.resources().get::<R>()
     }
@@ -190,6 +192,7 @@ impl App {
     }
 
     #[inline]
+    #[must_use]
     pub fn resource<R: Resource>(&self) -> &R {
         self.state.resources().fetch::<R>()
     }
@@ -199,6 +202,7 @@ impl App {
         self.state.resources_mut().fetch_mut::<R>()
     }
 
+    #[must_use]
     pub const fn resources(&self) -> &ResourceStorage {
         self.state.resources()
     }
@@ -207,11 +211,13 @@ impl App {
         self.state.resources_mut()
     }
 
-    pub fn local_resources(&self) -> &LocalResourceStorage {
+    #[must_use]
+    pub const fn local_resources(&self) -> &LocalResourceStorage {
         self.state.local_resources()
     }
 
     #[inline]
+    #[must_use]
     pub fn has_resource<R: Resource>(&self) -> bool {
         self.state.resources().contains::<R>()
     }
@@ -221,7 +227,8 @@ impl App {
         self.state.messages_mut().register_message_type::<M>();
     }
 
-    pub fn get_messages<M: Message>(&mut self) -> Option<&Messages<M>> {
+    #[must_use]
+    pub fn get_messages<M: Message>(&self) -> Option<&Messages<M>> {
         self.state.messages().get::<M>()
     }
 
@@ -233,6 +240,7 @@ impl App {
             .send(message)
     }
 
+    #[must_use]
     pub const fn messages(&self) -> &MessageStorage {
         self.state.messages()
     }
@@ -241,10 +249,12 @@ impl App {
         self.state.messages_mut()
     }
 
+    #[must_use]
     pub fn iter_current<M: Message>(&self) -> MessagesIterator<M> {
         self.state.messages().get::<M>().unwrap().iter_current()
     }
 
+    #[must_use]
     pub fn iter_previous<M: Message>(&self) -> MessagesIterator<M> {
         self.state.messages().get::<M>().unwrap().iter_previous()
     }

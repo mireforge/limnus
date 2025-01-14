@@ -25,7 +25,8 @@ pub struct RawAssetId {
 }
 
 impl RawAssetId {
-    pub fn new(generation: u16, index: u16) -> Self {
+    #[must_use]
+    pub const fn new(generation: u16, index: u16) -> Self {
         Self { generation, index }
     }
 }
@@ -81,7 +82,8 @@ impl RawWeakId {
         }
     }
 
-    pub fn type_id(&self) -> TypeId {
+    #[must_use]
+    pub const fn type_id(&self) -> TypeId {
         self.type_id
     }
 }
@@ -117,14 +119,15 @@ impl<A: Asset> Clone for WeakId<A> {
 
 impl<A: Asset> WeakId<A> {
     #[must_use]
-    pub fn new(raw_id: RawWeakId) -> Self {
+    pub const fn new(raw_id: RawWeakId) -> Self {
         Self {
             raw_id,
             phantom_data: PhantomData,
         }
     }
 
-    pub fn raw_id(&self) -> RawWeakId {
+    #[must_use]
+    pub const fn raw_id(&self) -> RawWeakId {
         self.raw_id
     }
 }
@@ -189,12 +192,13 @@ impl<A: Asset> Clone for Id<A> {
 }
 
 impl<A: Asset> From<&Id<A>> for WeakId<A> {
-    fn from(id: &Id<A>) -> WeakId<A> {
-        WeakId::<A>::new(id.owner.raw_id())
+    fn from(id: &Id<A>) -> Self {
+        Self::new(id.owner.raw_id())
     }
 }
 
 impl<A: Asset> Id<A> {
+    #[must_use]
     pub fn new(raw_id: RawAssetId, sender: Sender<DropMessage>, asset_name: AssetName) -> Self {
         let raw_id_type = RawWeakId::with_asset_type::<A>(raw_id, asset_name);
         Self {
@@ -203,6 +207,7 @@ impl<A: Asset> Id<A> {
         }
     }
 
+    #[must_use]
     pub fn asset_name(&self) -> Option<AssetName> {
         self.owner.asset_name()
     }
@@ -254,7 +259,7 @@ pub struct AssetName {
 
 impl AssetName {
     #[must_use]
-    pub fn with_extension(&self, extension: &str) -> impl Into<AssetName> {
+    pub fn with_extension(&self, extension: &str) -> impl Into<Self> {
         let added = format!("{}.{}", self.value.as_str(), extension);
         Self {
             value: FixStr::new_unchecked(added.as_str()),
@@ -264,6 +269,9 @@ impl AssetName {
 
 // Example usage:
 impl AssetName {
+    /// # Panics
+    /// The asset name must be a valid name, checked by `is_valid_asset_name`.
+    #[must_use]
     pub fn new(value: &str) -> Self {
         assert!(is_valid_asset_name(value), "invalid asset name: {}", value);
         Self {
