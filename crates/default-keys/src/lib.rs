@@ -1,11 +1,11 @@
 use limnus_app::prelude::{App, Plugin};
 use limnus_basic_input::prelude::{ButtonState, KeyCode};
 use limnus_basic_input::InputMessage;
+use limnus_default_stages::First;
 use limnus_local_resource::LocalResource;
 use limnus_macros::LocalResource;
 use limnus_screen::{ScreenMode, Window};
 use limnus_system_params::{LoReM, Msg, ReM};
-use limnus_system_runner::UpdatePhase;
 
 #[derive(Debug, LocalResource)]
 pub struct DefaultKeys {
@@ -58,6 +58,6 @@ impl Plugin for DefaultKeysPlugin {
             left_alt_key: false,
             left_shift_key: false,
         });
-        app.add_system(UpdatePhase::First, check_key);
+        app.add_system(First, check_key);
     }
 }

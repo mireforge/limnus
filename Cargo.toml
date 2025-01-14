@@ -33,4 +33,7 @@ members = [
     "crates/audio-mixer",
     "crates/clock",
     "crates/default-keys",
+    "crates/default-stages",
+    "crates/stage",
+    "crates/default-stage-plugin", "crates/default-schedulers",
 ]

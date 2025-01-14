@@ -1,15 +1,9 @@
 [package]
-name = "limnus-system-runner"
+name = "limnus-stage"
 version = "0.0.15"
 edition = "2021"
-repository = "https://github.com/swamp/limnus"
-license = "MIT"
-categories = ["game-development"]
-description = "Runs limnus systems"
-
 
 [dependencies]
 limnus-system = { path = "../system", version = "0.0.15" }
 limnus-system-state = { path = "../system-state", version = "0.0.15" }
 limnus-local-resource = { path = "../local-resource", version = "0.0.15" }
-limnus-stage = { path = "../stage", version = "0.0.15"}

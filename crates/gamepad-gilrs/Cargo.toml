@@ -21,5 +21,5 @@ limnus-system-params = { path = "../system-params", version = "0.0.15" }
 limnus-local-resource = { path = "../local-resource", version = "0.0.15" }
 
 # For the Plugin
-limnus-system-runner = { path = "../system-runner", version = "0.0.15" }
 limnus-app = { path = "../app", version = "0.0.15" }
+limnus-default-stages = { path = "../default-stages", version = "0.0.15" }

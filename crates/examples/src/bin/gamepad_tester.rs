@@ -3,12 +3,12 @@
  * Licensed under the MIT License. See LICENSE in the project root for license information.
  */
 use limnus_app::prelude::{App, AppReturnValue};
+use limnus_default_stages::Update;
 use limnus_gamepad::{GamepadMessage, GamepadResourcePlugin, Gamepads};
 use limnus_gamepad_gilrs::GamepadGilrsPlugin;
 use limnus_local_resource::prelude::LocalResource;
 use limnus_log::LogPlugin;
 use limnus_system_params::{LoReM, Msg, Re};
-use limnus_system_runner::UpdatePhase;
 use std::thread::sleep;
 use std::time::Duration;
 use tracing::info;
@@ -74,7 +74,7 @@ fn main() {
 
     app.add_plugins((LogPlugin, GamepadResourcePlugin, GamepadGilrsPlugin));
 
-    app.add_system(UpdatePhase::Update, tick);
+    app.add_system(Update, tick);
 
     app.insert_local_resource(TesterState { counter: 0 });
 

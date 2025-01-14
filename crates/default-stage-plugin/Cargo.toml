@@ -1,0 +1,8 @@
+[package]
+name = "limnus-default-stage-plugin"
+version = "0.0.15"
+edition = "2021"
+
+[dependencies]
+limnus-app = { path = "../app", version = "0.0.15" }
+limnus-default-stages = { path = "../default-stages", version = "0.0.15" }

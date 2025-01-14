@@ -40,7 +40,12 @@ limnus-gamepad-gilrs = { path = "../gamepad-gilrs", version = "0.0.15", optional
 limnus-default-keys = { path = "../default-keys", version = "0.0.15", optional = true }
 
 limnus-clock = { path = "../clock", version = "0.0.15" }
+limnus-default-stage-plugin = { path = "../default-stage-plugin", version = "0.0.15" }
 
+limnus-system-state = { path = "../system-state", version = "0.0.15" }
+limnus-stage = { path = "../stage", version = "0.0.15" }
+limnus-default-stages = { path = "../default-stages", version = "0.0.15" }
+limnus-default-schedulers = { path = "../default-schedulers", version = "0.0.15" }
 [features]
 default = ["audio", "gamepad", "default_keys"]
 audio = ["limnus-audio-device", "limnus-audio-sample", "limnus-audio-mixer", "limnus-audio-stream"]

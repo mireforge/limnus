@@ -15,8 +15,8 @@ limnus-assets-loader = { path = "../assets-loader", version = "0.0.15" }
 limnus-loader = { path = "../loader", version = "0.0.15" }
 limnus-resource = { path = "../resource", version = "0.0.15" }
 limnus-local-resource = { path = "../local-resource", version = "0.0.15" }
-limnus-system-runner = { path = "../system-runner", version = "0.0.15" }
 message-channel = "0.0.1"
 chunk-reader = "0.0.1"
 tracing = "0.1.40"
 limnus-system-params = { path = "../system-params", version = "0.0.15" }
+limnus-default-stages = { path = "../default-stages", version = "0.0.15" }

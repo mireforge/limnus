@@ -3,10 +3,10 @@
  * Licensed under the MIT License. See LICENSE in the project root for license information.
  */
 use limnus_app::prelude::*;
+use limnus_default_stages::{First, Update};
 use limnus_message::prelude::Message;
 use limnus_resource::prelude::Resource;
 use limnus_system_params::{Msg, Re, ReM};
-use limnus_system_runner::UpdatePhase;
 
 #[derive(Debug, Resource)]
 pub struct TestResource {
@@ -56,9 +56,9 @@ fn test_systems() {
     });
     app.create_message_type::<TestMessage>();
 
-    app.add_system(UpdatePhase::Update, test_system_3); // this will run last
-    app.add_system(UpdatePhase::First, test_system);
-    app.add_system(UpdatePhase::First, test_system_2);
+    app.add_system(Update, test_system_3); // this will run last
+    app.add_system(First, test_system);
+    app.add_system(First, test_system_2);
 
     app.update();
 

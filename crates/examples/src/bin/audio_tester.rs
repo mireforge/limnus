@@ -9,10 +9,10 @@ use limnus::prelude::{
 };
 use limnus_app::prelude::{App, AppReturnValue};
 use limnus_assets_loader::AssetLoaderRegistryPlugin;
+use limnus_default_stages::Update;
 use limnus_loader::LoaderPlugin;
 use limnus_log::LogPlugin;
 use limnus_system_params::{LoReM, Re, ReM};
-use limnus_system_runner::UpdatePhase;
 use std::thread::sleep;
 use std::time::Duration;
 
@@ -72,10 +72,10 @@ fn main() {
         AudioStreamPlugin,
     ));
 
-    app.add_system(UpdatePhase::Update, tick);
+    app.add_system(Update, tick);
 
     app.insert_local_resource(AudioTesterState {
-        stereo_sample: Default::default(),
+        stereo_sample: Option::default(),
         counter: 0,
     });
 

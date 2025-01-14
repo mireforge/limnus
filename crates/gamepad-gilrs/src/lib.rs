@@ -4,11 +4,11 @@
  */
 use gilrs::{Error, EventType, Gilrs};
 use limnus_app::prelude::{App, Plugin};
+use limnus_default_stages::First;
 use limnus_gamepad::{Axis, Button, GamepadMessage, Gamepads};
 use limnus_local_resource::prelude::LocalResource;
 use limnus_message::Messages;
 use limnus_system_params::prelude::*;
-use limnus_system_runner::UpdatePhase;
 use tracing::trace;
 
 #[derive(Debug)]
@@ -134,6 +134,6 @@ impl Plugin for GamepadGilrsPlugin {
     fn build(&self, app: &mut App) {
         app.insert_local_resource(GamepadGilrs::new().expect("Failed to initialize GamepadGilrs"));
 
-        app.add_system(UpdatePhase::First, check_gamepads);
+        app.add_system(First, check_gamepads);
     }
 }

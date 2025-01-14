@@ -6,7 +6,9 @@ use limnus_local_resource::{LocalResource, LocalResourceStorage};
 use limnus_message::{Message, MessageId, MessageStorage, Messages, MessagesIterator};
 use limnus_resource::prelude::*;
 use limnus_system::{IntoSystem, SystemParam};
-use limnus_system_runner::{Runner, UpdatePhase};
+
+use limnus_stage::{Stage, StageTag, Stages};
+use limnus_system_runner::{Runner, Scheduler};
 use limnus_system_state::State;
 use std::any::type_name;
 use tracing::{debug, info};
@@ -24,6 +26,7 @@ pub struct App {
     plugins: Vec<Box<dyn Plugin>>,
     state: State,
     phase: AppPhase,
+    stages: Stages,
 }
 
 impl App {
@@ -63,7 +66,8 @@ impl App {
         // TODO: move message swapping to a tick_fn that is scheduled first in a more clean way
         self.state.messages_mut().swap_all();
 
-        self.system_runner.run_systems(&mut self.state);
+        self.system_runner
+            .run_systems(&self.stages, &mut self.state);
     }
 }
 
@@ -91,6 +95,7 @@ impl App {
             plugins: Vec::default(),
             phase: AppPhase::WaitingForPlugins,
             system_runner: Runner::new(),
+            stages: Stages::new(),
         }
     }
 
@@ -101,6 +106,7 @@ impl App {
             plugins: Vec::default(),
             phase: AppPhase::WaitingForPlugins,
             system_runner: Runner::new(),
+            stages: Stages::new(),
         }
     }
 
@@ -120,12 +126,33 @@ impl App {
         self
     }
 
-    pub fn add_system<F, Params>(&mut self, update_phase: UpdatePhase, system: F)
+    pub fn add_stage<S>(&mut self, stage_tag: S)
+    where
+        S: StageTag,
+    {
+        let stage = Stage::new();
+        self.stages.add(&stage_tag, stage);
+    }
+
+    /// # Panics
+    /// `Stages` must exist as a local resource
+    pub fn add_system<F, Params, S>(&mut self, stage_tag: S, system: F)
     where
         F: IntoSystem<Params>,
         Params: SystemParam,
+        S: StageTag,
     {
-        self.system_runner.add_system(update_phase, system);
+        self.stages
+            .get_mut(&stage_tag)
+            .expect("could not find stage")
+            .add_system(system);
+    }
+
+    pub fn add_scheduler<T>(&mut self, scheduler: T)
+    where
+        T: Scheduler,
+    {
+        self.system_runner.add_scheduler(scheduler);
     }
 
     /// The function supplied by app_runner can in some scenarios never return.

@@ -22,6 +22,8 @@ use limnus_audio_sample::AudioSamplePlugin;
 use limnus_audio_stream::AudioStreamPlugin;
 #[cfg(feature = "default_keys")]
 use limnus_default_keys::DefaultKeysPlugin;
+use limnus_default_schedulers::DefaultSchedulersPlugin;
+use limnus_default_stage_plugin::DefaultStagePlugin;
 #[cfg(feature = "gamepad")]
 use limnus_gamepad::GamepadResourcePlugin;
 #[cfg(feature = "gamepad")]
@@ -47,13 +49,8 @@ pub struct DefaultPlugins;
 
 impl Plugin for DefaultPlugins {
     fn build(&self, app: &mut App) {
-        app.add_plugins((
-            LogPlugin,
-            ClockPlugin,
-            LoaderPlugin,
-            AssetLoaderRegistryPlugin,
-            AssetRegistryPlugin,
-        ));
+        app.add_plugins((LogPlugin, DefaultStagePlugin, ClockPlugin, LoaderPlugin));
+        app.add_plugins((AssetLoaderRegistryPlugin, AssetRegistryPlugin));
         app.add_plugins((WindowRunnerPlugin, WgpuWindowPlugin));
 
         #[cfg(feature = "audio")]
@@ -69,5 +66,7 @@ impl Plugin for DefaultPlugins {
 
         #[cfg(feature = "default_keys")]
         app.add_plugins(DefaultKeysPlugin);
+
+        app.add_plugins(DefaultSchedulersPlugin);
     }
 }

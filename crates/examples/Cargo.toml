@@ -13,7 +13,6 @@ name = "gamepad_tester"
 path = "src/bin/gamepad_tester.rs"
 
 [dependencies]
-
 limnus-app = { path = "../app", version = "0.0.15" }
 limnus-system-params = { path = "../system-params", version = "0.0.15" }
 limnus-local-resource = { path = "../local-resource", version = "0.0.15" }
@@ -27,3 +26,4 @@ limnus-loader = { path = "../loader", version = "0.0.15" }
 limnus = { path = "../limnus", version = "0.0.15", features = ["default_keys", "audio"]}
 wgpu = "23.0.0"
 int_math = "0.0.2"
+limnus-default-stages = { path = "../default-stages", version = "0.0.15" }

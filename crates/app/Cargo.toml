@@ -21,5 +21,8 @@ limnus-local-resource = { path = "../local-resource", version = "0.0.15" }
 limnus-system-runner = { path = "../system-runner", version = "0.0.15" }
 limnus-system = { path = "../system", version = "0.0.15" }
 
+limnus-stage = { path = "../stage", version = "0.0.15" }
+
 [dev-dependencies]
 limnus-system-params = { path = "../system-params", version = "0.0.15" }
+limnus-default-stages = { path = "../default-stages", version = "0.0.15" }

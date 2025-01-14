@@ -11,11 +11,11 @@ use limnus_app::prelude::*;
 use limnus_assets::prelude::*;
 use limnus_assets_loader::ResourceStorage;
 use limnus_assets_loader::{AssetLoaderRegistry, LoadError, WrappedAssetLoaderRegistry};
+use limnus_default_stages::First;
 use limnus_loader::{load, Blob, LoaderReceiver, LoaderSender};
 use limnus_local_resource::LocalResourceStorage;
 use limnus_resource::prelude::Resource;
 use limnus_system_params::{LocReAll, Re, ReAll, ReM};
-use limnus_system_runner::UpdatePhase;
 use message_channel::{Channel, Receiver, Sender};
 use std::any::TypeId;
 use std::collections::HashMap;
@@ -126,7 +126,7 @@ impl Plugin for AssetRegistryPlugin {
                 Arc::clone(&asset_loader_registry.value),
             ));
         }
-        app.add_system(UpdatePhase::First, tick);
+        app.add_system(First, tick);
     }
 }
 

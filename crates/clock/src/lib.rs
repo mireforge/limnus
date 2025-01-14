@@ -1,11 +1,11 @@
 pub mod prelude;
 
 use limnus_app::prelude::{App, Plugin};
+use limnus_default_stages::First;
 use limnus_local_resource::LocalResource;
 use limnus_macros::{LocalResource, Resource};
 use limnus_resource::Resource;
 use limnus_system_params::{LoRe, ReM};
-use limnus_system_runner::UpdatePhase;
 use monotonic_time_rs::{create_monotonic_clock, Millis, MonotonicClock};
 use std::fmt::{Debug, Formatter};
 
@@ -33,13 +33,13 @@ pub struct ClockPlugin;
 
 impl Plugin for ClockPlugin {
     fn build(&self, app: &mut App) {
+        let clock = create_monotonic_clock();
+        let now = clock.now();
         app.insert_local_resource(Clock {
-            clock: Box::new(create_monotonic_clock()),
+            clock: Box::new(clock),
         });
-        app.insert_resource(MonotonicTime {
-            time: Millis::from(0),
-        });
+        app.insert_resource(MonotonicTime { time: now });
 
-        app.add_system(UpdatePhase::First, update_time);
+        app.add_system(First, update_time);
     }
 }

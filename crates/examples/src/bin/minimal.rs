@@ -5,12 +5,10 @@ use limnus::{
     DefaultPlugins,
 };
 use limnus_app::prelude::App;
+use limnus_default_stages::{FixedUpdate, RenderUpdate};
 use limnus_system_params::{LoRe, LoReM};
-use limnus_system_runner::UpdatePhase;
 
-pub fn clear_color_tick(mut minimal: LoReM<Minimal>, wgpu_window: LoRe<WgpuWindow>) {
-    minimal.tick += 1;
-
+pub fn clear_color_tick(minimal: LoRe<Minimal>, wgpu_window: LoRe<WgpuWindow>) {
     let time = minimal.tick % 60;
     let normalized_time = time as f64 / 60.0;
 
@@ -21,6 +19,10 @@ pub fn clear_color_tick(mut minimal: LoReM<Minimal>, wgpu_window: LoRe<WgpuWindo
         a: 0.8,
     };
     wgpu_window.render(color, |_render_pass| {}).unwrap();
+}
+
+pub fn update_color(mut minimal: LoReM<Minimal>) {
+    minimal.tick += 1;
 }
 
 #[derive(Debug, LocalResource)]
@@ -43,7 +45,8 @@ fn main() {
         .insert_resource(window_settings);
 
     app.insert_local_resource(Minimal { tick: 0 });
-    app.add_system(UpdatePhase::Update, clear_color_tick);
+    app.add_system(RenderUpdate, clear_color_tick);
+    app.add_system(FixedUpdate, update_color);
 
     app.run();
 }
