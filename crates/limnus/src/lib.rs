@@ -49,8 +49,13 @@ pub struct DefaultPlugins;
 
 impl Plugin for DefaultPlugins {
     fn build(&self, app: &mut App) {
-        app.add_plugins((LogPlugin, DefaultStagesPlugin, ClockPlugin, LoaderPlugin));
-        app.add_plugins((AssetLoaderRegistryPlugin, AssetRegistryPlugin));
+        app.add_plugins((
+            LogPlugin,
+            DefaultStagesPlugin,
+            ClockPlugin,
+            DefaultSchedulersPlugin,
+        ));
+        app.add_plugins((LoaderPlugin, AssetLoaderRegistryPlugin, AssetRegistryPlugin));
         app.add_plugins((WindowRunnerPlugin, WgpuWindowPlugin));
 
         #[cfg(feature = "audio")]
@@ -66,7 +71,5 @@ impl Plugin for DefaultPlugins {
 
         #[cfg(feature = "default_keys")]
         app.add_plugins(DefaultKeysPlugin);
-
-        app.add_plugins(DefaultSchedulersPlugin);
     }
 }
