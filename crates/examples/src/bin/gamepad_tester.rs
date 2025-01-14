@@ -3,7 +3,10 @@
  * Licensed under the MIT License. See LICENSE in the project root for license information.
  */
 use limnus_app::prelude::{App, AppReturnValue};
+use limnus_clock::ClockPlugin;
+use limnus_default_schedulers::DefaultSchedulersPlugin;
 use limnus_default_stages::Update;
+use limnus_default_stages_plugin::DefaultStagesPlugin;
 use limnus_gamepad::{GamepadMessage, GamepadResourcePlugin, Gamepads};
 use limnus_gamepad_gilrs::GamepadGilrsPlugin;
 use limnus_local_resource::prelude::LocalResource;
@@ -72,7 +75,14 @@ fn main() {
 
     let mut app = App::new();
 
-    app.add_plugins((LogPlugin, GamepadResourcePlugin, GamepadGilrsPlugin));
+    app.add_plugins((
+        LogPlugin,
+        DefaultStagesPlugin,
+        ClockPlugin,
+        DefaultSchedulersPlugin,
+    ));
+
+    app.add_plugins((GamepadResourcePlugin, GamepadGilrsPlugin));
 
     app.add_system(Update, tick);
 

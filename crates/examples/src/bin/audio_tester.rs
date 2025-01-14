@@ -9,7 +9,10 @@ use limnus::prelude::{
 };
 use limnus_app::prelude::{App, AppReturnValue};
 use limnus_assets_loader::AssetLoaderRegistryPlugin;
+use limnus_clock::ClockPlugin;
+use limnus_default_schedulers::DefaultSchedulersPlugin;
 use limnus_default_stages::Update;
+use limnus_default_stages_plugin::DefaultStagesPlugin;
 use limnus_loader::LoaderPlugin;
 use limnus_log::LogPlugin;
 use limnus_system_params::{LoReM, Re, ReM};
@@ -60,10 +63,12 @@ fn main() {
 
     app.add_plugins((
         LogPlugin,
-        LoaderPlugin,
-        AssetLoaderRegistryPlugin,
-        AssetRegistryPlugin,
+        DefaultStagesPlugin,
+        ClockPlugin,
+        DefaultSchedulersPlugin,
     ));
+
+    app.add_plugins((LoaderPlugin, AssetLoaderRegistryPlugin, AssetRegistryPlugin));
 
     app.add_plugins((
         AudioDevicePlugin,

@@ -3,7 +3,7 @@
  * Licensed under the MIT License. See LICENSE in the project root for license information.
  */
 use limnus_app::prelude::{App, Plugin};
-use limnus_default_stages::{First, RenderFirst};
+use limnus_default_stages::RenderFirst;
 use limnus_local_resource::prelude::LocalResource;
 use limnus_screen::WindowMessage;
 use limnus_system_params::{LoReM, Msg};

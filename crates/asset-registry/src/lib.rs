@@ -15,7 +15,7 @@ use limnus_default_stages::First;
 use limnus_loader::{load, Blob, LoaderReceiver, LoaderSender};
 use limnus_local_resource::LocalResourceStorage;
 use limnus_resource::prelude::Resource;
-use limnus_system_params::{LocReAll, Re, ReAll, ReM};
+use limnus_system_params::{LoReAll, Re, ReAll, ReM};
 use message_channel::{Channel, Receiver, Sender};
 use std::any::TypeId;
 use std::collections::HashMap;
@@ -134,7 +134,7 @@ fn tick(
     loader_receiver: Re<LoaderReceiver>,
     mut asset_container: ReM<AssetRegistry>,
     mut mut_access_to_resources: ReAll,
-    mut mut_access_to_local_resources: LocReAll,
+    mut mut_access_to_local_resources: LoReAll,
 ) {
     if let Some(blob) = loader_receiver.receiver.try_recv() {
         debug!("loaded {:?}, starting conversion", blob);

@@ -23,7 +23,6 @@ limnus-system-params = { path = "../system-params", version = "0.0.15" }
 limnus-screen = { path = "../screen", version = "0.0.15" }
 limnus-macros = { path = "../macros", version = "0.0.15" }
 limnus-window = { path = "../window", version = "0.0.15" }
-limnus-system-runner = { path = "../system-runner", version = "0.0.15" }
 limnus-resource = { path = "../resource", version = "0.0.15" }
 limnus-local-resource = { path = "../local-resource", version = "0.0.15" }
 limnus-message = { path = "../message", version = "0.0.15" }
@@ -38,16 +37,20 @@ limnus-gamepad = { path = "../gamepad", version = "0.0.15", optional = true }
 limnus-gamepad-gilrs = { path = "../gamepad-gilrs", version = "0.0.15", optional = true }
 
 limnus-default-keys = { path = "../default-keys", version = "0.0.15", optional = true }
+limnus-default-schedulers = { path = "../default-schedulers", version = "0.0.15", optional = true }
+
 
 limnus-clock = { path = "../clock", version = "0.0.15" }
-limnus-default-stage-plugin = { path = "../default-stage-plugin", version = "0.0.15" }
+limnus-default-stages-plugin = { path = "../default-stages-plugin", version = "0.0.15" }
 
 limnus-system-state = { path = "../system-state", version = "0.0.15" }
 limnus-stage = { path = "../stage", version = "0.0.15" }
 limnus-default-stages = { path = "../default-stages", version = "0.0.15" }
-limnus-default-schedulers = { path = "../default-schedulers", version = "0.0.15" }
+limnus-scheduler = { path = "../scheduler", version = "0.0.15" }
+
 [features]
-default = ["audio", "gamepad", "default_keys"]
+default = ["audio", "gamepad", "default_keys", "default_schedulers"]
 audio = ["limnus-audio-device", "limnus-audio-sample", "limnus-audio-mixer", "limnus-audio-stream"]
 gamepad = ["limnus-gamepad", "limnus-gamepad-gilrs"]
 default_keys = ["limnus-default-keys"]
+default_schedulers = ["limnus-default-schedulers"]

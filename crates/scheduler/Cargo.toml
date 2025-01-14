@@ -1,0 +1,8 @@
+[package]
+name = "limnus-scheduler"
+version = "0.0.15"
+edition = "2021"
+
+[dependencies]
+limnus-system-state = { path = "../system-state", version = "0.0.15" }
+limnus-stage = { path = "../stage", version = "0.0.15"}

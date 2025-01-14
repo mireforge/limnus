@@ -5,12 +5,12 @@ use limnus_default_stages::{
     RenderFirst, RenderPostUpdate, RenderPreUpdate, RenderUpdate, Update,
 };
 use limnus_resource::prelude::Resource;
+use limnus_scheduler::Scheduler;
 use limnus_stage::Stages;
-use limnus_system_runner::Scheduler;
+use limnus_system_params::MsgAll;
 use limnus_system_state::State;
 use monotonic_time_rs::{Millis, MillisDuration};
 use std::any::TypeId;
-use tracing::info;
 
 #[derive(Debug)]
 pub struct MainScheduler;
@@ -83,8 +83,6 @@ impl Scheduler for FixedScheduler {
             }
         }
 
-        info!(%tick_count, "tick_count");
-
         {
             let fixed_scheduler_data = state.resources_mut().fetch_mut::<FixedSchedulerData>();
             fixed_scheduler_data.consumed_up_to_time = consumed_up_to_time;
@@ -115,6 +113,10 @@ impl Scheduler for RenderScheduler {
     }
 }
 
+fn swap_messages(mut messages: MsgAll) {
+    messages.swap_all();
+}
+
 pub struct DefaultSchedulersPlugin;
 
 impl Plugin for DefaultSchedulersPlugin {
@@ -129,5 +131,7 @@ impl Plugin for DefaultSchedulersPlugin {
         app.add_scheduler(MainScheduler);
         app.add_scheduler(FixedScheduler);
         app.add_scheduler(RenderScheduler);
+
+        app.add_system(First, swap_messages);
     }
 }

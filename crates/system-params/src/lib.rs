@@ -5,7 +5,7 @@
 pub mod prelude;
 
 use limnus_local_resource::{LocalResource, LocalResourceStorage};
-use limnus_message::{Message, Messages};
+use limnus_message::{Message, MessageStorage, Messages};
 use limnus_resource::{Resource, ResourceStorage};
 use limnus_system::SystemParam;
 use limnus_system_state::State;
@@ -175,18 +175,51 @@ impl<'a, T: Message> DerefMut for MsgM<'a, T> {
     }
 }
 
+pub struct MsgAll<'a> {
+    value: &'a mut MessageStorage,
+}
+impl<'a> MsgAll<'a> {
+    pub fn new(value: &'a mut MessageStorage) -> Self {
+        Self { value }
+    }
+}
+
+impl<'a> Deref for MsgAll<'a> {
+    type Target = MessageStorage;
+
+    fn deref(&self) -> &Self::Target {
+        self.value
+    }
+}
+
+impl<'a> DerefMut for MsgAll<'a> {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        self.value
+    }
+}
+
+impl SystemParam for MsgAll<'static> {
+    type Item = Self;
+
+    fn get(world: &mut State) -> Option<Self::Item> {
+        let actual_ref: &mut MessageStorage = world.messages_mut();
+        let static_ref: &'static mut MessageStorage = unsafe { transmute(actual_ref) };
+        Some(MsgAll::new(static_ref))
+    }
+}
+
 // ==========  Local resources
 
-pub struct LocReAll<'a> {
+pub struct LoReAll<'a> {
     value: &'a mut LocalResourceStorage,
 }
-impl<'a> LocReAll<'a> {
+impl<'a> LoReAll<'a> {
     pub fn new(value: &'a mut LocalResourceStorage) -> Self {
         Self { value }
     }
 }
 
-impl<'a> Deref for LocReAll<'a> {
+impl<'a> Deref for LoReAll<'a> {
     type Target = LocalResourceStorage;
 
     fn deref(&self) -> &Self::Target {
@@ -194,19 +227,19 @@ impl<'a> Deref for LocReAll<'a> {
     }
 }
 
-impl<'a> DerefMut for LocReAll<'a> {
+impl<'a> DerefMut for LoReAll<'a> {
     fn deref_mut(&mut self) -> &mut Self::Target {
         self.value
     }
 }
 
-impl SystemParam for LocReAll<'static> {
+impl SystemParam for LoReAll<'static> {
     type Item = Self;
 
     fn get(world: &mut State) -> Option<Self::Item> {
         let actual_ref: &mut LocalResourceStorage = world.local_resources_mut();
         let static_ref: &'static mut LocalResourceStorage = unsafe { transmute(actual_ref) };
-        Some(LocReAll::new(static_ref))
+        Some(LoReAll::new(static_ref))
     }
 }
 

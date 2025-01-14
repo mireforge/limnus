@@ -2,7 +2,6 @@
  * Copyright (c) Peter Bjorklund. All rights reserved. https://github.com/swamp/limnus
  * Licensed under the MIT License. See LICENSE in the project root for license information.
  */
-use limnus_local_resource::prelude::LocalResource;
 use limnus_system::{IntoSystem, System, SystemParam};
 use limnus_system_state::State;
 use std::any::TypeId;
@@ -33,7 +32,8 @@ impl Stages {
         self.stages.insert(stage_id, stage);
     }
 
-    pub fn get_mut<S>(&mut self, stage_tag: &S) -> Option<&mut Stage>
+    #[must_use]
+    pub fn get_mut<S>(&mut self) -> Option<&mut Stage>
     where
         S: StageTag,
     {
@@ -41,7 +41,8 @@ impl Stages {
         self.stages.get_mut(&stage_id)
     }
 
-    pub fn get<S>(&self, stage_tag: &S) -> Option<&Stage>
+    #[must_use]
+    pub fn get<S>(&self) -> Option<&Stage>
     where
         S: StageTag,
     {

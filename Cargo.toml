@@ -16,7 +16,7 @@ members = [
     "crates/screen",
     "crates/system-state",
     "crates/system",
-    "crates/system-runner",
+    "crates/scheduler-runner",
     "crates/asset-registry",
     "crates/asset-id",
     "crates/audio-device",
@@ -35,5 +35,7 @@ members = [
     "crates/default-keys",
     "crates/default-stages",
     "crates/stage",
-    "crates/default-stage-plugin", "crates/default-schedulers",
+    "crates/default-stages-plugin",
+    "crates/default-schedulers",
+    "crates/scheduler",
 ]

@@ -4,9 +4,9 @@ use limnus_default_stages::{
     RenderFirst, RenderPostUpdate, RenderPreUpdate, RenderUpdate, Update,
 };
 
-pub struct DefaultStagePlugin;
+pub struct DefaultStagesPlugin;
 
-impl Plugin for DefaultStagePlugin {
+impl Plugin for DefaultStagesPlugin {
     fn build(&self, app: &mut App) {
         app.add_stage(First);
         app.add_stage(PreUpdate);
