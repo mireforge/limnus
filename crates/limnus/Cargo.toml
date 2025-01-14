@@ -43,8 +43,6 @@ limnus-default-schedulers = { path = "../default-schedulers", version = "0.0.15"
 limnus-clock = { path = "../clock", version = "0.0.15" }
 limnus-default-stages-plugin = { path = "../default-stages-plugin", version = "0.0.15" }
 
-limnus-system-state = { path = "../system-state", version = "0.0.15" }
-limnus-stage = { path = "../stage", version = "0.0.15" }
 limnus-default-stages = { path = "../default-stages", version = "0.0.15" }
 limnus-scheduler = { path = "../scheduler", version = "0.0.15" }
 

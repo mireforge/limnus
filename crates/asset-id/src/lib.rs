@@ -3,9 +3,9 @@
  * Licensed under the MIT License. See LICENSE in the project root for license information.
  */
 use crate::owner::{AssetOwner, DropMessage};
-use colored::Colorize;
 use fixstr::FixStr;
 use message_channel::Sender;
+use owo_colors::OwoColorize;
 use std::any::{type_name, TypeId};
 use std::cmp::Ordering;
 use std::fmt;
@@ -279,8 +279,8 @@ impl AssetName {
 
 impl Display for AssetName {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        let v = format!("{}", self.value).cyan();
-        write!(f, "{}", v)
+        let v = format!("{}", self.value);
+        write!(f, "{}", v.cyan())
     }
 }
 

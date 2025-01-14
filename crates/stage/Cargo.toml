@@ -2,8 +2,11 @@
 name = "limnus-stage"
 version = "0.0.15"
 edition = "2021"
+description = "Limnus stage that holds a vector of systems"
+repository = "https://github.com/swamp/limnus"
+categories = ["game-development"]
+keywords = ["game"]
 
 [dependencies]
 limnus-system = { path = "../system", version = "0.0.15" }
 limnus-system-state = { path = "../system-state", version = "0.0.15" }
-limnus-local-resource = { path = "../local-resource", version = "0.0.15" }

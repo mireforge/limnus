@@ -2,6 +2,11 @@
 name = "limnus-scheduler"
 version = "0.0.15"
 edition = "2021"
+license = "MIT"
+description = "Limnus scheduler trait"
+repository = "https://github.com/swamp/limnus"
+categories = ["game-development"]
+keywords = ["game"]
 
 [dependencies]
 limnus-system-state = { path = "../system-state", version = "0.0.15" }
