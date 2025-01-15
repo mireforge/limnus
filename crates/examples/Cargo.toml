@@ -1,6 +1,6 @@
 [package]
 name = "limnus-examples"
-version = "0.0.16"
+version = "0.0.17-alpha.2"
 edition = "2021"
 license = "MIT"
 description = "examples for the limnus game engine"
@@ -22,7 +22,7 @@ limnus-log = { path = "../log", version = "0.0.16" }
 tracing = "0.1.41"
 limnus-assets-loader = { path = "../assets-loader", version = "0.0.16" }
 limnus-loader = { path = "../loader", version = "0.0.16" }
-limnus = { path = "../limnus", version = "0.0.16", features = ["default_keys", "audio"] }
+limnus = { path = "../limnus", version = "0.0.17-alpha.2", features = ["default_keys", "default_schedulers", "audio"] }
 wgpu = "23.0.0"
 int_math = "0.0.2"
 limnus-default-stages = { path = "../default-stages", version = "0.0.16" }
