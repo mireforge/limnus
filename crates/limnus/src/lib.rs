@@ -22,6 +22,7 @@ use limnus_audio_sample::AudioSamplePlugin;
 use limnus_audio_stream::AudioStreamPlugin;
 #[cfg(feature = "default_keys")]
 use limnus_default_keys::DefaultKeysPlugin;
+#[cfg(feature = "default_schedulers")]
 use limnus_default_schedulers::DefaultSchedulersPlugin;
 use limnus_default_stages_plugin::DefaultStagesPlugin;
 #[cfg(feature = "gamepad")]
@@ -53,6 +54,7 @@ impl Plugin for DefaultPlugins {
             LogPlugin,
             DefaultStagesPlugin,
             ClockPlugin,
+            #[cfg(feature = "default_schedulers")]
             DefaultSchedulersPlugin,
         ));
         app.add_plugins((LoaderPlugin, AssetLoaderRegistryPlugin, AssetRegistryPlugin));
