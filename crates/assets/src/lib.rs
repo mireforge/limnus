@@ -59,12 +59,12 @@ impl<A: Asset> Assets<A> {
 
     #[must_use]
     pub fn get(&self, id: &Id<A>) -> Option<&A> {
-        trace!(id=%id, "get");
+        //     trace!(id=%id, "get");
         self.storage.get(to_slot_map_id(id))
     }
 
     pub fn get_weak(&self, weak_id: WeakId<A>) -> Option<&A> {
-        trace!(id=%weak_id, "get_weak");
+        //      trace!(id=%weak_id, "get_weak");
         self.storage.get(to_slot_map_id_from_weak(weak_id))
     }
 
@@ -72,19 +72,19 @@ impl<A: Asset> Assets<A> {
     /// if id is missing
     #[must_use]
     pub fn fetch(&self, id: &Id<A>) -> &A {
-        trace!(id=%id, "fetch asset");
+        //        trace!(id=%id, "fetch asset");
         self.storage.get(to_slot_map_id(id)).unwrap()
     }
 
     #[must_use]
     pub fn get_mut(&mut self, id: &Id<A>) -> Option<&mut A> {
-        trace!(id=%id, "get_mut asset");
+        //      trace!(id=%id, "get_mut asset");
         self.storage.get_mut(to_slot_map_id(id))
     }
 
     #[must_use]
     pub fn contains(&self, id: &Id<A>) -> bool {
-        trace!(id=%id, "contains");
+        //    trace!(id=%id, "contains");
         self.get(id).is_some()
     }
 

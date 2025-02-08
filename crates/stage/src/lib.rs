@@ -13,7 +13,6 @@ use std::fmt::{Debug, Formatter};
 /// Implement this trait for any type you wish to use as a stage identifier.
 pub trait StageTag: 'static {}
 
-
 /// Manages multiple stages, each identified by a unique `StageTag`.
 ///
 /// The `Stages` struct provides methods to add, retrieve, and modify stages.
@@ -23,7 +22,6 @@ pub struct Stages {
 }
 
 impl Stages {
-
     /// Creates a new, empty `Stages` instance.
     ///
     /// # Examples
@@ -213,7 +211,6 @@ impl Stage {
     pub fn new() -> Self {
         Self { systems: vec![] }
     }
-
 
     /// Adds a system to the stage.
     ///
