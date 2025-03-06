@@ -53,6 +53,8 @@ impl AppHandler for WindowState {
         let mut app = self.app.lock().unwrap();
         let window_settings = app.resources().fetch::<Window>();
         self.mode = window_settings.mode.clone();
+        self.requested_surface_size = window_settings.requested_surface_size;
+        self.minimal_surface_size = window_settings.minimal_surface_size;
 
         app.update();
 

@@ -3,8 +3,8 @@
  * Licensed under the MIT License. See LICENSE in the project root for license information.
  */
 use crate::dpi::PhysicalSize;
-use limnus_log::prelude::debug;
 use std::sync::Arc;
+use tracing::debug;
 use winit::application::ApplicationHandler;
 use winit::dpi;
 use winit::dpi::PhysicalPosition;
@@ -186,6 +186,7 @@ struct App<'a> {
     min_physical_size: PhysicalSize<u32>,
     start_physical_size: PhysicalSize<u32>,
     mode: WindowMode,
+    last_set_inner_size: PhysicalSize<u32>,
 }
 
 impl<'a> App<'a> {
@@ -208,6 +209,7 @@ impl<'a> App<'a> {
             title: title.to_string(),
             min_physical_size,
             start_physical_size,
+            last_set_inner_size: start_physical_size,
         }
     }
 
@@ -330,7 +332,21 @@ impl ApplicationHandler for App<'_> {
                     self.set_mode(&requested_mode);
                 }
 
-                if self.window.is_some() {
+                if let Some(found_window) = &self.window {
+                    let requested_size_tuple = self.handler.start_size();
+                    let requested_new_size = PhysicalSize::new(
+                        u32::from(requested_size_tuple.0),
+                        u32::from(requested_size_tuple.1),
+                    );
+
+                    if requested_new_size.width != self.last_set_inner_size.width
+                        || requested_new_size.height != self.last_set_inner_size.height
+                    {
+                        debug!(?requested_new_size, "new window inner size requested");
+                        let _ = found_window.request_inner_size(requested_new_size);
+                        self.last_set_inner_size = requested_new_size;
+                    }
+
                     let wants_to_keep_going = self.handler.redraw();
                     if !wants_to_keep_going {
                         event_loop.exit();

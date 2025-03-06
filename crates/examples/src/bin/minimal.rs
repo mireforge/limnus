@@ -6,7 +6,7 @@ use limnus::{
 };
 use limnus_app::prelude::App;
 use limnus_default_stages::{FixedUpdate, RenderUpdate};
-use limnus_system_params::{LoRe, LoReM};
+use limnus_system_params::{LoRe, LoReM, ReM};
 
 pub fn clear_color_tick(minimal: LoRe<Minimal>, wgpu_window: LoRe<WgpuWindow>) {
     let time = minimal.tick % 60;
@@ -23,6 +23,14 @@ pub fn clear_color_tick(minimal: LoRe<Minimal>, wgpu_window: LoRe<WgpuWindow>) {
 
 pub fn update_color(mut minimal: LoReM<Minimal>) {
     minimal.tick += 1;
+}
+
+pub fn change_size(mut minimal: LoReM<Minimal>, mut window_settings: ReM<Window>) {
+    let x = (minimal.tick / 60) % 60;
+    let width = 640 + x;
+    window_settings.requested_surface_size.x = width as u16;
+    let height = 320 + x * 4;
+    window_settings.requested_surface_size.y = height as u16;
 }
 
 #[derive(Debug, LocalResource)]
@@ -47,6 +55,7 @@ fn main() {
     app.insert_local_resource(Minimal { tick: 0 });
     app.add_system(RenderUpdate, clear_color_tick);
     app.add_system(FixedUpdate, update_color);
+    app.add_system(FixedUpdate, change_size);
 
     app.run();
 }
