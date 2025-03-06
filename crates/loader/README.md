@@ -16,7 +16,7 @@ To use `limnus-loader`, add it to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-limnus-loader = "0.0.16"
+limnus-loader = "0.0.17"
 ```
 
 ## License

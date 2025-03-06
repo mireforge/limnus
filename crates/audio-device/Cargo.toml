@@ -1,6 +1,6 @@
 [package]
 name = "limnus-audio-device"
-version = "0.0.16"
+version = "0.0.17"
 edition = "2021"
 license = "MIT"
 description = "Opens an audio output device"
@@ -12,5 +12,5 @@ keywords = ["game", "audio"]
 cpal = "0.15.3"
 tracing = "0.1.40"
 
-limnus-app = { path = "../app", version = "0.0.16" }
-limnus-local-resource = { path = "../local-resource", version = "0.0.16" }
+limnus-app = { path = "../app", version = "0.0.17" }
+limnus-local-resource = { path = "../local-resource", version = "0.0.17" }

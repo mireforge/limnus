@@ -1,6 +1,6 @@
 [package]
 name = "limnus"
-version = "0.0.17-alpha.2"
+version = "0.0.17"
 edition = "2021"
 license = "MIT"
 description = "Limnus game engine core"
@@ -9,42 +9,42 @@ categories = ["game-development"]
 keywords = ["game", "engine"]
 
 [dependencies]
-limnus-app = { path = "../app", version = "0.0.16" }
-limnus-asset-id = { path = "../asset-id", version = "0.0.16" }
-limnus-asset-registry = { path = "../asset-registry", version = "0.0.16" }
-limnus-assets = { path = "../assets", version = "0.0.16" }
-limnus-assets-loader = { path = "../assets-loader", version = "0.0.16" }
-limnus-basic-input = { path = "../basic-input", version = "0.0.16" }
-limnus-window-runner = { path = "../window-runner", version = "0.0.16" }
-limnus-wgpu-window = { path = "../wgpu-window", version = "0.0.16" }
-limnus-log = { path = "../log", version = "0.0.16" }
-limnus-wgpu-math = { path = "../wgpu-math", version = "0.0.16" }
-limnus-system-params = { path = "../system-params", version = "0.0.16" }
-limnus-screen = { path = "../screen", version = "0.0.16" }
-limnus-macros = { path = "../macros", version = "0.0.16" }
-limnus-window = { path = "../window", version = "0.0.16" }
-limnus-resource = { path = "../resource", version = "0.0.16" }
-limnus-local-resource = { path = "../local-resource", version = "0.0.16" }
-limnus-message = { path = "../message", version = "0.0.16" }
-limnus-loader = { path = "../loader", version = "0.0.16" }
+limnus-app = { path = "../app", version = "0.0.17" }
+limnus-asset-id = { path = "../asset-id", version = "0.0.17" }
+limnus-asset-registry = { path = "../asset-registry", version = "0.0.17" }
+limnus-assets = { path = "../assets", version = "0.0.17" }
+limnus-assets-loader = { path = "../assets-loader", version = "0.0.17" }
+limnus-basic-input = { path = "../basic-input", version = "0.0.17" }
+limnus-window-runner = { path = "../window-runner", version = "0.0.17" }
+limnus-wgpu-window = { path = "../wgpu-window", version = "0.0.17" }
+limnus-log = { path = "../log", version = "0.0.17" }
+limnus-wgpu-math = { path = "../wgpu-math", version = "0.0.17" }
+limnus-system-params = { path = "../system-params", version = "0.0.17" }
+limnus-screen = { path = "../screen", version = "0.0.17" }
+limnus-macros = { path = "../macros", version = "0.0.17" }
+limnus-window = { path = "../window", version = "0.0.17" }
+limnus-resource = { path = "../resource", version = "0.0.17" }
+limnus-local-resource = { path = "../local-resource", version = "0.0.17" }
+limnus-message = { path = "../message", version = "0.0.17" }
+limnus-loader = { path = "../loader", version = "0.0.17" }
 
-limnus-audio-device = { path = "../audio-device", version = "0.0.16", optional = true }
-limnus-audio-sample = { path = "../audio-sample", version = "0.0.16", optional = true }
-limnus-audio-stream = { path = "../audio-stream", version = "0.0.16", optional = true }
-limnus-audio-mixer = { path = "../audio-mixer", version = "0.0.16", optional = true }
+limnus-audio-device = { path = "../audio-device", version = "0.0.17", optional = true }
+limnus-audio-sample = { path = "../audio-sample", version = "0.0.17", optional = true }
+limnus-audio-stream = { path = "../audio-stream", version = "0.0.17", optional = true }
+limnus-audio-mixer = { path = "../audio-mixer", version = "0.0.17", optional = true }
 
-limnus-gamepad = { path = "../gamepad", version = "0.0.16", optional = true }
-limnus-gamepad-gilrs = { path = "../gamepad-gilrs", version = "0.0.16", optional = true }
+limnus-gamepad = { path = "../gamepad", version = "0.0.17", optional = true }
+limnus-gamepad-gilrs = { path = "../gamepad-gilrs", version = "0.0.17", optional = true }
 
-limnus-default-keys = { path = "../default-keys", version = "0.0.16", optional = true }
-limnus-default-schedulers = { path = "../default-schedulers", version = "0.0.16", optional = true }
+limnus-default-keys = { path = "../default-keys", version = "0.0.17", optional = true }
+limnus-default-schedulers = { path = "../default-schedulers", version = "0.0.17", optional = true }
 
 
-limnus-clock = { path = "../clock", version = "0.0.16" }
-limnus-default-stages-plugin = { path = "../default-stages-plugin", version = "0.0.16" }
+limnus-clock = { path = "../clock", version = "0.0.17" }
+limnus-default-stages-plugin = { path = "../default-stages-plugin", version = "0.0.17" }
 
-limnus-default-stages = { path = "../default-stages", version = "0.0.16" }
-limnus-scheduler = { path = "../scheduler", version = "0.0.16" }
+limnus-default-stages = { path = "../default-stages", version = "0.0.17" }
+limnus-scheduler = { path = "../scheduler", version = "0.0.17" }
 
 [features]
 default = ["audio", "gamepad", "default_keys", "default_schedulers"]

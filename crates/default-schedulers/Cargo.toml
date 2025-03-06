@@ -1,6 +1,6 @@
 [package]
 name = "limnus-default-schedulers"
-version = "0.0.16"
+version = "0.0.17"
 edition = "2021"
 license = "MIT"
 description = "default schedulers for limnus. Main, Fixed and Render"
@@ -8,12 +8,12 @@ repository = "https://github.com/swamp/limnus"
 
 
 [dependencies]
-limnus-app = { path = "../app", version = "0.0.16" }
-limnus-resource = { path = "../resource", version = "0.0.16" }
-limnus-default-stages = { path = "../default-stages", version = "0.0.16" }
-limnus-scheduler = { path = "../scheduler", version = "0.0.16" }
-limnus-stage = { path = "../stage", version = "0.0.16" }
-limnus-system-state = { path = "../system-state", version = "0.0.16" }
+limnus-app = { path = "../app", version = "0.0.17" }
+limnus-resource = { path = "../resource", version = "0.0.17" }
+limnus-default-stages = { path = "../default-stages", version = "0.0.17" }
+limnus-scheduler = { path = "../scheduler", version = "0.0.17" }
+limnus-stage = { path = "../stage", version = "0.0.17" }
+limnus-system-state = { path = "../system-state", version = "0.0.17" }
 monotonic-time-rs = "0.0.9"
-limnus-clock = { path = "../clock", version = "0.0.16" }
-limnus-system-params = { path = "../system-params", version = "0.0.16" }
+limnus-clock = { path = "../clock", version = "0.0.17" }
+limnus-system-params = { path = "../system-params", version = "0.0.17" }

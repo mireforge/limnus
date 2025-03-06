@@ -1,6 +1,6 @@
 [package]
 name = "limnus-default-stages"
-version = "0.0.16"
+version = "0.0.17"
 edition = "2021"
 license = "MIT"
 description = "limnus default stages, `First`, `PreUpdate`, `Update`, `PostUpdate`, etc"
@@ -9,4 +9,4 @@ categories = ["game-development"]
 keywords = ["game"]
 
 [dependencies]
-limnus-stage = { path = "../stage", version = "0.0.16" }
+limnus-stage = { path = "../stage", version = "0.0.17" }

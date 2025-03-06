@@ -1,6 +1,6 @@
 [package]
 name = "limnus-scheduler"
-version = "0.0.16"
+version = "0.0.17"
 edition = "2021"
 license = "MIT"
 description = "Limnus Scheduler trait"
@@ -9,5 +9,5 @@ categories = ["game-development"]
 keywords = ["game"]
 
 [dependencies]
-limnus-system-state = { path = "../system-state", version = "0.0.16" }
-limnus-stage = { path = "../stage", version = "0.0.16" }
+limnus-system-state = { path = "../system-state", version = "0.0.17" }
+limnus-stage = { path = "../stage", version = "0.0.17" }

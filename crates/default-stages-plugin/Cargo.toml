@@ -1,6 +1,6 @@
 [package]
 name = "limnus-default-stages-plugin"
-version = "0.0.16"
+version = "0.0.17"
 edition = "2021"
 license = "MIT"
 description = "creating the default stages"
@@ -8,5 +8,5 @@ repository = "https://github.com/swamp/limnus"
 
 
 [dependencies]
-limnus-app = { path = "../app", version = "0.0.16" }
-limnus-default-stages = { path = "../default-stages", version = "0.0.16" }
+limnus-app = { path = "../app", version = "0.0.17" }
+limnus-default-stages = { path = "../default-stages", version = "0.0.17" }

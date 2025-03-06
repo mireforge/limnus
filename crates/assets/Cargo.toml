@@ -1,6 +1,6 @@
 [package]
 name = "limnus-assets"
-version = "0.0.16"
+version = "0.0.17"
 edition = "2021"
 license = "MIT"
 description = "store assets in a slot map"
@@ -10,7 +10,7 @@ keywords = ["game", "asset", "storage"]
 
 [dependencies]
 sparse-slot = "0.0.3"
-limnus-macros = { path = "../macros", version = "0.0.16" }
-limnus-resource = { path = "../resource", version = "0.0.16" }
+limnus-macros = { path = "../macros", version = "0.0.17" }
+limnus-resource = { path = "../resource", version = "0.0.17" }
 tracing = "0.1.40"
-limnus-asset-id = { path = "../asset-id", version = "0.0.16" }
+limnus-asset-id = { path = "../asset-id", version = "0.0.17" }

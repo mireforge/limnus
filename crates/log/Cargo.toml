@@ -1,6 +1,6 @@
 [package]
 name = "limnus-log"
-version = "0.0.16"
+version = "0.0.17"
 edition = "2021"
 repository = "https://github.com/swamp/limnus"
 license = "MIT"
@@ -8,7 +8,7 @@ categories = ["game-development"]
 description = "Initializes logging"
 
 [dependencies]
-limnus-app = { path = "../app", version = "0.0.16" }
+limnus-app = { path = "../app", version = "0.0.17" }
 tracing-log = "0.2.0"
 tracing = "0.1.40"
 tracing-subscriber = { version = "0.3.1", features = [

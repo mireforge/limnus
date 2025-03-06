@@ -1,6 +1,6 @@
 [package]
 name = "limnus-stage"
-version = "0.0.16"
+version = "0.0.17"
 edition = "2021"
 license = "MIT"
 description = "Limnus stage that holds a vector of systems"
@@ -9,5 +9,5 @@ categories = ["game-development"]
 keywords = ["game"]
 
 [dependencies]
-limnus-system = { path = "../system", version = "0.0.16" }
-limnus-system-state = { path = "../system-state", version = "0.0.16" }
+limnus-system = { path = "../system", version = "0.0.17" }
+limnus-system-state = { path = "../system-state", version = "0.0.17" }

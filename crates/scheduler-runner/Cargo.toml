@@ -1,6 +1,6 @@
 [package]
 name = "limnus-scheduler-runner"
-version = "0.0.16"
+version = "0.0.17"
 edition = "2021"
 repository = "https://github.com/swamp/limnus"
 license = "MIT"
@@ -9,7 +9,7 @@ description = "Runs limnus schedulers"
 
 
 [dependencies]
-limnus-system = { path = "../system", version = "0.0.16" }
-limnus-system-state = { path = "../system-state", version = "0.0.16" }
-limnus-stage = { path = "../stage", version = "0.0.16" }
-limnus-scheduler = { path = "../scheduler", version = "0.0.16" }
+limnus-system = { path = "../system", version = "0.0.17" }
+limnus-system-state = { path = "../system-state", version = "0.0.17" }
+limnus-stage = { path = "../stage", version = "0.0.17" }
+limnus-scheduler = { path = "../scheduler", version = "0.0.17" }

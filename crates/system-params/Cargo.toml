@@ -1,6 +1,6 @@
 [package]
 name = "limnus-system-params"
-version = "0.0.16"
+version = "0.0.17"
 edition = "2021"
 repository = "https://github.com/swamp/limnus"
 license = "MIT"
@@ -8,9 +8,9 @@ categories = ["game-development"]
 description = "Limnus system parameters"
 
 [dependencies]
-limnus-system-state = { path = "../system-state", version = "0.0.16" }
-limnus-message = { path = "../message", version = "0.0.16" }
-limnus-resource = { path = "../resource", version = "0.0.16" }
-limnus-local-resource = { path = "../local-resource", version = "0.0.16" }
+limnus-system-state = { path = "../system-state", version = "0.0.17" }
+limnus-message = { path = "../message", version = "0.0.17" }
+limnus-resource = { path = "../resource", version = "0.0.17" }
+limnus-local-resource = { path = "../local-resource", version = "0.0.17" }
 # System
-limnus-system = { path = "../system", version = "0.0.16" }
+limnus-system = { path = "../system", version = "0.0.17" }
