@@ -2,7 +2,6 @@
  * Copyright (c) Peter Bjorklund. All rights reserved. https://github.com/swamp/limnus
  * Licensed under the MIT License. See LICENSE in the project root for license information.
  */
-
 use limnus::prelude::{
     AssetName, AssetRegistry, AssetRegistryPlugin, Assets, AudioDevicePlugin, AudioMixer,
     AudioMixerPlugin, AudioSamplePlugin, AudioStreamPlugin, Id, LocalResource, StereoSample,

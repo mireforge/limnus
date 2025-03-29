@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) Peter Bjorklund. All rights reserved. https://github.com/swamp/limnus
+ * Licensed under the MIT License. See LICENSE in the project root for license information.
+ */
+
 use limnus_app::prelude::{App, Plugin};
 use limnus_default_stages::{
     First, FixedFirst, FixedPostUpdate, FixedPreUpdate, FixedUpdate, PostUpdate, PreUpdate,
