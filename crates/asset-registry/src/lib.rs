@@ -85,6 +85,11 @@ impl AssetRegistry {
         typed_id
     }
 
+    pub fn allocate_id<T: Asset>(&mut self, name: impl Into<AssetName>) -> Id<T> {
+        let asset_name = name.into();
+        self.id_assigner.allocate::<T>(asset_name)
+    }
+
     pub fn name<A: Asset>(&self, id: Id<A>) -> Option<AssetName> {
         let raw_id = (&id).into();
         self.name_raw(raw_id)
