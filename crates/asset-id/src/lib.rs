@@ -259,7 +259,7 @@ pub struct AssetName {
 
 impl AssetName {
     #[must_use]
-    pub fn with_extension(&self, extension: &str) -> impl Into<Self> {
+    pub fn with_extension(&self, extension: &str) -> impl Into<Self> + use<> {
         let added = format!("{}.{}", self.value.as_str(), extension);
         Self {
             value: FixStr::new_unchecked(added.as_str()),
