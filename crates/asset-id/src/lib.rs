@@ -20,13 +20,13 @@ const FIXED_CAPACITY_SIZE: usize = 32;
 pub trait Asset: 'static + Debug + Send + Sync {}
 #[derive(Debug, PartialEq, Eq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub struct RawAssetId {
-    pub generation: u16,
+    pub generation: u8,
     pub index: u16,
 }
 
 impl RawAssetId {
     #[must_use]
-    pub const fn new(generation: u16, index: u16) -> Self {
+    pub const fn new(generation: u8, index: u16) -> Self {
         Self { generation, index }
     }
 }
