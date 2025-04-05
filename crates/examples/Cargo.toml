@@ -19,7 +19,7 @@ limnus-local-resource = { path = "../local-resource", version = "0.0.18" }
 limnus-gamepad = { path = "../gamepad", version = "0.0.18" }
 limnus-gamepad-gilrs = { path = "../gamepad-gilrs", version = "0.0.18" }
 limnus-log = { path = "../log", version = "0.0.18" }
-tracing = "0.1.41"
+tracing = "0.1.40"
 limnus-assets-loader = { path = "../assets-loader", version = "0.0.18" }
 limnus-loader = { path = "../loader", version = "0.0.18" }
 limnus = { path = "../limnus", version = "0.0.18", features = ["default_keys", "default_schedulers", "audio"] }

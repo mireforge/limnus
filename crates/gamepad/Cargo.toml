@@ -13,5 +13,5 @@ limnus-resource = { path = "../resource", version = "0.0.18" }
 limnus-app = { path = "../app", version = "0.0.18" }
 limnus-message = { path = "../message", version = "0.0.18" }
 
-tracing = "0.1.41"
+tracing = "0.1.40"
 fixstr = "0.0.3"

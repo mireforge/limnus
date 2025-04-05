@@ -9,8 +9,6 @@ categories = ["game-development"]
 keywords = ["game", "clock"]
 
 [dependencies]
-tracing = "0.1.40"
-
 limnus-system-params = { path = "../system-params", version = "0.0.18" }
 limnus-local-resource = { path = "../local-resource", version = "0.0.18" }
 limnus-resource = { path = "../resource", version = "0.0.18" }
