@@ -4,8 +4,8 @@
  */
 
 use limnus_app::prelude::{App, Plugin};
-use limnus_basic_input::prelude::{ButtonState, KeyCode};
 use limnus_basic_input::InputMessage;
+use limnus_basic_input::prelude::{ButtonState, KeyCode};
 use limnus_default_stages::First;
 use limnus_local_resource::LocalResource;
 use limnus_macros::LocalResource;

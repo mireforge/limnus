@@ -11,7 +11,7 @@ use limnus_local_resource::LocalResource;
 use limnus_macros::{LocalResource, Resource};
 use limnus_resource::Resource;
 use limnus_system_params::{LoRe, ReM};
-use monotonic_time_rs::{create_monotonic_clock, Millis, MonotonicClock};
+use monotonic_time_rs::{Millis, MonotonicClock, create_monotonic_clock};
 use std::fmt::{Debug, Formatter};
 
 #[derive(LocalResource)]

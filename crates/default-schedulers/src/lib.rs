@@ -42,18 +42,34 @@ impl Scheduler for MainScheduler {
 #[derive(Debug, Resource)]
 pub struct FixedSchedulerData {
     pub consumed_up_to_time: Millis,
-    pub fixed_time_step: MillisDuration,
+    pub ticks_per_second: usize,
 }
 
 #[derive(Debug)]
 pub struct FixedScheduler;
 impl Scheduler for FixedScheduler {
     fn schedule(&self, stages: &Stages, state: &mut State) {
-        let time = { state.resources().fetch::<MonotonicTime>().time };
+        let current_time = { state.resources().fetch::<MonotonicTime>().time };
 
-        let (mut consumed_up_to_time, fixed_time_step) = {
+        let (mut consumed_time, ticks_per_second) = {
             let data = state.resources().fetch::<FixedSchedulerData>();
-            (data.consumed_up_to_time, data.fixed_time_step)
+            (data.consumed_up_to_time, data.ticks_per_second)
+        };
+
+        let steps_to_perform = if consumed_time > current_time {
+            // We are ahead
+            let time_ahead = consumed_time - current_time;
+            let exact_steps_ahead = (time_ahead.as_millis() * ticks_per_second as u64) / 1_000;
+            #[allow(clippy::bool_to_int_with_if)]
+            if exact_steps_ahead > 4 { 0 } else { 1 }
+        } else {
+            // We are behind
+            let time_debt = current_time - consumed_time;
+
+            let exact_steps_needed = (time_debt.as_millis() * ticks_per_second as u64) / 1_000;
+
+            // If we need significantly more than 1 step, consider doing 2
+            if exact_steps_needed > 1 { 2 } else { 1 }
         };
 
         let stage_ids = {
@@ -65,32 +81,21 @@ impl Scheduler for FixedScheduler {
             ]
         };
 
-        let mut tick_count = 0;
+        let fixed_time_step_ms = 1000 / ticks_per_second;
 
-        while consumed_up_to_time < time {
-            // TODO: Make a better algorithm for this
-            tick_count += 1;
+        for _ in 0..steps_to_perform {
             for &stage_id in &stage_ids {
                 stages
                     .get_by_id(&stage_id)
                     .expect("stage missing")
                     .run(state);
             }
-            consumed_up_to_time += fixed_time_step;
-            if consumed_up_to_time < time {
-                let still_lagging_duration = time - consumed_up_to_time;
-                if still_lagging_duration < fixed_time_step {
-                    break;
-                }
-            }
-            if tick_count > 2 {
-                break;
-            }
+            consumed_time += MillisDuration::from_millis(fixed_time_step_ms as u64);
         }
 
         {
             let fixed_scheduler_data = state.resources_mut().fetch_mut::<FixedSchedulerData>();
-            fixed_scheduler_data.consumed_up_to_time = consumed_up_to_time;
+            fixed_scheduler_data.consumed_up_to_time = consumed_time;
         }
     }
 }
@@ -130,7 +135,7 @@ impl Plugin for DefaultSchedulersPlugin {
 
         app.insert_resource(FixedSchedulerData {
             consumed_up_to_time: time,
-            fixed_time_step: MillisDuration::from_millis(16),
+            ticks_per_second: 60,
         });
 
         app.add_scheduler(MainScheduler);

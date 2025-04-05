@@ -105,12 +105,12 @@ where
 
 /// implement `SystemParamFunction` for function with four parameters
 impl<
-        F,
-        P1: SystemParam<Item = P1>,
-        P2: SystemParam<Item = P2>,
-        P3: SystemParam<Item = P3>,
-        P4: SystemParam<Item = P4>,
-    > SystemParamFunction<(P1, P2, P3, P4)> for F
+    F,
+    P1: SystemParam<Item = P1>,
+    P2: SystemParam<Item = P2>,
+    P3: SystemParam<Item = P3>,
+    P4: SystemParam<Item = P4>,
+> SystemParamFunction<(P1, P2, P3, P4)> for F
 where
     F: Fn(P1, P2, P3, P4) + 'static,
 {
@@ -126,13 +126,13 @@ where
 
 /// implement `SystemParamFunction` for function with five parameters
 impl<
-        F,
-        P1: SystemParam<Item = P1>,
-        P2: SystemParam<Item = P2>,
-        P3: SystemParam<Item = P3>,
-        P4: SystemParam<Item = P4>,
-        P5: SystemParam<Item = P5>,
-    > SystemParamFunction<(P1, P2, P3, P4, P5)> for F
+    F,
+    P1: SystemParam<Item = P1>,
+    P2: SystemParam<Item = P2>,
+    P3: SystemParam<Item = P3>,
+    P4: SystemParam<Item = P4>,
+    P5: SystemParam<Item = P5>,
+> SystemParamFunction<(P1, P2, P3, P4, P5)> for F
 where
     F: Fn(P1, P2, P3, P4, P5) + 'static,
 {
@@ -149,14 +149,14 @@ where
 
 /// implement `SystemParamFunction` for function with six parameters
 impl<
-        F,
-        P1: SystemParam<Item = P1>,
-        P2: SystemParam<Item = P2>,
-        P3: SystemParam<Item = P3>,
-        P4: SystemParam<Item = P4>,
-        P5: SystemParam<Item = P5>,
-        P6: SystemParam<Item = P6>,
-    > SystemParamFunction<(P1, P2, P3, P4, P5, P6)> for F
+    F,
+    P1: SystemParam<Item = P1>,
+    P2: SystemParam<Item = P2>,
+    P3: SystemParam<Item = P3>,
+    P4: SystemParam<Item = P4>,
+    P5: SystemParam<Item = P5>,
+    P6: SystemParam<Item = P6>,
+> SystemParamFunction<(P1, P2, P3, P4, P5, P6)> for F
 where
     F: Fn(P1, P2, P3, P4, P5, P6) + 'static,
 {
@@ -174,15 +174,15 @@ where
 
 /// implement `SystemParamFunction` for function with seven parameters
 impl<
-        F,
-        P1: SystemParam<Item = P1>,
-        P2: SystemParam<Item = P2>,
-        P3: SystemParam<Item = P3>,
-        P4: SystemParam<Item = P4>,
-        P5: SystemParam<Item = P5>,
-        P6: SystemParam<Item = P6>,
-        P7: SystemParam<Item = P7>,
-    > SystemParamFunction<(P1, P2, P3, P4, P5, P6, P7)> for F
+    F,
+    P1: SystemParam<Item = P1>,
+    P2: SystemParam<Item = P2>,
+    P3: SystemParam<Item = P3>,
+    P4: SystemParam<Item = P4>,
+    P5: SystemParam<Item = P5>,
+    P6: SystemParam<Item = P6>,
+    P7: SystemParam<Item = P7>,
+> SystemParamFunction<(P1, P2, P3, P4, P5, P6, P7)> for F
 where
     F: Fn(P1, P2, P3, P4, P5, P6, P7) + 'static,
 {
@@ -201,16 +201,16 @@ where
 
 /// implement `SystemParamFunction` for function with eight parameters
 impl<
-        F,
-        P1: SystemParam<Item = P1>,
-        P2: SystemParam<Item = P2>,
-        P3: SystemParam<Item = P3>,
-        P4: SystemParam<Item = P4>,
-        P5: SystemParam<Item = P5>,
-        P6: SystemParam<Item = P6>,
-        P7: SystemParam<Item = P7>,
-        P8: SystemParam<Item = P8>,
-    > SystemParamFunction<(P1, P2, P3, P4, P5, P6, P7, P8)> for F
+    F,
+    P1: SystemParam<Item = P1>,
+    P2: SystemParam<Item = P2>,
+    P3: SystemParam<Item = P3>,
+    P4: SystemParam<Item = P4>,
+    P5: SystemParam<Item = P5>,
+    P6: SystemParam<Item = P6>,
+    P7: SystemParam<Item = P7>,
+    P8: SystemParam<Item = P8>,
+> SystemParamFunction<(P1, P2, P3, P4, P5, P6, P7, P8)> for F
 where
     F: Fn(P1, P2, P3, P4, P5, P6, P7, P8) + 'static,
 {

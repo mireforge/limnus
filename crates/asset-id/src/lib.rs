@@ -6,7 +6,7 @@ use crate::owner::{AssetOwner, DropMessage};
 use fixstr::FixStr;
 use message_channel::Sender;
 use owo_colors::OwoColorize;
-use std::any::{type_name, TypeId};
+use std::any::{TypeId, type_name};
 use std::cmp::Ordering;
 use std::fmt;
 use std::fmt::{Debug, Display, Formatter};
@@ -273,7 +273,7 @@ impl AssetName {
     /// The asset name must be a valid name, checked by `is_valid_asset_name`.
     #[must_use]
     pub fn new(value: &str) -> Self {
-        assert!(is_valid_asset_name(value), "invalid asset name: {}", value);
+        assert!(is_valid_asset_name(value), "invalid asset name: {value}");
         Self {
             value: FixStr::new_unchecked(value),
         }

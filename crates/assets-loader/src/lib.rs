@@ -5,9 +5,9 @@
 use limnus_app::prelude::{App, Plugin};
 use limnus_assets::prelude::{Asset, RawWeakId};
 use limnus_local_resource::LocalResourceStorage;
-use limnus_resource::prelude::Resource;
 pub use limnus_resource::ResourceStorage;
-use std::any::{type_name, TypeId};
+use limnus_resource::prelude::Resource;
+use std::any::{TypeId, type_name};
 use std::collections::HashMap;
 use std::fmt::Debug;
 use std::io;

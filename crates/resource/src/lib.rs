@@ -4,7 +4,7 @@
  */
 pub mod prelude;
 
-use std::any::{type_name, Any, TypeId};
+use std::any::{Any, TypeId, type_name};
 use std::collections::HashMap;
 use std::fmt::Debug;
 

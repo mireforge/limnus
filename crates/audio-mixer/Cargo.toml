@@ -1,7 +1,7 @@
 [package]
 name = "limnus-audio-mixer"
 version = "0.0.17"
-edition = "2021"
+edition = "2024"
 license = "MIT"
 description = "A simple stereo audio mixer built on top of [oddio](https://crates.io/crates/oddio)"
 repository = "https://github.com/swamp/limnus"

@@ -12,8 +12,8 @@ use std::sync::Arc;
 use tracing::{debug, info, trace};
 use wgpu::{
     Adapter, Backends, Device, DeviceDescriptor, Features, Instance, InstanceDescriptor,
-    InstanceFlags, Limits, MemoryHints, Queue, RequestAdapterOptions,
-    RequestDeviceError, Surface, SurfaceConfiguration, SurfaceError,
+    InstanceFlags, Limits, MemoryHints, Queue, RequestAdapterOptions, RequestDeviceError, Surface,
+    SurfaceConfiguration, SurfaceError,
 };
 use winit::dpi::PhysicalSize;
 use winit::window::Window;
@@ -173,9 +173,7 @@ impl WgpuWindow {
         let alpha_mode = surface_caps.alpha_modes[0];
         trace!(
             "found surface format {:?} {:?} {:?}",
-            surface_format,
-            present_mode,
-            alpha_mode
+            surface_format, present_mode, alpha_mode
         );
 
         config

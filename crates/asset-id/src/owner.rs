@@ -64,7 +64,8 @@ impl Drop for AssetOwner {
 }
 
 impl AssetOwner {
-    pub fn new(
+    #[must_use]
+    pub const fn new(
         id: RawWeakId,
         asset_name: Option<AssetName>,
         drop_channel: Sender<DropMessage>,
@@ -76,11 +77,13 @@ impl AssetOwner {
         }
     }
 
-    pub fn raw_id(&self) -> RawWeakId {
+    #[must_use]
+    pub const fn raw_id(&self) -> RawWeakId {
         self.id
     }
 
-    pub fn asset_name(&self) -> Option<AssetName> {
+    #[must_use]
+    pub const fn asset_name(&self) -> Option<AssetName> {
         self.asset_name
     }
 }

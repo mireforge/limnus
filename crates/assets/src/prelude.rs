@@ -4,6 +4,6 @@
  */
 pub use {
     crate::Assets,
-    limnus_asset_id::{owner::DropMessage, Asset, AssetName, Id, RawAssetId, RawWeakId, WeakId},
+    limnus_asset_id::{Asset, AssetName, Id, RawAssetId, RawWeakId, WeakId, owner::DropMessage},
     limnus_macros::Asset,
 };

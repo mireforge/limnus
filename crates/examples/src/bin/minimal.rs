@@ -6,8 +6,8 @@
 use int_math::UVec2;
 use limnus::prelude::{LocalResource, WgpuWindow};
 use limnus::{
-    prelude::{ScreenMode, Window},
     DefaultPlugins,
+    prelude::{ScreenMode, Window},
 };
 use limnus_app::prelude::App;
 use limnus_default_stages::{FixedUpdate, RenderUpdate};
@@ -53,7 +53,7 @@ pub fn update_color(mut minimal: LoReM<Minimal>) {
 
 #[allow(clippy::missing_const_for_fn)]
 pub fn change_size(minimal: LoReM<Minimal>, mut window_settings: ReM<Window>) {
-    let x = (minimal.tick / 60) % 60;
+    let x = (minimal.tick / 120) % 120;
     let width = 640 + x;
     window_settings.requested_surface_size.x = width as u16;
     let height = 320 + x * 4;

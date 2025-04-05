@@ -2,8 +2,8 @@
  * Copyright (c) Peter Bjorklund. All rights reserved. https://github.com/swamp/limnus
  * Licensed under the MIT License. See LICENSE in the project root for license information.
  */
-use crate::idx_gen::IndexAllocator;
 use crate::TypeIdMap;
+use crate::idx_gen::IndexAllocator;
 use limnus_assets::prelude::{Asset, AssetName, DropMessage, Id, RawAssetId, RawWeakId};
 use message_channel::Sender;
 use std::any::TypeId;

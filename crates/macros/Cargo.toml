@@ -1,7 +1,7 @@
 [package]
 name = "limnus-macros"
 version = "0.0.17"
-edition = "2021"
+edition = "2024"
 license = "MIT"
 description = "macros specific for the limnus types"
 repository = "https://github.com/swamp/limnus"

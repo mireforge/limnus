@@ -1,7 +1,7 @@
 [package]
 name = "limnus-app"
 version = "0.0.17"
-edition = "2021"
+edition = "2024"
 license = "MIT"
 description = "Application management"
 repository = "https://github.com/swamp/limnus"

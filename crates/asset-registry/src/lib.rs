@@ -12,7 +12,7 @@ use limnus_assets::prelude::*;
 use limnus_assets_loader::ResourceStorage;
 use limnus_assets_loader::{AssetLoaderRegistry, LoadError, WrappedAssetLoaderRegistry};
 use limnus_default_stages::First;
-use limnus_loader::{load, Blob, LoaderReceiver, LoaderSender};
+use limnus_loader::{Blob, LoaderReceiver, LoaderSender, load};
 use limnus_local_resource::LocalResourceStorage;
 use limnus_resource::prelude::Resource;
 use limnus_system_params::{LoReAll, Re, ReAll, ReM};
@@ -90,11 +90,13 @@ impl AssetRegistry {
         self.id_assigner.allocate::<T>(asset_name)
     }
 
+    #[must_use]
     pub fn name<A: Asset>(&self, id: Id<A>) -> Option<AssetName> {
         let raw_id = (&id).into();
         self.name_raw(raw_id)
     }
 
+    #[must_use]
     pub fn name_raw(&self, raw_id: RawWeakId) -> Option<AssetName> {
         self.infos.get(&raw_id).map(|info| info.name)
     }
@@ -150,6 +152,6 @@ fn tick(
                 &mut mut_access_to_resources,
                 &mut mut_access_to_local_resources,
             )
-            .expect("couldn't convert")
+            .expect("couldn't convert");
     }
 }

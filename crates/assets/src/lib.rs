@@ -63,6 +63,7 @@ impl<A: Asset> Assets<A> {
         self.storage.get(to_slot_map_id(id))
     }
 
+    #[must_use]
     pub fn get_weak(&self, weak_id: WeakId<A>) -> Option<&A> {
         //      trace!(id=%weak_id, "get_weak");
         self.storage.get(to_slot_map_id_from_weak(weak_id))

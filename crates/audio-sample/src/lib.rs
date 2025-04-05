@@ -4,8 +4,8 @@
  */
 use limnus_app::prelude::{App, Plugin};
 use limnus_asset_registry::AssetRegistry;
-use limnus_assets::prelude::{AssetName, RawWeakId};
 use limnus_assets::Assets;
+use limnus_assets::prelude::{AssetName, RawWeakId};
 use limnus_assets_loader::{
     AssetLoader, ConversionError, ResourceStorage, WrappedAssetLoaderRegistry,
 };

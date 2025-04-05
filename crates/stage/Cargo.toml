@@ -1,7 +1,7 @@
 [package]
 name = "limnus-stage"
 version = "0.0.17"
-edition = "2021"
+edition = "2024"
 license = "MIT"
 description = "Limnus stage that holds a vector of systems"
 repository = "https://github.com/swamp/limnus"

@@ -1,7 +1,7 @@
 [package]
 name = "limnus-default-stages"
 version = "0.0.17"
-edition = "2021"
+edition = "2024"
 license = "MIT"
 description = "limnus default stages, `First`, `PreUpdate`, `Update`, `PostUpdate`, etc"
 repository = "https://github.com/swamp/limnus"

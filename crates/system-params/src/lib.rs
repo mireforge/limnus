@@ -31,7 +31,7 @@ impl<T> Deref for ReM<'_, T> {
     }
 }
 
-impl< T> DerefMut for ReM<'_, T> {
+impl<T> DerefMut for ReM<'_, T> {
     fn deref_mut(&mut self) -> &mut Self::Target {
         self.value
     }
@@ -142,7 +142,7 @@ impl<'a, T: Message> Msg<'a, T> {
     }
 }
 
-impl< T: Message> Deref for Msg<'_, T> {
+impl<T: Message> Deref for Msg<'_, T> {
     type Target = Messages<T>;
 
     fn deref(&self) -> &Self::Target {
@@ -169,7 +169,7 @@ impl<T: Message> Deref for MsgM<'_, T> {
     }
 }
 
-impl<'a, T: Message> DerefMut for MsgM<'a, T> {
+impl<T: Message> DerefMut for MsgM<'_, T> {
     fn deref_mut(&mut self) -> &mut Self::Target {
         self.value
     }
@@ -184,7 +184,7 @@ impl<'a> MsgAll<'a> {
     }
 }
 
-impl<'a> Deref for MsgAll<'a> {
+impl Deref for MsgAll<'_> {
     type Target = MessageStorage;
 
     fn deref(&self) -> &Self::Target {
@@ -192,7 +192,7 @@ impl<'a> Deref for MsgAll<'a> {
     }
 }
 
-impl<'a> DerefMut for MsgAll<'a> {
+impl DerefMut for MsgAll<'_> {
     fn deref_mut(&mut self) -> &mut Self::Target {
         self.value
     }
@@ -219,7 +219,7 @@ impl<'a> LoReAll<'a> {
     }
 }
 
-impl<'a> Deref for LoReAll<'a> {
+impl Deref for LoReAll<'_> {
     type Target = LocalResourceStorage;
 
     fn deref(&self) -> &Self::Target {
@@ -227,7 +227,7 @@ impl<'a> Deref for LoReAll<'a> {
     }
 }
 
-impl<'a> DerefMut for LoReAll<'a> {
+impl DerefMut for LoReAll<'_> {
     fn deref_mut(&mut self) -> &mut Self::Target {
         self.value
     }
@@ -250,13 +250,13 @@ pub struct LoReM<'a, T: 'static> {
     value: &'a mut T,
 }
 
-impl<'a, T> crate::LoReM<'a, T> {
+impl<'a, T> LoReM<'a, T> {
     pub fn new(value: &'a mut T) -> Self {
         Self { value }
     }
 }
 
-impl<'a, T> Deref for crate::LoReM<'a, T> {
+impl<T> Deref for LoReM<'_, T> {
     type Target = T;
 
     fn deref(&self) -> &Self::Target {
@@ -264,13 +264,13 @@ impl<'a, T> Deref for crate::LoReM<'a, T> {
     }
 }
 
-impl<'a, T> DerefMut for crate::LoReM<'a, T> {
+impl<T> DerefMut for LoReM<'_, T> {
     fn deref_mut(&mut self) -> &mut Self::Target {
         self.value
     }
 }
 
-impl<T: LocalResource + 'static> SystemParam for crate::LoReM<'static, T> {
+impl<T: LocalResource + 'static> SystemParam for LoReM<'static, T> {
     type Item = Self;
 
     fn get(world: &mut State) -> Option<Self::Item> {
@@ -285,13 +285,13 @@ pub struct LoRe<'a, T: 'static> {
     value: &'a T,
 }
 
-impl<'a, T> crate::LoRe<'a, T> {
+impl<'a, T> LoRe<'a, T> {
     pub fn new(value: &'a T) -> Self {
         Self { value }
     }
 }
 
-impl<'a, T> Deref for crate::LoRe<'a, T> {
+impl<T> Deref for LoRe<'_, T> {
     type Target = T;
 
     fn deref(&self) -> &Self::Target {
@@ -299,7 +299,7 @@ impl<'a, T> Deref for crate::LoRe<'a, T> {
     }
 }
 
-impl<T: LocalResource + 'static> SystemParam for crate::LoRe<'static, T> {
+impl<T: LocalResource + 'static> SystemParam for LoRe<'static, T> {
     type Item = Self;
 
     fn get(world: &mut State) -> Option<Self::Item> {
