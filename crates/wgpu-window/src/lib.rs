@@ -12,7 +12,7 @@ use std::sync::Arc;
 use tracing::{debug, info, trace};
 use wgpu::{
     Adapter, Backends, Device, DeviceDescriptor, Features, Instance, InstanceDescriptor,
-    InstanceFlags, Limits, MemoryHints, Queue, RenderPass, RequestAdapterOptions,
+    InstanceFlags, Limits, MemoryHints, Queue, RequestAdapterOptions,
     RequestDeviceError, Surface, SurfaceConfiguration, SurfaceError,
 };
 use winit::dpi::PhysicalSize;
@@ -201,11 +201,11 @@ impl WgpuWindow {
 
     pub fn render(
         &self,
-        clear_color: wgpu::Color,
-        mut render_fn: impl FnMut(&mut RenderPass),
+        mut render_fn: impl FnMut(&mut wgpu::CommandEncoder, &wgpu::TextureView),
     ) -> Result<(), SurfaceError> {
         // Gets a new texture from the swap chain
         let surface_texture = self.surface.get_current_texture()?;
+
         let texture_view = surface_texture
             .texture
             .create_view(&wgpu::TextureViewDescriptor::default());
@@ -216,28 +216,7 @@ impl WgpuWindow {
                 label: Some("Render Encoder"),
             });
 
-        // THIS SCOPE IS ABSOLUTELY NEEDED FOR THE RENDER PASS - DO NOT REMOVE
-        {
-            let mut render_pass = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
-                label: Some("Render Pass"),
-                color_attachments: &[
-                    // This is what @location(0) in the fragment shader targets
-                    Some(wgpu::RenderPassColorAttachment {
-                        view: &texture_view,
-                        resolve_target: None,
-                        ops: wgpu::Operations {
-                            load: wgpu::LoadOp::Clear(clear_color),
-                            store: wgpu::StoreOp::Store,
-                        },
-                    }),
-                ],
-                depth_stencil_attachment: None,
-                timestamp_writes: None,
-                occlusion_query_set: None,
-            });
-
-            render_fn(&mut render_pass);
-        }
+        render_fn(&mut encoder, &texture_view);
 
         self.queue.submit(std::iter::once(encoder.finish()));
 

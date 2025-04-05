@@ -14,23 +14,45 @@ use limnus_default_stages::{FixedUpdate, RenderUpdate};
 use limnus_system_params::{LoRe, LoReM, ReM};
 
 pub fn clear_color_tick(minimal: LoRe<Minimal>, wgpu_window: LoRe<WgpuWindow>) {
-    let time = minimal.tick % 60;
-    let normalized_time = time as f64 / 60.0;
+    wgpu_window
+        .render(|encoder, texture_view| {
+            let time = minimal.tick % 60;
+            let normalized_time = time as f64 / 60.0;
+            let clear_color = wgpu::Color {
+                r: 1.0,
+                g: normalized_time,
+                b: 0.0,
+                a: 0.8,
+            };
 
-    let color = wgpu::Color {
-        r: 1.0,
-        g: normalized_time,
-        b: 0.0,
-        a: 0.8,
-    };
-    wgpu_window.render(color, |_render_pass| {}).unwrap();
+            encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
+                label: Some("Render Pass"),
+                color_attachments: &[
+                    // This is what @location(0) in the fragment shader targets
+                    Some(wgpu::RenderPassColorAttachment {
+                        view: texture_view,
+                        resolve_target: None,
+                        ops: wgpu::Operations {
+                            load: wgpu::LoadOp::Clear(clear_color),
+                            store: wgpu::StoreOp::Store,
+                        },
+                    }),
+                ],
+                depth_stencil_attachment: None,
+                timestamp_writes: None,
+                occlusion_query_set: None,
+            });
+        })
+        .unwrap();
 }
 
+#[allow(clippy::missing_const_for_fn)]
 pub fn update_color(mut minimal: LoReM<Minimal>) {
     minimal.tick += 1;
 }
 
-pub fn change_size(mut minimal: LoReM<Minimal>, mut window_settings: ReM<Window>) {
+#[allow(clippy::missing_const_for_fn)]
+pub fn change_size(minimal: LoReM<Minimal>, mut window_settings: ReM<Window>) {
     let x = (minimal.tick / 60) % 60;
     let width = 640 + x;
     window_settings.requested_surface_size.x = width as u16;

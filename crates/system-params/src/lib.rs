@@ -23,7 +23,7 @@ impl<'a, T> ReM<'a, T> {
     }
 }
 
-impl<'a, T> Deref for ReM<'a, T> {
+impl<T> Deref for ReM<'_, T> {
     type Target = T;
 
     fn deref(&self) -> &Self::Target {
@@ -31,7 +31,7 @@ impl<'a, T> Deref for ReM<'a, T> {
     }
 }
 
-impl<'a, T> DerefMut for ReM<'a, T> {
+impl< T> DerefMut for ReM<'_, T> {
     fn deref_mut(&mut self) -> &mut Self::Target {
         self.value
     }
@@ -48,7 +48,7 @@ impl<'a, T> Re<'a, T> {
     }
 }
 
-impl<'a, T> Deref for Re<'a, T> {
+impl<T> Deref for Re<'_, T> {
     type Target = T;
 
     fn deref(&self) -> &Self::Target {
@@ -105,7 +105,7 @@ impl<'a> ReAll<'a> {
     }
 }
 
-impl<'a> Deref for ReAll<'a> {
+impl Deref for ReAll<'_> {
     type Target = ResourceStorage;
 
     fn deref(&self) -> &Self::Target {
@@ -113,7 +113,7 @@ impl<'a> Deref for ReAll<'a> {
     }
 }
 
-impl<'a> DerefMut for ReAll<'a> {
+impl DerefMut for ReAll<'_> {
     fn deref_mut(&mut self) -> &mut Self::Target {
         self.value
     }
@@ -142,7 +142,7 @@ impl<'a, T: Message> Msg<'a, T> {
     }
 }
 
-impl<'a, T: Message> Deref for Msg<'a, T> {
+impl< T: Message> Deref for Msg<'_, T> {
     type Target = Messages<T>;
 
     fn deref(&self) -> &Self::Target {
@@ -161,7 +161,7 @@ impl<'a, T: Message> MsgM<'a, T> {
     }
 }
 
-impl<'a, T: Message> Deref for MsgM<'a, T> {
+impl<T: Message> Deref for MsgM<'_, T> {
     type Target = Messages<T>;
 
     fn deref(&self) -> &Self::Target {
