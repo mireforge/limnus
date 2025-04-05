@@ -16,7 +16,7 @@ Add limnus-gamepad to your project’s Cargo.toml:
 
 ```toml
 [dependencies]
-limnus-gamepad = "0.0.17"
+limnus-gamepad = "0.0.18"
 ```
 
 ## License

@@ -21,7 +21,7 @@ Add to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-limnus-gamepad-gilrs = "0.0.17"
+limnus-gamepad-gilrs = "0.0.18"
 ```
 
 ## License

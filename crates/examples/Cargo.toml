@@ -1,6 +1,6 @@
 [package]
 name = "limnus-examples"
-version = "0.0.17"
+version = "0.0.18"
 edition = "2024"
 license = "MIT"
 description = "examples for the limnus game engine"
@@ -13,19 +13,19 @@ name = "gamepad_tester"
 path = "src/bin/gamepad_tester.rs"
 
 [dependencies]
-limnus-app = { path = "../app", version = "0.0.17" }
-limnus-system-params = { path = "../system-params", version = "0.0.17" }
-limnus-local-resource = { path = "../local-resource", version = "0.0.17" }
-limnus-gamepad = { path = "../gamepad", version = "0.0.17" }
-limnus-gamepad-gilrs = { path = "../gamepad-gilrs", version = "0.0.17" }
-limnus-log = { path = "../log", version = "0.0.17" }
+limnus-app = { path = "../app", version = "0.0.18" }
+limnus-system-params = { path = "../system-params", version = "0.0.18" }
+limnus-local-resource = { path = "../local-resource", version = "0.0.18" }
+limnus-gamepad = { path = "../gamepad", version = "0.0.18" }
+limnus-gamepad-gilrs = { path = "../gamepad-gilrs", version = "0.0.18" }
+limnus-log = { path = "../log", version = "0.0.18" }
 tracing = "0.1.41"
-limnus-assets-loader = { path = "../assets-loader", version = "0.0.17" }
-limnus-loader = { path = "../loader", version = "0.0.17" }
-limnus = { path = "../limnus", version = "0.0.17", features = ["default_keys", "default_schedulers", "audio"] }
+limnus-assets-loader = { path = "../assets-loader", version = "0.0.18" }
+limnus-loader = { path = "../loader", version = "0.0.18" }
+limnus = { path = "../limnus", version = "0.0.18", features = ["default_keys", "default_schedulers", "audio"] }
 wgpu = "23.0.0"
 int_math = "0.0.2"
-limnus-default-stages = { path = "../default-stages", version = "0.0.17" }
-limnus-default-stages-plugin = { path = "../default-stages-plugin", version = "0.0.17" }
-limnus-default-schedulers = { path = "../default-schedulers", version = "0.0.17" }
-limnus-clock = { path = "../clock", version = "0.0.17" }
+limnus-default-stages = { path = "../default-stages", version = "0.0.18" }
+limnus-default-stages-plugin = { path = "../default-stages-plugin", version = "0.0.18" }
+limnus-default-schedulers = { path = "../default-schedulers", version = "0.0.18" }
+limnus-clock = { path = "../clock", version = "0.0.18" }

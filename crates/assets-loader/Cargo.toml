@@ -1,6 +1,6 @@
 [package]
 name = "limnus-assets-loader"
-version = "0.0.17"
+version = "0.0.18"
 edition = "2024"
 repository = "https://github.com/swamp/limnus"
 license = "MIT"
@@ -8,10 +8,10 @@ categories = ["game-development"]
 description = "loads assets"
 
 [dependencies]
-limnus-app = { path = "../app", version = "0.0.17" }
-limnus-assets = { path = "../assets", version = "0.0.17" }
-limnus-resource = { path = "../resource", version = "0.0.17" }
-limnus-local-resource = { path = "../local-resource", version = "0.0.17" }
+limnus-app = { path = "../app", version = "0.0.18" }
+limnus-assets = { path = "../assets", version = "0.0.18" }
+limnus-resource = { path = "../resource", version = "0.0.18" }
+limnus-local-resource = { path = "../local-resource", version = "0.0.18" }
 tracing = "0.1.40"
 
 [dev-dependencies]

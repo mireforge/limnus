@@ -31,7 +31,7 @@ Add limnus-default-stages-plugin to your project’s Cargo.toml:
 
 ```toml
 [dependencies]
-limnus-default-stages-plugin = "0.0.17"
+limnus-default-stages-plugin = "0.0.18"
 ```
 
 ## License

@@ -1,6 +1,6 @@
 [package]
 name = "limnus-app"
-version = "0.0.17"
+version = "0.0.18"
 edition = "2024"
 license = "MIT"
 description = "Application management"
@@ -12,17 +12,17 @@ keywords = ["game", "render"]
 tracing = "0.1.40"
 
 # State, resource and message
-limnus-system-state = { path = "../system-state", version = "0.0.17" }
-limnus-message = { path = "../message", version = "0.0.17" }
-limnus-resource = { path = "../resource", version = "0.0.17" }
-limnus-local-resource = { path = "../local-resource", version = "0.0.17" }
+limnus-system-state = { path = "../system-state", version = "0.0.18" }
+limnus-message = { path = "../message", version = "0.0.18" }
+limnus-resource = { path = "../resource", version = "0.0.18" }
+limnus-local-resource = { path = "../local-resource", version = "0.0.18" }
 
 # System
-limnus-scheduler-runner = { path = "../scheduler-runner", version = "0.0.17" }
-limnus-scheduler = { path = "../scheduler", version = "0.0.17" }
-limnus-system = { path = "../system", version = "0.0.17" }
-limnus-stage = { path = "../stage", version = "0.0.17" }
+limnus-scheduler-runner = { path = "../scheduler-runner", version = "0.0.18" }
+limnus-scheduler = { path = "../scheduler", version = "0.0.18" }
+limnus-system = { path = "../system", version = "0.0.18" }
+limnus-stage = { path = "../stage", version = "0.0.18" }
 
 [dev-dependencies]
-limnus-system-params = { path = "../system-params", version = "0.0.17" }
-limnus-default-stages = { path = "../default-stages", version = "0.0.17" }
+limnus-system-params = { path = "../system-params", version = "0.0.18" }
+limnus-default-stages = { path = "../default-stages", version = "0.0.18" }

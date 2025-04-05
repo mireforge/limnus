@@ -1,6 +1,6 @@
 [package]
 name = "limnus-macros"
-version = "0.0.17"
+version = "0.0.18"
 edition = "2024"
 license = "MIT"
 description = "macros specific for the limnus types"

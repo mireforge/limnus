@@ -1,6 +1,6 @@
 [package]
 name = "limnus-window-runner"
-version = "0.0.17"
+version = "0.0.18"
 edition = "2024"
 repository = "https://github.com/swamp/limnus"
 license = "MIT"
@@ -8,12 +8,12 @@ categories = ["game-development"]
 description = "winit runner for limnus-app"
 
 [dependencies]
-limnus-app = { path = "../app", version = "0.0.17" }
-limnus-window = { path = "../window", version = "0.0.17" }
-limnus-wgpu-window = { path = "../wgpu-window", version = "0.0.17" }
+limnus-app = { path = "../app", version = "0.0.18" }
+limnus-window = { path = "../window", version = "0.0.18" }
+limnus-wgpu-window = { path = "../wgpu-window", version = "0.0.18" }
 future-runner = "0.0.1"
-limnus-basic-input = { path = "../basic-input", version = "0.0.17" }
-limnus-screen = { path = "../screen", version = "0.0.17" }
+limnus-basic-input = { path = "../basic-input", version = "0.0.18" }
+limnus-screen = { path = "../screen", version = "0.0.18" }
 
 winit = "0.30.8"
 int_math = "0.0.2"
