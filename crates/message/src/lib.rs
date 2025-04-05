@@ -192,7 +192,7 @@ impl<'a, M: Message> Iterator for MessagesIterator<'a, M> {
     }
 }
 
-impl<'a, M: Message> DoubleEndedIterator for MessagesIterator<'a, M> {
+impl<M: Message> DoubleEndedIterator for MessagesIterator<'_, M> {
     #[must_use]
     fn next_back(&mut self) -> Option<Self::Item> {
         self.iter
