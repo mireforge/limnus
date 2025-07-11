@@ -11,7 +11,7 @@ use limnus::{
 };
 use limnus_app::prelude::App;
 use limnus_default_stages::{FixedUpdate, RenderUpdate};
-use limnus_system_params::{LoRe, LoReM, ReM};
+use limnus_system_params::{LoRe, LoReM};
 
 pub fn clear_color_tick(steam_app: LoRe<SteamDeckTest>, wgpu_window: LoRe<WgpuWindow>) {
     wgpu_window

@@ -4,7 +4,7 @@
  */
 use crate::dpi::PhysicalSize;
 use std::sync::Arc;
-use tracing::{debug, info};
+use tracing::debug;
 use winit::application::ApplicationHandler;
 use winit::dpi;
 use winit::dpi::PhysicalPosition;
@@ -313,13 +313,10 @@ impl ApplicationHandler for App<'_> {
         }
 
         // HACK: handle some events and try to create the window
-        match event {
-            WindowEvent::Resized(physical_size) => {
-                if self.window.is_none() {
-                    self.create_window(event_loop);
-                }
+        if let WindowEvent::Resized(physical_size) = event {
+            if self.window.is_none() {
+                self.create_window(event_loop);
             }
-            _ => {}
         }
 
         let Some(window) = self.window.as_mut() else {

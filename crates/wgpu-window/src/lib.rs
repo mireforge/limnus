@@ -11,8 +11,7 @@ use std::default::Default;
 use std::sync::Arc;
 use tracing::{debug, info, trace};
 use wgpu::{
-    Adapter, Backends, Device, DeviceDescriptor, Features, Instance, InstanceDescriptor,
-    InstanceFlags, Limits, MemoryHints, Queue, RequestAdapterOptions, RequestDeviceError, Surface,
+    Adapter, Device, DeviceDescriptor, Features, Instance, InstanceDescriptor, Limits, MemoryHints, Queue, RequestAdapterOptions, RequestDeviceError, Surface,
     SurfaceConfiguration, SurfaceError,
 };
 use winit::dpi::PhysicalSize;
@@ -223,7 +222,7 @@ impl WgpuWindow {
             }
             Err(e) => {
                 // other errors (Timeout, etc): log and skip this frame
-                eprintln!("wgpu error getting next swap chain texture: {:?}", e);
+                eprintln!("wgpu error getting next swap chain texture: {e:?}");
                 return Err(SurfaceError::Other);
             }
         };

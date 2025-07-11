@@ -15,7 +15,7 @@ use limnus_screen::{ScreenMode, Window, WindowMessage};
 use limnus_wgpu_window::{WgpuWindow, annoying_async_device_creation};
 use limnus_window::{AppHandler, WindowMode};
 use std::sync::{Arc, Mutex};
-use tracing::{debug, error};
+use tracing::debug;
 use winit::dpi;
 use winit::dpi::PhysicalPosition;
 use winit::keyboard::PhysicalKey;
@@ -42,14 +42,10 @@ impl WindowState {
             return None;
         }
 
-        if self
+        self
             .physical_surface_size
             .height
-            .checked_sub(physical_position.y)
-            .is_none()
-        {
-            return None;
-        }
+            .checked_sub(physical_position.y)?;
 
         let vec = UVec2::new(physical_position.x as u16, ((self.physical_surface_size.height - 1) - physical_position.y) as u16);
 
