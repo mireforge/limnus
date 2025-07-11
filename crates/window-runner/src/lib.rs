@@ -17,6 +17,7 @@ use limnus_window::{AppHandler, WindowMode};
 use std::sync::{Arc, Mutex};
 use tracing::{debug, error};
 use winit::dpi;
+use winit::dpi::PhysicalPosition;
 use winit::keyboard::PhysicalKey;
 
 pub struct WindowState {
@@ -26,6 +27,43 @@ pub struct WindowState {
     requested_surface_size: UVec2,
     minimal_surface_size: UVec2,
     physical_surface_size: dpi::PhysicalSize<u32>,
+}
+
+impl WindowState {
+    pub fn convert_physical_position(&self, physical_position: PhysicalPosition<u32>) -> Option<UVec2> {
+        if physical_position.x >= self.physical_surface_size.width {
+            return None;
+        }
+        if physical_position.y >= self.physical_surface_size.height {
+            return None;
+        }
+
+        if self.physical_surface_size.height == 0 {
+            return None;
+        }
+
+        if self
+            .physical_surface_size
+            .height
+            .checked_sub(physical_position.y)
+            .is_none()
+        {
+            return None;
+        }
+
+        let vec = UVec2::new(physical_position.x as u16, ((self.physical_surface_size.height - 1) - physical_position.y) as u16);
+
+        Some(vec)
+    }
+
+    pub fn convert_physical_position_f64(&self, physical_position: PhysicalPosition<f64>) -> Option<UVec2> {
+        let u32_position = PhysicalPosition::<u32> {
+            x: physical_position.x as u32,
+            y: physical_position.y as u32,
+        };
+
+        self.convert_physical_position(u32_position)
+    }
 }
 
 impl AppHandler for WindowState {
@@ -80,14 +118,16 @@ impl AppHandler for WindowState {
     }
 
     fn resized(&mut self, size: dpi::PhysicalSize<u32>) {
-        self.physical_surface_size = size;
-        self.app
-            .lock()
-            .unwrap()
-            .send(WindowMessage::Resized(UVec2::new(
-                size.width as u16,
-                size.height as u16,
-            )));
+        if size != self.physical_surface_size {
+            self.physical_surface_size = size;
+            self.app
+                .lock()
+                .unwrap()
+                .send(WindowMessage::Resized(UVec2::new(
+                    size.width as u16,
+                    size.height as u16,
+                )));
+        }
     }
 
     fn keyboard_input(
@@ -111,37 +151,26 @@ impl AppHandler for WindowState {
 
     /// opinionated, we want origin (0,0) in the lower left corner of the window
     fn cursor_moved(&mut self, physical_position: dpi::PhysicalPosition<u32>) {
-        if physical_position.x >= self.physical_surface_size.width {
-            return;
-        }
-        if physical_position.y >= self.physical_surface_size.height {
-            return;
-        }
+        let converted = self.convert_physical_position(physical_position);
 
-        if self.physical_surface_size.height == 0 {
-            return;
+        if let Some(converted) = converted {
+            self.app
+                .lock()
+                .unwrap()
+                .send(WindowMessage::CursorMoved(converted));
         }
-
-        if self
-            .physical_surface_size
-            .height
-            .checked_sub(physical_position.y)
-            .is_none()
-        {
-            error!(
-                "problem! {} {:?}",
-                self.physical_surface_size.height, physical_position.y
-            );
-        }
-
-        self.app
-            .lock()
-            .unwrap()
-            .send(WindowMessage::CursorMoved(UVec2::new(
-                physical_position.x as u16,
-                ((self.physical_surface_size.height - 1) - physical_position.y) as u16,
-            )));
     }
+
+    fn touch(&mut self, touch: winit::event::Touch) {
+        let converted = self.convert_physical_position_f64(touch.location);
+        if let Some(converted) = converted {
+            self.app.lock().unwrap().send(WindowMessage::Touch(
+                converted,
+                from_touch_phase(touch.phase),
+            ));
+        }
+    }
+
 
     fn mouse_input(
         &mut self,
@@ -178,7 +207,6 @@ impl AppHandler for WindowState {
 
     fn mouse_motion(&mut self, _delta: (f64, f64)) {}
 
-    fn touch(&mut self, _touch: winit::event::Touch) {}
 
     fn scale_factor_changed(
         &mut self,

@@ -3,6 +3,7 @@
  * Licensed under the MIT License. See LICENSE in the project root for license information.
  */
 use int_math::UVec2;
+use limnus_basic_input::prelude::TouchPhase;
 use limnus_message::prelude::Message;
 use limnus_resource::prelude::*;
 
@@ -24,6 +25,7 @@ pub struct Window {
 #[derive(Message, Debug)]
 pub enum WindowMessage {
     CursorMoved(UVec2),
+    Touch(UVec2, TouchPhase),
     WindowCreated(),
     Resized(UVec2),
 }

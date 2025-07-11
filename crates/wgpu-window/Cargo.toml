@@ -9,8 +9,8 @@ categories = ["game-development"]
 keywords = ["game", "render", "sprites"]
 
 [dependencies]
-wgpu = "23.0.0"
-winit = "0.30.8"
+wgpu = "26.0.1"
+winit = "0.30.11"
 limnus-app = { path = "../app", version = "0.0.18" }
 limnus-screen = { path = "../screen", version = "0.0.18" }
 tracing = "0.1.40"

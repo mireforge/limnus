@@ -23,7 +23,7 @@ tracing = "0.1.40"
 limnus-assets-loader = { path = "../assets-loader", version = "0.0.18" }
 limnus-loader = { path = "../loader", version = "0.0.18" }
 limnus = { path = "../limnus", version = "0.0.18", features = ["default_keys", "default_schedulers", "audio"] }
-wgpu = "23.0.0"
+wgpu = "26.0.1"
 int_math = "0.0.2"
 limnus-default-stages = { path = "../default-stages", version = "0.0.18" }
 limnus-default-stages-plugin = { path = "../default-stages-plugin", version = "0.0.18" }

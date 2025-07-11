@@ -15,7 +15,7 @@ future-runner = "0.0.1"
 limnus-basic-input = { path = "../basic-input", version = "0.0.18" }
 limnus-screen = { path = "../screen", version = "0.0.18" }
 
-winit = "0.30.8"
+winit = "0.30.11"
 int_math = "0.0.2"
 tracing = "0.1.40"
 console_error_panic_hook = "0.1.7"

@@ -4,7 +4,7 @@
  */
 use crate::dpi::PhysicalSize;
 use std::sync::Arc;
-use tracing::debug;
+use tracing::{debug, info};
 use winit::application::ApplicationHandler;
 use winit::dpi;
 use winit::dpi::PhysicalPosition;
@@ -231,77 +231,100 @@ impl<'a> App<'a> {
         }
         self.mode = mode.clone();
     }
+
+    pub fn internal_resized(&mut self, physical_size: PhysicalSize<u32>) {
+        debug!("internal resized: {:?}", physical_size);
+        self.handler.resized(physical_size);
+    }
+
+    pub fn create_window(&mut self, active_event_loop: &ActiveEventLoop) {
+        assert!(self.window.is_none());
+        debug!("creating new window");
+
+        let window_attributes: WindowAttributes;
+
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            let mut calculated_window_attributes = WindowAttributes::default()
+                .with_title(self.title.as_str())
+                .with_resizable(true)
+                .with_inner_size(self.start_physical_size)
+                .with_min_inner_size(self.min_physical_size);
+
+            if let WindowMode::WindowedFullscreen = self.mode {
+                calculated_window_attributes = calculated_window_attributes
+                    .with_fullscreen(Some(Fullscreen::Borderless(None)));
+            }
+
+            window_attributes = calculated_window_attributes;
+        }
+
+        #[cfg(target_arch = "wasm32")]
+        {
+            // Create the window attributes
+            let canvas = window()
+                .unwrap()
+                .document()
+                .unwrap()
+                .get_element_by_id("limnus_canvas")
+                .expect("should have a 'limnus_canvas' canvas in the html (dom)")
+                .dyn_into::<web_sys::HtmlCanvasElement>()
+                .unwrap();
+
+            {
+                trace!(
+                    ?canvas,
+                    "found canvas {}x{}",
+                    canvas.width(),
+                    canvas.height()
+                );
+                window_attributes = WindowAttributes::default().with_canvas(Some(canvas));
+            }
+        }
+
+        let window = Arc::new(active_event_loop.create_window(window_attributes).unwrap());
+
+        self.window = Some(window.clone());
+
+        #[cfg(not(target_arch = "wasm32"))]
+        if let WindowMode::WindowedAlwaysOnTop = &self.mode {
+            window.set_window_level(WindowLevel::AlwaysOnTop);
+        }
+
+        self.handler.window_created(window);
+    }
 }
 
 impl ApplicationHandler for App<'_> {
+    // Resumed isn't called for all platforms
     fn resumed(&mut self, event_loop: &ActiveEventLoop) {
         if self.window.is_none() {
-            debug!("creating new window");
-
-            let window_attributes: WindowAttributes;
-
-            #[cfg(not(target_arch = "wasm32"))]
-            {
-                let mut calculated_window_attributes = WindowAttributes::default()
-                    .with_title(self.title.as_str())
-                    .with_resizable(true)
-                    .with_inner_size(self.start_physical_size)
-                    .with_min_inner_size(self.min_physical_size);
-
-                if let WindowMode::WindowedFullscreen = self.mode {
-                    calculated_window_attributes = calculated_window_attributes
-                        .with_fullscreen(Some(Fullscreen::Borderless(None)));
-                }
-
-                window_attributes = calculated_window_attributes;
-            }
-
-            #[cfg(target_arch = "wasm32")]
-            {
-                // Create the window attributes
-                let canvas = window()
-                    .unwrap()
-                    .document()
-                    .unwrap()
-                    .get_element_by_id("limnus_canvas")
-                    .expect("should have a 'limnus_canvas' canvas in the html (dom)")
-                    .dyn_into::<web_sys::HtmlCanvasElement>()
-                    .unwrap();
-
-                {
-                    trace!(
-                        ?canvas,
-                        "found canvas {}x{}",
-                        canvas.width(),
-                        canvas.height()
-                    );
-                    window_attributes = WindowAttributes::default().with_canvas(Some(canvas));
-                }
-            }
-
-            let window = Arc::new(event_loop.create_window(window_attributes).unwrap());
-
-            self.window = Some(window.clone());
-
-            #[cfg(not(target_arch = "wasm32"))]
-            if let WindowMode::WindowedAlwaysOnTop = &self.mode {
-                window.set_window_level(WindowLevel::AlwaysOnTop);
-            }
-
-            self.handler.window_created(window);
-
+            self.create_window(event_loop);
             // This tells winit that we want another frame after this one
             self.window.as_ref().unwrap().request_redraw();
         }
     }
 
     fn window_event(&mut self, event_loop: &ActiveEventLoop, id: WindowId, event: WindowEvent) {
-        if self.window.is_none() {
-            return;
+        if let Some(window) = &self.window {
+            if id != window.id() {
+                return;
+            }
         }
-        if id != self.window.as_ref().unwrap().id() {
-            return;
+
+        // HACK: handle some events and try to create the window
+        match event {
+            WindowEvent::Resized(physical_size) => {
+                if self.window.is_none() {
+                    self.create_window(event_loop);
+                }
+            }
+            _ => {}
         }
+
+        let Some(window) = self.window.as_mut() else {
+            return;
+        };
 
         match event {
             WindowEvent::CloseRequested => {
@@ -311,16 +334,15 @@ impl ApplicationHandler for App<'_> {
                 self.window = None;
             }
             WindowEvent::Resized(physical_size) => {
-                self.handler.resized(physical_size);
-
                 // This tells winit that we want another frame after this one
-                self.window.as_ref().unwrap().request_redraw();
+                window.request_redraw();
+                self.internal_resized(physical_size);
             }
             WindowEvent::RedrawRequested => {
                 // This tells winit that we want another frame after this one
-                self.window.as_ref().unwrap().request_redraw();
+                window.request_redraw();
 
-                let window = self.window.as_mut().unwrap();
+                //let window = self.window.as_mut().unwrap();
                 let cursor_visible_request = self.handler.cursor_should_be_visible();
                 if cursor_visible_request != self.cursor_is_visible {
                     window.set_cursor_visible(cursor_visible_request);

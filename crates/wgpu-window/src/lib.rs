@@ -50,14 +50,11 @@ pub struct BasicDeviceInfo {
 pub async fn annoying_async_device_creation(
     window: Arc<Window>,
 ) -> Result<BasicDeviceInfo, RequestDeviceError> {
-    let instance = Instance::new(InstanceDescriptor {
-        flags: InstanceFlags::advanced_debugging(),
-        dx12_shader_compiler: Default::default(),
-        #[cfg(not(target_arch = "wasm32"))]
-        backends: Backends::PRIMARY,
-        #[cfg(target_arch = "wasm32")]
-        backends: Backends::GL, // TODO: Default to WebGl for compatibility for now, but maybe can change that in the future
-        gles_minor_version: Default::default(),
+    let instance = Instance::new(&InstanceDescriptor {
+        backends: Default::default(),
+        flags: Default::default(),
+        memory_budget_thresholds: Default::default(),
+        backend_options: Default::default(),
     });
     trace!(?instance, "found instance");
 
@@ -84,19 +81,20 @@ pub async fn annoying_async_device_creation(
             Limits::default()
         },
         memory_hints: MemoryHints::default(), // Use default memory hints
+        trace: Default::default(),
     };
 
-    info!(?device_descriptor, "device descriptor");
+    debug!(?device_descriptor, "device descriptor");
 
     let (device, queue) = adapter
-        .request_device(&device_descriptor, None)
+        .request_device(&device_descriptor)
         .await
         .expect("Failed to request device");
-    info!(?device, "device");
+    debug!(?device, "device");
 
     let inner_size = window.inner_size();
 
-    info!(?inner_size, "inner size");
+    debug!(?inner_size, "inner size");
 
     Ok(BasicDeviceInfo {
         adapter,
@@ -184,6 +182,11 @@ impl WgpuWindow {
         self.config.format
     }
 
+    pub fn configure_surface(&mut self) {
+        debug!("configured surface! {:?}", self.config);
+        self.surface.configure(&self.device, &self.config);
+    }
+    
     pub fn resize(&mut self, new_size: (u16, u16)) {
         let width = new_size.0 as usize;
         let height = new_size.1 as usize;
@@ -194,16 +197,36 @@ impl WgpuWindow {
 
         self.config.width = width as u32;
         self.config.height = height as u32;
-        self.surface.configure(&self.device, &self.config);
+        self.configure_surface();
     }
 
     pub fn render(
         &self,
         mut render_fn: impl FnMut(&mut wgpu::CommandEncoder, &wgpu::TextureView),
     ) -> Result<(), SurfaceError> {
-        // Gets a new texture from the swap chain
-        let surface_texture = self.surface.get_current_texture()?;
-
+        let surface_texture = match self.surface.get_current_texture() {
+            Ok(frame) => frame,
+            Err(wgpu::SurfaceError::Outdated) => {
+                // Surface is out of date: reconfigure and bail out of this frame.
+                // TODO: Get window size somehow
+//                self.surface.configure(&self.device, &self.config);
+                return Ok(()); // hopefully next frame will work
+            }
+            Err(wgpu::SurfaceError::Lost) => {
+                // Lost is treated the same as Outdated in wgpu 0.13+
+                return Ok(()); // hopefully next frame will work
+            }
+            Err(wgpu::SurfaceError::OutOfMemory) => {
+                // fatal – bail out of the app
+                eprintln!("GPU out of memory, exiting");
+                std::process::exit(1);
+            }
+            Err(e) => {
+                // other errors (Timeout, etc): log and skip this frame
+                eprintln!("wgpu error getting next swap chain texture: {:?}", e);
+                return Err(SurfaceError::Other);
+            }
+        };
         let texture_view = surface_texture
             .texture
             .create_view(&wgpu::TextureViewDescriptor::default());
