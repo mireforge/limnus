@@ -9,7 +9,7 @@ categories = ["game-development"]
 keywords = ["game", "audio"]
 
 [dependencies]
-cpal = "0.15.3"
+cpal = "0.16.0"
 tracing = "0.1.40"
 
 limnus-app = { path = "../app", version = "0.0.18" }
