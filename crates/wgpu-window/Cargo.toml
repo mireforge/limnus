@@ -1,6 +1,6 @@
 [package]
 name = "limnus-wgpu-window"
-version = "0.0.19"
+version = "0.0.20"
 edition = "2024"
 license = "MIT"
 description = "creating and managing a window with rendering surfaces using winit and wgpu"
@@ -11,9 +11,9 @@ keywords = ["game", "render", "sprites"]
 [dependencies]
 wgpu = "26.0.1"
 winit = "0.30.11"
-limnus-app = { path = "../app", version = "0.0.19" }
-limnus-screen = { path = "../screen", version = "0.0.19" }
+limnus-app = { path = "../app", version = "0.0.20" }
+limnus-screen = { path = "../screen", version = "0.0.20" }
 tracing = "0.1.40"
-limnus-system-params = { path = "../system-params", version = "0.0.19" }
-limnus-local-resource = { path = "../local-resource", version = "0.0.19" }
-limnus-default-stages = { path = "../default-stages", version = "0.0.19" }
+limnus-system-params = { path = "../system-params", version = "0.0.20" }
+limnus-local-resource = { path = "../local-resource", version = "0.0.20" }
+limnus-default-stages = { path = "../default-stages", version = "0.0.20" }

@@ -1,6 +1,6 @@
 [package]
 name = "limnus-asset-registry"
-version = "0.0.19"
+version = "0.0.20"
 edition = "2024"
 repository = "https://github.com/swamp/limnus"
 license = "MIT"
@@ -8,15 +8,15 @@ categories = ["game-development"]
 description = "keeps track of asset lifetimes"
 
 [dependencies]
-limnus-assets = { path = "../assets", version = "0.0.19" }
+limnus-assets = { path = "../assets", version = "0.0.20" }
 future-runner = "0.0.1"
-limnus-app = { path = "../app", version = "0.0.19" }
-limnus-assets-loader = { path = "../assets-loader", version = "0.0.19" }
-limnus-loader = { path = "../loader", version = "0.0.19" }
-limnus-resource = { path = "../resource", version = "0.0.19" }
-limnus-local-resource = { path = "../local-resource", version = "0.0.19" }
+limnus-app = { path = "../app", version = "0.0.20" }
+limnus-assets-loader = { path = "../assets-loader", version = "0.0.20" }
+limnus-loader = { path = "../loader", version = "0.0.20" }
+limnus-resource = { path = "../resource", version = "0.0.20" }
+limnus-local-resource = { path = "../local-resource", version = "0.0.20" }
 message-channel = "0.0.1"
 chunk-reader = "0.0.1"
 tracing = "0.1.40"
-limnus-system-params = { path = "../system-params", version = "0.0.19" }
-limnus-default-stages = { path = "../default-stages", version = "0.0.19" }
+limnus-system-params = { path = "../system-params", version = "0.0.20" }
+limnus-default-stages = { path = "../default-stages", version = "0.0.20" }
