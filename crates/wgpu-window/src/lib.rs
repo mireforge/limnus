@@ -9,10 +9,12 @@ use limnus_screen::WindowMessage;
 use limnus_system_params::{LoReM, Msg};
 use std::default::Default;
 use std::sync::Arc;
-use tracing::{debug, info, trace};
+use tracing::{debug, info, trace, warn};
 use wgpu::{
-    Adapter, Device, DeviceDescriptor, Features, Instance, InstanceDescriptor, Limits, MemoryHints, Queue, RequestAdapterOptions, RequestDeviceError, Surface,
-    SurfaceConfiguration, SurfaceError,
+    Adapter, BackendOptions, Backends, Device, DeviceDescriptor, Features, Instance,
+    InstanceDescriptor, InstanceFlags, Limits, MemoryBudgetThresholds, MemoryHints,
+    PowerPreference, Queue, RequestAdapterOptions, RequestDeviceError, Surface,
+    SurfaceConfiguration, SurfaceError, Trace,
 };
 use winit::dpi::PhysicalSize;
 use winit::window::Window;
@@ -46,31 +48,95 @@ pub struct BasicDeviceInfo {
     pub physical_surface_size: PhysicalSize<u32>,
 }
 
-pub async fn annoying_async_device_creation(
-    window: Arc<Window>,
-) -> Result<BasicDeviceInfo, RequestDeviceError> {
-    let instance = Instance::new(&InstanceDescriptor {
-        backends: Default::default(),
-        flags: Default::default(),
-        memory_budget_thresholds: Default::default(),
-        backend_options: Default::default(),
-    });
-    trace!(?instance, "found instance");
-
-    let surface = instance.create_surface(Arc::clone(&window)).unwrap();
-    trace!(?surface, "surface");
-
-    let adapter = instance
+async fn try_pref(
+    instance: &Instance,
+    surface: Option<&Surface<'_>>,
+    pref: PowerPreference,
+) -> Option<wgpu::Adapter> {
+    debug!(?pref, "trying to find adapter with power preference");
+    let res = instance
         .request_adapter(&RequestAdapterOptions {
-            power_preference: Default::default(),
-            compatible_surface: Some(&surface),
+            power_preference: pref,
+            compatible_surface: surface,
             force_fallback_adapter: false,
         })
+        .await;
+
+    match res {
+        Ok(adapter) => Some(adapter),
+        Err(err) => {
+            warn!("request_adapter({pref:?}) failed: {err}");
+            None
+        }
+    }
+}
+
+/// # Errors
+///
+pub async fn pick_best_adapter(
+    instance: &Instance,
+    surface: Option<&Surface<'_>>,
+) -> Result<Adapter, InitError> {
+    for &pref in &[
+        PowerPreference::HighPerformance,
+        PowerPreference::LowPower,
+        PowerPreference::None,
+    ] {
+        if let Some(a) = try_pref(instance, surface, pref).await {
+            return Ok(a);
+        }
+    }
+    Err(InitError::NoAdapter)
+}
+
+#[derive(Debug)]
+pub enum WgpuInitError {
+    NoAdapter,
+    NoDevice,
+}
+
+#[derive(Debug, Clone, Copy)]
+pub enum LimitsTier {
+    ModernDefault,
+    Downlevel,
+    WebGL2,
+}
+
+#[derive(Debug)]
+pub struct DeviceSelection {
+    pub device: Device,
+    pub queue: Queue,
+    pub tier: LimitsTier,
+    pub applied_limits: Limits,
+}
+
+async fn try_with(adapter: &Adapter, base: Limits, tier: LimitsTier) -> Option<DeviceSelection> {
+    // Use .using_resolution(adapter.limits()) before request_device to clamp your
+    // desired baseline limits to what the GPU actually supports. This avoids
+    // “requested limits exceed adapter capabilities” errors on older or downlevel GPUs.
+    let applied = base.using_resolution(adapter.limits());
+
+    info!(?tier, "trying to find device with tier");
+
+    adapter
+        .request_device(&DeviceDescriptor {
+            label: Some("wgpu device"),
+            required_features: Features::empty(), // require nothing
+            required_limits: applied.clone(),
+            memory_hints: MemoryHints::default(),
+            trace: Trace::default(),
+        })
         .await
-        .unwrap();
+        .ok()
+        .map(|(device, queue)| DeviceSelection {
+            device,
+            queue,
+            tier,
+            applied_limits: applied,
+        })
+}
 
-    trace!(?adapter, "found adapter");
-
+/*
     let device_descriptor = DeviceDescriptor {
         label: None,
         required_features: Features::empty(), // Specify features as needed
@@ -80,8 +146,9 @@ pub async fn annoying_async_device_creation(
             Limits::default()
         },
         memory_hints: MemoryHints::default(), // Use default memory hints
-        trace: Default::default(),
+        trace: Trace::default(),
     };
+
 
     debug!(?device_descriptor, "device descriptor");
 
@@ -90,18 +157,79 @@ pub async fn annoying_async_device_creation(
         .await
         .expect("Failed to request device");
     debug!(?device, "device");
+*/
+
+/// # Errors
+///
+pub async fn request_device_smart(adapter: &Adapter) -> Result<DeviceSelection, InitError> {
+    if let Some(sel) = try_with(adapter, Limits::default(), LimitsTier::ModernDefault).await {
+        return Ok(sel);
+    }
+    if let Some(sel) = try_with(adapter, Limits::downlevel_defaults(), LimitsTier::Downlevel).await
+    {
+        return Ok(sel);
+    }
+    if let Some(sel) = try_with(
+        adapter,
+        Limits::downlevel_webgl2_defaults(),
+        LimitsTier::WebGL2,
+    )
+    .await
+    {
+        return Ok(sel);
+    }
+
+    Err(InitError::NoDevice)
+}
+
+#[derive(Debug)]
+pub enum InitError {
+    CreateSurface(wgpu::CreateSurfaceError),
+    NoAdapter,
+    NoDevice,
+    RequestDevice(wgpu::RequestDeviceError),
+}
+
+/// # Errors
+///
+/// # Panics
+///
+pub async fn annoying_async_device_creation(
+    window: Arc<Window>,
+) -> Result<BasicDeviceInfo, InitError> {
+    let instance = Instance::new(&InstanceDescriptor {
+        backends: Backends::default(),
+        flags: InstanceFlags::default(),
+        memory_budget_thresholds: MemoryBudgetThresholds::default(),
+        backend_options: BackendOptions::default(),
+    });
+    debug!(?instance, "found instance");
+
+    let surface = instance
+        .create_surface(Arc::clone(&window))
+        .map_err(InitError::CreateSurface)?;
+    debug!(?surface, "found surface");
+
+    let adapter = pick_best_adapter(&instance, Some(&surface)).await?;
+    debug!(?adapter, "found adapter");
+
+    let device_selection = request_device_smart(&adapter).await?;
+    debug!(?device_selection, "found device selection");
 
     let inner_size = window.inner_size();
+    debug!(?inner_size, "window size detected");
 
-    debug!(?inner_size, "inner size");
-
-    Ok(BasicDeviceInfo {
+    let device_info = BasicDeviceInfo {
         adapter,
-        device: device.into(),
-        queue: queue.into(),
+        device: device_selection.device.into(),
+        queue: device_selection.queue.into(),
         surface: surface.into(),
         physical_surface_size: inner_size,
-    })
+    };
+
+    debug!(?device_info, "final device info selection");
+
+    Ok(device_info)
 }
 
 fn tick(mut wgpu_window: LoReM<WgpuWindow>, window_messages: Msg<WindowMessage>) {
@@ -153,12 +281,13 @@ impl WgpuWindow {
             .find(wgpu::TextureFormat::is_srgb)
             .unwrap_or(surface_caps.formats[0]);
 
+        let present_mode = wgpu::PresentMode::Fifo; // Fifo should be available on all devices
         let config = wgpu::SurfaceConfiguration {
             usage: wgpu::TextureUsages::RENDER_ATTACHMENT,
             format: surface_format,
             width: info.physical_surface_size.width,
             height: info.physical_surface_size.height,
-            present_mode: surface_caps.present_modes[0],
+            present_mode,
             alpha_mode: surface_caps.alpha_modes[0],
             desired_maximum_frame_latency: 2,
             view_formats: vec![],
@@ -166,7 +295,6 @@ impl WgpuWindow {
 
         info.surface.configure(&info.device, &config);
 
-        let present_mode = surface_caps.present_modes[0];
         let alpha_mode = surface_caps.alpha_modes[0];
         trace!(
             "found surface format {:?} {:?} {:?}",
@@ -185,7 +313,7 @@ impl WgpuWindow {
         debug!("configured surface! {:?}", self.config);
         self.surface.configure(&self.device, &self.config);
     }
-    
+
     pub fn resize(&mut self, new_size: (u16, u16)) {
         let width = new_size.0 as usize;
         let height = new_size.1 as usize;
@@ -208,7 +336,7 @@ impl WgpuWindow {
             Err(wgpu::SurfaceError::Outdated) => {
                 // Surface is out of date: reconfigure and bail out of this frame.
                 // TODO: Get window size somehow
-//                self.surface.configure(&self.device, &self.config);
+                //                self.surface.configure(&self.device, &self.config);
                 return Ok(()); // hopefully next frame will work
             }
             Err(wgpu::SurfaceError::Lost) => {
