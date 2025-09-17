@@ -46,6 +46,7 @@ unsafe impl Zeroable for Matrix4 {}
 
 impl Matrix4 {
     #[inline]
+    #[must_use]
     pub fn from_scale(x: f32, y: f32, z: f32) -> Self {
         Self::from([
             [x, 0.0, 0.0, 0.0],
@@ -56,6 +57,7 @@ impl Matrix4 {
     }
 
     #[inline]
+    #[must_use]
     pub fn from_translation(x: f32, y: f32, z: f32) -> Self {
         Self::from([
             [1.0, 0.0, 0.0, 0.0],
@@ -66,6 +68,7 @@ impl Matrix4 {
     }
 
     #[inline]
+    #[must_use]
     pub fn identity() -> Self {
         Self::from_scale(1.0, 1.0, 1.0)
     }

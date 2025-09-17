@@ -17,13 +17,13 @@ pub enum GamepadError {
 }
 
 impl From<Error> for GamepadError {
-    fn from(error: Error) -> GamepadError {
+    fn from(error: Error) -> Self {
         Self::Error(error)
     }
 }
 
 #[inline]
-fn convert_axis(axis: &gilrs::Axis) -> Option<Axis> {
+const fn convert_axis(axis: &gilrs::Axis) -> Option<Axis> {
     let converted = match axis {
         gilrs::Axis::LeftStickX => Axis::LeftStickX,
         gilrs::Axis::LeftStickY => Axis::LeftStickY,
@@ -35,7 +35,7 @@ fn convert_axis(axis: &gilrs::Axis) -> Option<Axis> {
 }
 
 #[inline]
-fn convert_button(axis: &gilrs::Button) -> Option<Button> {
+const fn convert_button(axis: &gilrs::Button) -> Option<Button> {
     let converted = match axis {
         // Action Pad
         gilrs::Button::South => Button::South,

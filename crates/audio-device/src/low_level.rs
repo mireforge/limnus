@@ -139,15 +139,18 @@ impl Audio {
         })
     }
 
-    pub fn device(&self) -> &Device {
+    #[must_use]
+    pub const fn device(&self) -> &Device {
         &self.device
     }
 
-    pub fn config(&self) -> &StreamConfig {
+    #[must_use]
+    pub const fn config(&self) -> &StreamConfig {
         &self.config
     }
 
-    pub fn sample_rate(&self) -> u32 {
+    #[must_use]
+    pub const fn sample_rate(&self) -> u32 {
         self.sample_rate
     }
 }

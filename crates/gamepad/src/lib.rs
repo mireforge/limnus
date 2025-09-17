@@ -117,11 +117,12 @@ impl Default for Gamepads {
 }
 
 impl Gamepads {
-    /// Creates a new GamePad instance
+    /// Creates a new `GamePad` instance
     ///
     /// # Arguments
     /// * `id` - Unique identifier for this gamepad
     /// * `name` - Human-readable name of the gamepad
+    #[must_use]
     pub fn new() -> Self {
         Self {
             gamepads: HashMap::new(),

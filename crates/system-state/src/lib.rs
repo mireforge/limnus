@@ -28,7 +28,7 @@ impl State {
         &self.messages
     }
 
-    pub fn messages_mut(&mut self) -> &mut MessageStorage {
+    pub const fn messages_mut(&mut self) -> &mut MessageStorage {
         &mut self.messages
     }
 
@@ -38,12 +38,12 @@ impl State {
     }
 
     #[must_use]
-    pub fn resources_mut(&mut self) -> &mut ResourceStorage {
+    pub const fn resources_mut(&mut self) -> &mut ResourceStorage {
         &mut self.resources
     }
 
     #[must_use]
-    pub fn local_resources_mut(&mut self) -> &mut LocalResourceStorage {
+    pub const fn local_resources_mut(&mut self) -> &mut LocalResourceStorage {
         &mut self.local_resources
     }
 

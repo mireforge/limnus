@@ -17,7 +17,7 @@ pub fn clear_color_tick(minimal: LoRe<Minimal>, wgpu_window: LoRe<WgpuWindow>) {
     wgpu_window
         .render(|encoder, texture_view| {
             let time = minimal.tick % 60;
-            let normalized_time = time as f64 / 60.0;
+            let normalized_time = f64::from(time) / 60.0;
             let clear_color = wgpu::Color {
                 r: 1.0,
                 g: normalized_time,

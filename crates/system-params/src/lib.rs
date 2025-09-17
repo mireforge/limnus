@@ -18,7 +18,7 @@ pub struct ReM<'a, T: 'static> {
 }
 
 impl<'a, T> ReM<'a, T> {
-    pub fn new(value: &'a mut T) -> Self {
+    pub const fn new(value: &'a mut T) -> Self {
         Self { value }
     }
 }
@@ -43,7 +43,7 @@ pub struct Re<'a, T: 'static> {
 }
 
 impl<'a, T> Re<'a, T> {
-    pub fn new(value: &'a T) -> Self {
+    pub const fn new(value: &'a T) -> Self {
         Self { value }
     }
 }
@@ -100,7 +100,7 @@ pub struct ReAll<'a> {
     value: &'a mut ResourceStorage,
 }
 impl<'a> ReAll<'a> {
-    pub fn new(value: &'a mut ResourceStorage) -> Self {
+    pub const fn new(value: &'a mut ResourceStorage) -> Self {
         Self { value }
     }
 }
@@ -156,7 +156,7 @@ pub struct MsgM<'a, T: 'static + Message> {
 }
 
 impl<'a, T: Message> MsgM<'a, T> {
-    pub fn new(value: &'a mut Messages<T>) -> Self {
+    pub const fn new(value: &'a mut Messages<T>) -> Self {
         Self { value }
     }
 }
@@ -179,7 +179,7 @@ pub struct MsgAll<'a> {
     value: &'a mut MessageStorage,
 }
 impl<'a> MsgAll<'a> {
-    pub fn new(value: &'a mut MessageStorage) -> Self {
+    pub const fn new(value: &'a mut MessageStorage) -> Self {
         Self { value }
     }
 }
@@ -214,7 +214,7 @@ pub struct LoReAll<'a> {
     value: &'a mut LocalResourceStorage,
 }
 impl<'a> LoReAll<'a> {
-    pub fn new(value: &'a mut LocalResourceStorage) -> Self {
+    pub const fn new(value: &'a mut LocalResourceStorage) -> Self {
         Self { value }
     }
 }
@@ -251,7 +251,7 @@ pub struct LoReM<'a, T: 'static> {
 }
 
 impl<'a, T> LoReM<'a, T> {
-    pub fn new(value: &'a mut T) -> Self {
+    pub const fn new(value: &'a mut T) -> Self {
         Self { value }
     }
 }
@@ -286,7 +286,7 @@ pub struct LoRe<'a, T: 'static> {
 }
 
 impl<'a, T> LoRe<'a, T> {
-    pub fn new(value: &'a T) -> Self {
+    pub const fn new(value: &'a T) -> Self {
         Self { value }
     }
 }

@@ -13,6 +13,7 @@ use limnus_audio_mixer::StereoSample;
 use limnus_local_resource::LocalResourceStorage;
 use tracing::debug;
 
+#[must_use]
 pub fn load_wav(payload: &[u8]) -> StereoSample {
     let mut reader = hound::WavReader::new(payload).expect("could not convert wav file");
     let hound::WavSpec {
@@ -30,7 +31,7 @@ pub fn load_wav(payload: &[u8]) -> StereoSample {
     // Force it to f32 for now
     let samples_result: Result<Vec<f32>, _> = match sample_format {
         hound::SampleFormat::Int => {
-            let max_value = 2_u32.pow(bits_per_sample as u32 - 1) - 1;
+            let max_value = 2_u32.pow(u32::from(bits_per_sample) - 1) - 1;
             reader
                 .samples::<i32>()
                 .map(|sample| sample.map(|sample| sample as f32 / max_value as f32))
@@ -66,7 +67,8 @@ impl Plugin for AudioSamplePlugin {
 pub struct StereoSampleConverter;
 
 impl StereoSampleConverter {
-    pub fn new() -> Self {
+    #[must_use]
+    pub const fn new() -> Self {
         Self {}
     }
 }

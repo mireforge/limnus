@@ -46,12 +46,11 @@ fn tick(
     }
 
     state.counter += 1;
-    if state.counter % 30 == 0 {
-        if let Some(found_sample_id) = &state.stereo_sample {
-            if let Some(found_stereo_sample) = stereo_samples.get(found_sample_id) {
-                mixer.play(found_stereo_sample);
-            }
-        }
+    if state.counter % 30 == 0
+        && let Some(found_sample_id) = &state.stereo_sample
+        && let Some(found_stereo_sample) = stereo_samples.get(found_sample_id)
+    {
+        mixer.play(found_stereo_sample);
     }
 }
 

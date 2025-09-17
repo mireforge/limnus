@@ -13,8 +13,8 @@ use tracing::{debug, info, trace, warn};
 use wgpu::{
     Adapter, BackendOptions, Backends, Device, DeviceDescriptor, Features, Instance,
     InstanceDescriptor, InstanceFlags, Limits, MemoryBudgetThresholds, MemoryHints,
-    PowerPreference, Queue, RequestAdapterOptions, RequestDeviceError, Surface,
-    SurfaceConfiguration, SurfaceError, Trace,
+    PowerPreference, Queue, RequestAdapterOptions, Surface, SurfaceConfiguration, SurfaceError,
+    Trace,
 };
 use winit::dpi::PhysicalSize;
 use winit::window::Window;

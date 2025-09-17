@@ -153,25 +153,25 @@ impl<M: Message> Messages<M> {
 
     /// Returns the number of messages in the current frame.
     #[must_use]
-    pub fn len_current(&self) -> usize {
+    pub const fn len_current(&self) -> usize {
         self.current_messages.len()
     }
 
     /// Returns the number of messages in the previous frame.
     #[must_use]
-    pub fn len_previous(&self) -> usize {
+    pub const fn len_previous(&self) -> usize {
         self.previous_frame_messages.len()
     }
 
     /// Checks if there are no messages in the current frame.
     #[must_use]
-    pub fn is_empty_current(&self) -> bool {
+    pub const fn is_empty_current(&self) -> bool {
         self.current_messages.is_empty()
     }
 
     /// Checks if there are no messages in the previous frame.
     #[must_use]
-    pub fn is_empty_previous(&self) -> bool {
+    pub const fn is_empty_previous(&self) -> bool {
         self.previous_frame_messages.is_empty()
     }
 }

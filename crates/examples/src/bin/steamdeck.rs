@@ -17,7 +17,7 @@ pub fn clear_color_tick(steam_app: LoRe<SteamDeckTest>, wgpu_window: LoRe<WgpuWi
     wgpu_window
         .render(|encoder, texture_view| {
             let time = steam_app.tick % 60;
-            let normalized_time = time as f64 / 60.0;
+            let normalized_time = f64::from(time) / 60.0;
             let clear_color = wgpu::Color {
                 r: 1.0,
                 g: normalized_time,

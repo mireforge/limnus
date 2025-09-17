@@ -33,6 +33,7 @@ use limnus_gamepad_gilrs::GamepadGilrsPlugin;
 pub struct Main;
 
 impl Main {
+    #[must_use]
     pub fn run() -> AppReturnValue {
         App::new().add_plugins(DefaultPlugins).run()
     }

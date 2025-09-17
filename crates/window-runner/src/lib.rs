@@ -30,7 +30,11 @@ pub struct WindowState {
 }
 
 impl WindowState {
-    pub fn convert_physical_position(&self, physical_position: PhysicalPosition<u32>) -> Option<UVec2> {
+    #[must_use]
+    pub fn convert_physical_position(
+        &self,
+        physical_position: PhysicalPosition<u32>,
+    ) -> Option<UVec2> {
         if physical_position.x >= self.physical_surface_size.width {
             return None;
         }
@@ -42,17 +46,23 @@ impl WindowState {
             return None;
         }
 
-        self
-            .physical_surface_size
+        self.physical_surface_size
             .height
             .checked_sub(physical_position.y)?;
 
-        let vec = UVec2::new(physical_position.x as u16, ((self.physical_surface_size.height - 1) - physical_position.y) as u16);
+        let vec = UVec2::new(
+            physical_position.x as u16,
+            ((self.physical_surface_size.height - 1) - physical_position.y) as u16,
+        );
 
         Some(vec)
     }
 
-    pub fn convert_physical_position_f64(&self, physical_position: PhysicalPosition<f64>) -> Option<UVec2> {
+    #[must_use]
+    pub fn convert_physical_position_f64(
+        &self,
+        physical_position: PhysicalPosition<f64>,
+    ) -> Option<UVec2> {
         let u32_position = PhysicalPosition::<u32> {
             x: physical_position.x as u32,
             y: physical_position.y as u32,
@@ -131,13 +141,13 @@ impl AppHandler for WindowState {
         element_state: winit::event::ElementState,
         physical_key: winit::keyboard::PhysicalKey,
     ) {
-        if let PhysicalKey::Code(key_code) = physical_key {
-            if let Ok(converted_key) = try_from_key_code(key_code) {
-                self.app.lock().unwrap().send(InputMessage::KeyboardInput(
-                    from_element_state(element_state),
-                    converted_key,
-                ));
-            }
+        if let PhysicalKey::Code(key_code) = physical_key
+            && let Ok(converted_key) = try_from_key_code(key_code)
+        {
+            self.app.lock().unwrap().send(InputMessage::KeyboardInput(
+                from_element_state(element_state),
+                converted_key,
+            ));
         }
     }
 
@@ -166,7 +176,6 @@ impl AppHandler for WindowState {
             ));
         }
     }
-
 
     fn mouse_input(
         &mut self,
@@ -202,7 +211,6 @@ impl AppHandler for WindowState {
     }
 
     fn mouse_motion(&mut self, _delta: (f64, f64)) {}
-
 
     fn scale_factor_changed(
         &mut self,
@@ -243,8 +251,8 @@ pub fn runner(mut app: App) -> AppReturnValue {
         requested_surface_size,
         minimal_surface_size,
         physical_surface_size: dpi::PhysicalSize::new(
-            requested_surface_size.x as u32,
-            requested_surface_size.y as u32,
+            u32::from(requested_surface_size.x),
+            u32::from(requested_surface_size.y),
         ),
     };
 

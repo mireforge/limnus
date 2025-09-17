@@ -207,7 +207,7 @@ impl App {
         self.state.resources()
     }
 
-    pub fn resources_mut(&mut self) -> &mut ResourceStorage {
+    pub const fn resources_mut(&mut self) -> &mut ResourceStorage {
         self.state.resources_mut()
     }
 
@@ -245,7 +245,7 @@ impl App {
         self.state.messages()
     }
 
-    pub fn messages_mut(&mut self) -> &mut MessageStorage {
+    pub const fn messages_mut(&mut self) -> &mut MessageStorage {
         self.state.messages_mut()
     }
 

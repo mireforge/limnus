@@ -11,14 +11,14 @@ pub enum EventConversionError {
     ValueNotFound,
 }
 
-pub(crate) fn from_element_state(state: ElementState) -> ButtonState {
+pub const fn from_element_state(state: ElementState) -> ButtonState {
     match state {
         ElementState::Pressed => ButtonState::Pressed,
         ElementState::Released => ButtonState::Released,
     }
 }
 
-pub(crate) fn try_from_mouse_button(
+pub fn try_from_mouse_button(
     button: event::MouseButton,
 ) -> Result<MouseButton, EventConversionError> {
     let converted = match button {
@@ -33,7 +33,7 @@ pub(crate) fn try_from_mouse_button(
     Ok(converted)
 }
 
-pub(crate) fn from_mouse_scroll_delta(delta: event::MouseScrollDelta) -> MouseScrollDelta {
+pub fn from_mouse_scroll_delta(delta: event::MouseScrollDelta) -> MouseScrollDelta {
     match delta {
         event::MouseScrollDelta::LineDelta(x, y) => {
             const WHEEL_DELTA: f32 = 120.0;
@@ -47,7 +47,7 @@ pub(crate) fn from_mouse_scroll_delta(delta: event::MouseScrollDelta) -> MouseSc
     }
 }
 
-pub(crate) fn from_touch_phase(button: event::TouchPhase) -> TouchPhase {
+pub const fn from_touch_phase(button: event::TouchPhase) -> TouchPhase {
     match button {
         event::TouchPhase::Started => TouchPhase::Started,
         event::TouchPhase::Moved => TouchPhase::Moved,
@@ -61,7 +61,7 @@ pub enum KeyCodeError {
     KeyCodeNotFound,
 }
 
-pub(crate) fn try_from_key_code(keycode: keyboard::KeyCode) -> Result<KeyCode, KeyCodeError> {
+pub fn try_from_key_code(keycode: keyboard::KeyCode) -> Result<KeyCode, KeyCodeError> {
     let limnus_key_code = match keycode {
         keyboard::KeyCode::Backquote => KeyCode::Backquote,
         keyboard::KeyCode::Backslash => KeyCode::Backslash,

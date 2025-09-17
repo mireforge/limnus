@@ -197,8 +197,9 @@ impl<'a> App<'a> {
         start_size: (u16, u16),
         mode: WindowMode,
     ) -> Self {
-        let min_physical_size = PhysicalSize::new(min_size.0 as u32, min_size.1 as u32);
-        let start_physical_size = PhysicalSize::new(start_size.0 as u32, start_size.1 as u32);
+        let min_physical_size = PhysicalSize::new(u32::from(min_size.0), u32::from(min_size.1));
+        let start_physical_size =
+            PhysicalSize::new(u32::from(start_size.0), u32::from(start_size.1));
 
         Self {
             handler,
@@ -251,7 +252,7 @@ impl<'a> App<'a> {
                 .with_inner_size(self.start_physical_size)
                 .with_min_inner_size(self.min_physical_size);
 
-            if let WindowMode::WindowedFullscreen = self.mode {
+            if self.mode == WindowMode::WindowedFullscreen {
                 calculated_window_attributes = calculated_window_attributes
                     .with_fullscreen(Some(Fullscreen::Borderless(None)));
             }
@@ -287,7 +288,7 @@ impl<'a> App<'a> {
         self.window = Some(window.clone());
 
         #[cfg(not(target_arch = "wasm32"))]
-        if let WindowMode::WindowedAlwaysOnTop = &self.mode {
+        if matches!(&self.mode, WindowMode::WindowedAlwaysOnTop) {
             window.set_window_level(WindowLevel::AlwaysOnTop);
         }
 
@@ -306,17 +307,17 @@ impl ApplicationHandler for App<'_> {
     }
 
     fn window_event(&mut self, event_loop: &ActiveEventLoop, id: WindowId, event: WindowEvent) {
-        if let Some(window) = &self.window {
-            if id != window.id() {
-                return;
-            }
+        if let Some(window) = &self.window
+            && id != window.id()
+        {
+            return;
         }
 
         // HACK: handle some events and try to create the window
-        if let WindowEvent::Resized(physical_size) = event {
-            if self.window.is_none() {
-                self.create_window(event_loop);
-            }
+        if let WindowEvent::Resized(physical_size) = event
+            && self.window.is_none()
+        {
+            self.create_window(event_loop);
         }
 
         let Some(window) = self.window.as_mut() else {
@@ -413,7 +414,7 @@ impl ApplicationHandler for App<'_> {
             // Moving the window to a display with a different scale factor.
             {
                 self.handler
-                    .scale_factor_changed(scale_factor, inner_size_writer)
+                    .scale_factor_changed(scale_factor, inner_size_writer);
             }
 
             WindowEvent::PinchGesture { delta, phase, .. } => {
@@ -447,10 +448,10 @@ impl ApplicationHandler for App<'_> {
     }
 
     fn device_event(&mut self, _: &ActiveEventLoop, _: DeviceId, event: DeviceEvent) {
-        if let DeviceEvent::MouseMotion { delta } = event {
-            if self.is_focused {
-                self.handler.mouse_motion(delta);
-            }
+        if let DeviceEvent::MouseMotion { delta } = event
+            && self.is_focused
+        {
+            self.handler.mouse_motion(delta);
         }
         /*
         match event {

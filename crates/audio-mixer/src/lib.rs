@@ -23,7 +23,8 @@ impl Debug for StereoSample {
 }
 
 impl StereoSample {
-    pub fn frames(&self) -> &Arc<oddio::Frames<[oddio::Sample; 2]>> {
+    #[must_use]
+    pub const fn frames(&self) -> &Arc<oddio::Frames<[oddio::Sample; 2]>> {
         &self.stereo_frames
     }
 }
@@ -49,6 +50,7 @@ impl Default for AudioMixer {
 }
 
 impl AudioMixer {
+    #[must_use]
     pub fn new() -> Self {
         let (mixer_control, mixer) = oddio::Mixer::<[f32; 2]>::new();
 
